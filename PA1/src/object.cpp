@@ -29,6 +29,7 @@ Object::Object()
   */
 
   Vertices = {
+    // {<position>}, {<color>}
     {{1.0f, -1.0f, -1.0f}, {0.0f, 0.0f, 0.0f}},
     {{1.0f, -1.0f, 1.0f}, {1.0f, 0.0f, 0.0f}},
     {{-1.0f, -1.0f, 1.0f}, {0.0f, 1.0f, 0.0f}},
@@ -80,7 +81,9 @@ Object::~Object()
 void Object::Update(unsigned int dt)
 {
   angle += dt * M_PI/1000;
+  // todo - reset angle if it is above a full rotation
   model = glm::rotate(glm::mat4(1.0f), (angle), glm::vec3(0.0, 1.0, 0.0));
+  // rotate, and then translate ?
 }
 
 glm::mat4 Object::GetModel()
