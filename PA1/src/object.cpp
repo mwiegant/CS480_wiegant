@@ -83,6 +83,7 @@ void Object::Update(unsigned int dt)
   angle += dt * M_PI/1000;
   // todo - reset angle if it is above a full rotation
   model = glm::rotate(glm::mat4(1.0f), (angle), glm::vec3(0.0, 1.0, 0.0));
+  // todo - add glm::translate here
   // rotate, and then translate ?
 }
 
