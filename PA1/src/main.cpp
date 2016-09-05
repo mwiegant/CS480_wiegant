@@ -2,6 +2,7 @@
 
 #include "engine.h"
 
+// todo - add logic to check for arguments, like --help or -s <filename>
 
 int main(int argc, char **argv)
 {
