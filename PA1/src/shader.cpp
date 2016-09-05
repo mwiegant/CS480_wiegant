@@ -32,6 +32,8 @@ bool Shader::Initialize()
   return true;
 }
 
+// todo - move shaders to their own folder and create a file loader to load them in
+
 // Use this method to add shaders to the program. When finished - call finalize()
 bool Shader::AddShader(GLenum ShaderType)
 {
@@ -39,6 +41,7 @@ bool Shader::AddShader(GLenum ShaderType)
 
   if(ShaderType == GL_VERTEX_SHADER)
   {
+    // the '\' allows the strings to be defined over the span of multiple lines
     s = "#version 330\n \
           \
           layout (location = 0) in vec3 v_position; \
