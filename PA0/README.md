@@ -19,14 +19,3 @@ cmake ..
 make
 ./Tutorial
 ```
-
-### Makefile Instructions 
-
-```bash
-mkdir build
-cd build
-cp ../makefile .
-make
-./Tutorial
-```
-
