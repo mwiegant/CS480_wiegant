@@ -5,15 +5,10 @@
 Please refer to the wiki for information on [installing dependencies](https://github.com/mwiegant/CS480_wiegant/wiki/General-Setup-Instructions).
 
 ## Building and Running
-To build this project there are two options. One is to use CMake which makes including new libraries easier, and handles new files added automatically to the src and include directory. CMake is a small new learning curve but makes things easier in the future.
-The second option is to use the provided Makefile which is used as usual.
+This project has both a cmake and a makefile, but only the cmake is maintained.
 
-Running the make in a separate directory will allow easy cleanup of the build data, and an easy way to prevent unnecessary data to be added to the git repository.  
-
-### CMake Instructions
-
+To build this project, run the following commands:
 ```bash
-mkdir build
 cd build
 cmake ..
 make
