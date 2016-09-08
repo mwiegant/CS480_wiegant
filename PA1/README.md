@@ -7,7 +7,9 @@ Please refer to the wiki for information on [installing dependencies](https://gi
 ## Building and Running
 This project has both a cmake and a makefile, but only the cmake is maintained.
 
-To build this project, run the following commands:
+To build this project, first navigate to **CS480_wiegant/PA1**.
+
+Next, run the following commands:
 ```bash
 cd build
 cmake ..
