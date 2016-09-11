@@ -137,6 +137,44 @@ glm::mat4 Object::GetModel()
   return model;
 }
 
+bool Object::isSpinning()
+{
+  return shouldSpin;
+}
+
+bool Object::isOrbiting()
+{
+  return shouldOrbit;
+}
+
+void Object::ToggleSpin()
+{
+  // invert the value of shouldSpin
+  if(shouldSpin)
+    shouldSpin = false;
+  else
+    shouldSpin = true;
+}
+
+void Object::ToggleOrbit()
+{
+  // invert the value of shouldOrbit
+  if(shouldOrbit)
+    shouldOrbit = false;
+  else
+    shouldOrbit = true;
+}
+
+void Object::InvertSpinDirection()
+{
+  spinAxisVector *= -1;
+}
+
+void Object::InvertOrbitDirection()
+{
+  orbitVector *= -1;
+}
+
 void Object::Render()
 {
   glEnableVertexAttribArray(0);

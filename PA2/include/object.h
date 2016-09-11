@@ -15,8 +15,15 @@ class Object
     // Getters
     glm::mat4 GetModel();
 
-    // Setters
+    // Drawing - Data Functions
+    bool isSpinning();
+    bool isOrbiting();
 
+    // Drawing - Control Functions
+    void ToggleSpin();
+    void ToggleOrbit();
+    void InvertSpinDirection();
+    void InvertOrbitDirection();
 
   private:
     glm::mat4 model;
