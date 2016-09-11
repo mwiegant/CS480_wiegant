@@ -70,6 +70,22 @@ Object::Object()
   glGenBuffers(1, &IB);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IB);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * Indices.size(), &Indices[0], GL_STATIC_DRAW);
+
+  // Default name
+  objName = "cube";
+
+  // Set initial vector values for the axis of spin and the orbit
+  spinAxisVector = glm::vec3(0.0, 1.0, 0.0);
+  orbitVector = glm::vec3(5.0, 0.0, 0.0);
+
+  // Set flags for spinning and orbiting
+  shouldSpin = true;
+  shouldOrbit = true;
+
+  // Set spin and orbit directions
+  invertSpin = false;
+  invertOrbit = false;
+
 }
 
 Object::~Object()
@@ -80,16 +96,38 @@ Object::~Object()
 
 void Object::Update(unsigned int dt)
 {
-  angle += dt * M_PI/1;
+  angle += dt * M_PI/1000;
 
+  // reset angle when it gets larger than a full rotation
   if( angle > 360.0f )
     angle -= 360.0f;
 
+  // check if spin and orbit should be inverted or not
+  if( invertOrbit ) {
+    orbitVector *= -1;
+    invertOrbit = false;
+  }
+
+  if( invertSpin ) {
+    spinAxisVector *= -1;
+    invertSpin = false;
+  }
+
+  // draw the cube to the screen
   model = glm::rotate(glm::mat4(1.0f), (angle), glm::vec3(0.0, 1.0, 0.0));
 
-  model = glm::translate(model, glm::vec3(5.0, 0.0, 0.0));
+  // move the cube out to orbit
+  if( shouldOrbit )
+  {
+    model = glm::translate(model, orbitVector);
+  }
 
-  model *= glm::rotate(glm::mat4(1.0f), (angle), glm::vec3(0.0, 1.0, 0.0));
+  // apply orbital rotation to cube
+  if( shouldSpin)
+  {
+    model *= glm::rotate(glm::mat4(1.0f), (angle), spinAxisVector);
+  }
+
 }
 
 glm::mat4 Object::GetModel()

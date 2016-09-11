@@ -12,7 +12,11 @@ class Object
     void Update(unsigned int dt);
     void Render();
 
+    // Getters
     glm::mat4 GetModel();
+
+    // Setters
+
 
   private:
     glm::mat4 model;
@@ -21,7 +25,17 @@ class Object
     GLuint VB;
     GLuint IB;
 
+    // Unique Identifier
+    std::string objName;
+
+    // Drawing variables
     float angle;
+    bool shouldSpin;
+    bool shouldOrbit;
+    bool invertSpin;
+    bool invertOrbit;
+    glm::vec3 spinAxisVector;
+    glm::vec3 orbitVector;
 };
 
 #endif /* OBJECT_H */
