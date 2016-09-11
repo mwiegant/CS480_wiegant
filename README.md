@@ -1,15 +1,19 @@
-# Example OpenGL Graphics Programs
-## This is for use at the University of Nevada, Reno CS 480/680 Graphics Class
+# OpenGL Graphics Programs
+## University of Nevada, Reno CS 480/680 Graphics Class
 Any students in that class follow the instructions at [**Github Setup**](https://github.com/HPC-Vis/computer-graphics/wiki/Github-Setup) to begin. This is part of the first assignment in the class and necessary for turning in assignments throughout the semester.
 
-Read through the Wiki on this repository to understand how each class works. This Wiki focuses on the code in PA1.
+This repository houses the projects that were completed during this semester. Navigate to each project for more details on that project.
 
 # Projects
 
-## PA0: Triangle
+## PA0: Simple Triangle
 This is a simple colored triangle on the screen. To run this project ```cd PA0``` then follow the instructions in the README.md.
 
-## PA1: Spinning Cube
-This is a cube that rotates in place on the screen. To run this project ```cd PA1``` then follow the instructions in the README.md.
+## PA1: Rotating Cube
+This is a cube that rotates and moves in an orbit on the screen. To run this project ```cd PA1``` then follow the instructions in the README.md.
 
+## PA2: Interactions with a Rotating Cube
+Using the same cube from the previous project, but now supporting keyboard and mouse interaction.
 
+## PA3: Moons
+*Coming soon from an undergraduate near you.*
