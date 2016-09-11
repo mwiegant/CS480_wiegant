@@ -107,6 +107,46 @@ bool Graphics::Initialize(int width, int height)
   return true;
 }
 
+/*
+ * Stop or start the cube from spinning on its axis
+ */
+bool Graphics::toggleObjectSpin()
+{
+  m_cube->ToggleSpin();
+
+  return true;
+}
+
+/*
+ * Change the direction that the cube is spinning in
+ */
+bool Graphics::invertObjectSpin()
+{
+  m_cube->InvertSpinDirection();
+
+  return true;
+}
+
+/*
+ * Stop or start the cube from rotating in 3d space
+ */
+bool Graphics::toggleObjectOrbit()
+{
+  m_cube->ToggleOrbit();
+
+  return true;
+}
+
+/*
+ * Change the direction that the cube is rotating in
+ */
+bool Graphics::invertObjectOrbit(){
+  m_cube->InvertOrbitDirection();
+
+  return true;
+}
+
+
 void Graphics::Update(unsigned int dt)
 {
   // Update the object
