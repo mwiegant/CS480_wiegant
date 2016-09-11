@@ -2,7 +2,19 @@
 
 # Supported Interactions
 
-### coming soon. . .
+## Keyboard
+
+``` 
+Q -- Quit the program.
+W -- Toggle the cube to stop or start spinning on it's axis
+E -- Invert the direction the cube is spinning in
+S -- Toggle the cube to stop or start orbiting
+D -- Invert the direction the cube is orbiting in
+```
+
+## Mouse
+
+Click anywhere on the screen to toggle the cube to start or stop orbiting.
 
 # Dependencies, Building, and Running
 
