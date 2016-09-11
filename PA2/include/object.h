@@ -16,8 +16,8 @@ class Object
     glm::mat4 GetModel();
 
     // Drawing - Data Functions
-    bool isSpinning();
-    bool isOrbiting();
+    bool IsSpinning();
+    bool IsOrbiting();
 
     // Drawing - Control Functions
     void ToggleSpin();
