@@ -82,10 +82,30 @@ void Engine::Keyboard()
   }
   else if (m_event.type == SDL_KEYDOWN)
   {
-    // handle key down events here
-    if (m_event.key.keysym.sym == SDLK_ESCAPE)
+    // handle escape - end program
+    if( m_event.key.keysym.sym == SDLK_ESCAPE )
     {
       m_running = false;
+    }
+    // handle w - toggle cube spin
+    else if( m_event.key.keysym.sym == SDLK_w )
+    {
+      m_graphics->toggleObjectSpin();
+    }
+    // handle e - switch cube spin direction
+    else if( m_event.key.keysym.sym == SDLK_e )
+    {
+      m_graphics->invertObjectSpin();
+    }
+    // handle s - toggle cube orbital rotation
+    else if( m_event.key.keysym.sym == SDLK_s )
+    {
+      m_graphics->toggleObjectOrbit();
+    }
+    // handle d - switch cube orbital rotation direction
+    else if( m_event.key.keysym.sym == SDLK_d )
+    {
+      m_graphics->invertObjectOrbit();
     }
   }
 }
