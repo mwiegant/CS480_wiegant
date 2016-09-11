@@ -114,16 +114,18 @@ void Object::Update(unsigned int dt)
   }
 
   // draw the cube to the screen
-  model = glm::rotate(glm::mat4(1.0f), (angle), glm::vec3(0.0, 1.0, 0.0));
+  if(shouldOrbit | shouldSpin) {
+    model = glm::rotate(glm::mat4(1.0f), (angle), glm::vec3(0.0, 1.0, 0.0));
+  }
 
   // move the cube out to orbit
-  if( shouldOrbit )
+  if(shouldOrbit)
   {
     model = glm::translate(model, orbitVector);
   }
 
   // apply orbital rotation to cube
-  if( shouldSpin)
+  if(shouldSpin)
   {
     model *= glm::rotate(glm::mat4(1.0f), (angle), spinAxisVector);
   }
