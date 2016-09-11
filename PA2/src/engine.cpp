@@ -59,10 +59,11 @@ void Engine::Run()
     // Update the DT
     m_DT = getDT();
 
-    // Check the keyboard input
+    // Check keyboard input and mouse events
     while(SDL_PollEvent(&m_event) != 0)
     {
       Keyboard();
+      Mouse();
     }
 
     // Update and render the graphics
@@ -109,6 +110,20 @@ void Engine::Keyboard()
     }
   }
 }
+
+void Engine::Mouse()
+{
+  // catch a mouse down event
+  if( m_event.type == SDL_MOUSEBUTTONDOWN )
+  {
+    std::cout << "Breakpoint" << endl;
+//    if( m_event.button == SDL_BUTTON_LEFT )
+//    {
+//      m_graphics->toggleObjectOrbit();
+//    }
+  }
+}
+
 
 unsigned int Engine::getDT()
 {
