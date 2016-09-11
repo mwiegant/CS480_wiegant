@@ -137,12 +137,12 @@ glm::mat4 Object::GetModel()
   return model;
 }
 
-bool Object::isSpinning()
+bool Object::IsSpinning()
 {
   return shouldSpin;
 }
 
-bool Object::isOrbiting()
+bool Object::IsOrbiting()
 {
   return shouldOrbit;
 }

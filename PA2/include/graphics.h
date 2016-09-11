@@ -18,6 +18,12 @@ class Graphics
     void Update(unsigned int dt);
     void Render();
 
+    // methods for object interaction
+    bool toggleObjectSpin();
+    bool invertObjectSpin();
+    bool toggleObjectOrbit();
+    bool invertObjectOrbit();
+
   private:
     std::string ErrorString(GLenum error);
 
