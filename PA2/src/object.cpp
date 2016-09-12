@@ -61,7 +61,8 @@ Object::Object()
     Indices[i] = Indices[i] - 1;
   }
 
-  angle = 0.0f;
+  spinAngle = 0.0f;
+  orbitAngle = 0.0f;
 
   glGenBuffers(1, &VB);
   glBindBuffer(GL_ARRAY_BUFFER, VB);
@@ -71,20 +72,17 @@ Object::Object()
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IB);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * Indices.size(), &Indices[0], GL_STATIC_DRAW);
 
-  // Default name
-  objName = "cube";
-
   // Set initial vector values for the axis of spin and the orbit
   spinAxisVector = glm::vec3(0.0, 1.0, 0.0);
   orbitVector = glm::vec3(5.0, 0.0, 0.0);
 
   // Set flags for spinning and orbiting
-  shouldSpin = true;
-  shouldOrbit = true;
+  spinEnabled = true;
+  orbitEnabled = true;
 
   // Set spin and orbit directions
-  invertSpin = false;
-  invertOrbit = false;
+  spinClockwise = true;
+  orbitClockwise = true;
 
 }
 
@@ -96,40 +94,94 @@ Object::~Object()
 
 void Object::Update(unsigned int dt)
 {
-  angle += dt * M_PI/1000;
+  // update angles of rotation
+  updateAngles(dt);
 
-  // reset angle when it gets larger than a full rotation
-  if( angle > 360.0f )
-    angle -= 360.0f;
+  // draw the cube
+  drawCube();
+}
 
-  // check if spin and orbit should be inverted or not
-  if( invertOrbit ) {
-    orbitVector *= -1;
-    invertOrbit = false;
-  }
 
-  if( invertSpin ) {
-    spinAxisVector *= -1;
-    invertSpin = false;
-  }
-
-  // draw the cube to the screen
-  if(shouldOrbit | shouldSpin) {
-    model = glm::rotate(glm::mat4(1.0f), (angle), glm::vec3(0.0, 1.0, 0.0));
-  }
-
-  // move the cube out to orbit
-  if(shouldOrbit)
+/*
+ * Angle adjustment component of update process
+ */
+void Object::updateAngles(unsigned int dt)
+{
+  // check if the cube is currently spinning
+  if(spinEnabled)
   {
+
+    // adjust the angle of rotation, according to spin direction
+    if(spinClockwise)
+    {
+      spinAngle += dt * M_PI/1000;
+
+      // reset angle when it gets larger than a full rotation
+      spinAngle = (spinAngle <= 360.0f) ? spinAngle : (spinAngle - 360.0f);
+    }
+    else
+    {
+      spinAngle -= dt * M_PI/1000;
+
+      // reset angle to 360 when it gets to be less than 0
+      spinAngle = (spinAngle >= 0.0f) ? spinAngle : (spinAngle + 360.0f);
+    }
+  }
+
+
+  // check if the cube is currently orbiting
+  if(orbitEnabled)
+  {
+
+    // adjust the angle of rotation, according to orbit direction
+    if(orbitClockwise)
+    {
+      orbitAngle += dt * M_PI/1000;
+
+      // reset angle when it gets larger than a full rotation
+      orbitAngle = (orbitAngle <= 360.0f) ? orbitAngle : (orbitAngle - 360.0f);
+    }
+    else
+    {
+      orbitAngle -= dt * M_PI/1000;
+
+      // reset angle to 360 when it gets to be less than 0
+      orbitAngle = (orbitAngle >= 0.0f) ? orbitAngle : (orbitAngle + 360.0f);
+    }
+  }
+
+}
+
+
+/*
+ * Drawing component of update process
+ */
+void Object::drawCube()
+{
+  // adjust drawing commands based on the state of the cube
+  if(orbitEnabled && spinEnabled)
+  {
+
+    // todo - needs some adjustment
+    model = glm::rotate(glm::mat4(1.0f), (orbitAngle), spinAxisVector);
+    model = glm::translate(model, orbitVector);
+
+//    model *= glm::rotate(glm::mat4(1.0f), (-orbitAngle), spinAxisVector);
+    model *= glm::rotate(glm::mat4(1.0f), (spinAngle + orbitAngle), spinAxisVector);
+  }
+  else if(orbitEnabled)
+  {
+    // todo - LOOKS COMPLETE
+    model = glm::rotate(glm::mat4(1.0f), (orbitAngle), spinAxisVector);
     model = glm::translate(model, orbitVector);
   }
-
-  // apply orbital rotation to cube
-  if(shouldSpin)
+  else if(spinEnabled)
   {
-    model *= glm::rotate(glm::mat4(1.0f), (angle), spinAxisVector);
+    // todo - LOOKS COMPLETE
+    model = glm::rotate(glm::mat4(1.0f), (orbitAngle), spinAxisVector);
+    model = glm::translate(model, orbitVector);
+    model *= glm::rotate(glm::mat4(1.0f), (spinAngle), spinAxisVector);
   }
-
 }
 
 glm::mat4 Object::GetModel()
@@ -137,42 +189,32 @@ glm::mat4 Object::GetModel()
   return model;
 }
 
-bool Object::IsSpinning()
-{
-  return shouldSpin;
-}
-
-bool Object::IsOrbiting()
-{
-  return shouldOrbit;
-}
-
 void Object::ToggleSpin()
 {
-  // invert the value of shouldSpin
-  if(shouldSpin)
-    shouldSpin = false;
-  else
-    shouldSpin = true;
+  spinEnabled = (spinEnabled) ? false : true;
 }
 
 void Object::ToggleOrbit()
 {
-  // invert the value of shouldOrbit
-  if(shouldOrbit)
-    shouldOrbit = false;
-  else
-    shouldOrbit = true;
+  orbitEnabled = (orbitEnabled) ? false : true;
 }
 
 void Object::InvertSpinDirection()
 {
-  spinAxisVector *= -1;
+  spinClockwise = (spinClockwise) ? false : true;
+
+  // if the cube isn't spinning, have it start spinning
+  if(!spinEnabled)
+    ToggleSpin();
 }
 
 void Object::InvertOrbitDirection()
 {
-  orbitVector *= -1;
+  orbitClockwise = (orbitClockwise) ? false : true;
+
+  // if the cube isn't orbiting, have it start orbiting
+  if(!orbitEnabled)
+    ToggleOrbit();
 }
 
 void Object::Render()

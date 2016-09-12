@@ -15,33 +15,32 @@ class Object
     // Getters
     glm::mat4 GetModel();
 
-    // Drawing - Data Functions
-    bool IsSpinning();
-    bool IsOrbiting();
-
-    // Drawing - Control Functions
+    // User Input Control Functions
     void ToggleSpin();
     void ToggleOrbit();
     void InvertSpinDirection();
     void InvertOrbitDirection();
 
   private:
+    void updateAngles(unsigned int dt);
+    void drawCube();
+
     glm::mat4 model;
     std::vector<Vertex> Vertices;
     std::vector<unsigned int> Indices;
     GLuint VB;
     GLuint IB;
 
-    // Unique Identifier
-    std::string objName;
-
-    // Drawing variables
-    float angle;
-    bool shouldSpin;
-    bool shouldOrbit;
-    bool invertSpin;
-    bool invertOrbit;
+    // Spin variables
+    float spinAngle;
+    bool spinEnabled;
+    bool spinClockwise;
     glm::vec3 spinAxisVector;
+
+    // Orbit variables
+    float orbitAngle;
+    bool orbitEnabled;
+    bool orbitClockwise;
     glm::vec3 orbitVector;
 };
 
