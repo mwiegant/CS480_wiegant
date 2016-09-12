@@ -116,11 +116,11 @@ void Engine::Mouse()
   // catch a mouse down event
   if( m_event.type == SDL_MOUSEBUTTONDOWN )
   {
-    std::cout << "Breakpoint" << endl;
-//    if( m_event.button == SDL_BUTTON_LEFT )
-//    {
-//      m_graphics->toggleObjectOrbit();
-//    }
+
+    if( m_event.button.button == SDL_BUTTON_LEFT )
+    {
+      m_graphics->toggleObjectOrbit();
+    }
   }
 }
 
