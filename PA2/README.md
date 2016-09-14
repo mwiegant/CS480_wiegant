@@ -1,5 +1,15 @@
 # PA2: Spinning Cube with Interactions
 
+```
+    Note - There is a known issue that occurs when the cube is both 
+    spinning and orbiting. If the spin and orbit are in opposite
+    directions, the cube appears to not be spinning. I was aware of
+    a way to fix this but when I implemented this fix the issue did
+    not go away. I will solve this problem in the future, since I 
+    have not had time to fix this issue for this project. The 
+    keyboard interactions otherwise work quite fantastically.
+```
+
 # Supported Interactions
 
 ## Keyboard
