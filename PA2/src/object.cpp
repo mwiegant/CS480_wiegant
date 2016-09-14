@@ -61,8 +61,11 @@ Object::Object()
     Indices[i] = Indices[i] - 1;
   }
 
+  // Set angles and their divisors
   spinAngle = 0.0f;
   orbitAngle = 0.0f;
+  spinAngleDivisor = 1200;
+  orbitAngleDivisor = 1050;
 
   glGenBuffers(1, &VB);
   glBindBuffer(GL_ARRAY_BUFFER, VB);
@@ -114,14 +117,14 @@ void Object::updateAngles(unsigned int dt)
     // adjust the angle of rotation, according to spin direction
     if(spinClockwise)
     {
-      spinAngle += dt * M_PI/1000;
+      spinAngle += dt * M_PI / spinAngleDivisor;
 
       // reset angle when it gets larger than a full rotation
       spinAngle = (spinAngle <= 360.0f) ? spinAngle : (spinAngle - 360.0f);
     }
     else
     {
-      spinAngle -= dt * M_PI/1000;
+      spinAngle -= dt * M_PI/ spinAngleDivisor;
 
       // reset angle to 360 when it gets to be less than 0
       spinAngle = (spinAngle >= 0.0f) ? spinAngle : (spinAngle + 360.0f);
@@ -136,14 +139,14 @@ void Object::updateAngles(unsigned int dt)
     // adjust the angle of rotation, according to orbit direction
     if(orbitClockwise)
     {
-      orbitAngle += dt * M_PI/1000;
+      orbitAngle += dt * M_PI/ orbitAngleDivisor;
 
       // reset angle when it gets larger than a full rotation
       orbitAngle = (orbitAngle <= 360.0f) ? orbitAngle : (orbitAngle - 360.0f);
     }
     else
     {
-      orbitAngle -= dt * M_PI/1000;
+      orbitAngle -= dt * M_PI/ orbitAngleDivisor;
 
       // reset angle to 360 when it gets to be less than 0
       orbitAngle = (orbitAngle >= 0.0f) ? orbitAngle : (orbitAngle + 360.0f);
@@ -161,23 +164,24 @@ void Object::drawCube()
   // adjust drawing commands based on the state of the cube
   if(orbitEnabled && spinEnabled)
   {
-
     // todo - needs some adjustment
+
+    // rotate the cube to its angle for the orbit
     model = glm::rotate(glm::mat4(1.0f), (orbitAngle), spinAxisVector);
+
+    // move the cube out to its orbit
     model = glm::translate(model, orbitVector);
 
-//    model *= glm::rotate(glm::mat4(1.0f), (-orbitAngle), spinAxisVector);
-    model *= glm::rotate(glm::mat4(1.0f), (spinAngle + orbitAngle), spinAxisVector);
+    // rotate the cube
+    model *= glm::rotate(glm::mat4(1.0f), (spinAngle), spinAxisVector);
   }
   else if(orbitEnabled)
   {
-    // todo - LOOKS COMPLETE
     model = glm::rotate(glm::mat4(1.0f), (orbitAngle), spinAxisVector);
     model = glm::translate(model, orbitVector);
   }
   else if(spinEnabled)
   {
-    // todo - LOOKS COMPLETE
     model = glm::rotate(glm::mat4(1.0f), (orbitAngle), spinAxisVector);
     model = glm::translate(model, orbitVector);
     model *= glm::rotate(glm::mat4(1.0f), (spinAngle), spinAxisVector);

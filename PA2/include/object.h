@@ -33,12 +33,14 @@ class Object
 
     // Spin variables
     float spinAngle;
+    int spinAngleDivisor;
     bool spinEnabled;
     bool spinClockwise;
     glm::vec3 spinAxisVector;
 
     // Orbit variables
     float orbitAngle;
+    int orbitAngleDivisor;
     bool orbitEnabled;
     bool orbitClockwise;
     glm::vec3 orbitVector;
