@@ -161,31 +161,9 @@ void Object::updateAngles(unsigned int dt)
  */
 void Object::drawCube()
 {
-  // adjust drawing commands based on the state of the cube
-  if(orbitEnabled && spinEnabled)
-  {
-    // todo - needs some adjustment
-
-    // rotate the cube to its angle for the orbit
-    model = glm::rotate(glm::mat4(1.0f), (orbitAngle), spinAxisVector);
-
-    // move the cube out to its orbit
-    model = glm::translate(model, orbitVector);
-
-    // rotate the cube
-    model *= glm::rotate(glm::mat4(1.0f), (spinAngle), spinAxisVector);
-  }
-  else if(orbitEnabled)
-  {
-    model = glm::rotate(glm::mat4(1.0f), (orbitAngle), spinAxisVector);
-    model = glm::translate(model, orbitVector);
-  }
-  else if(spinEnabled)
-  {
-    model = glm::rotate(glm::mat4(1.0f), (orbitAngle), spinAxisVector);
-    model = glm::translate(model, orbitVector);
-    model *= glm::rotate(glm::mat4(1.0f), (spinAngle), spinAxisVector);
-  }
+  model = glm::rotate(glm::mat4(1.0f), (orbitAngle), spinAxisVector);
+  model = glm::translate(model, orbitVector);
+  model *= glm::rotate(glm::mat4(1.0f), (spinAngle), spinAxisVector);
 }
 
 glm::mat4 Object::GetModel()
