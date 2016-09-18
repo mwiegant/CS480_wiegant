@@ -7,13 +7,14 @@
 class Object
 {
   public:
-    Object();
+    Object(char* objectName);
     ~Object();
     void Update(unsigned int dt);
     void Render();
 
     // Getters
     glm::mat4 GetModel();
+    char* GetName();
 
     // User Input Control Functions
     void ToggleSpin();
@@ -30,6 +31,9 @@ class Object
     std::vector<unsigned int> Indices;
     GLuint VB;
     GLuint IB;
+
+    // Unique Identifier
+    char* name;
 
     // Spin variables
     float spinAngle;

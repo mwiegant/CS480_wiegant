@@ -1,6 +1,6 @@
 #include "object.h"
 
-Object::Object()
+Object::Object(char* objectName)
 {  
   /*
     # Blender File for a Cube
@@ -61,12 +61,6 @@ Object::Object()
     Indices[i] = Indices[i] - 1;
   }
 
-  // Set angles and their divisors
-  spinAngle = 0.0f;
-  orbitAngle = 0.0f;
-  spinAngleDivisor = 1200;
-  orbitAngleDivisor = 1050;
-
   glGenBuffers(1, &VB);
   glBindBuffer(GL_ARRAY_BUFFER, VB);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * Vertices.size(), &Vertices[0], GL_STATIC_DRAW);
@@ -74,6 +68,15 @@ Object::Object()
   glGenBuffers(1, &IB);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IB);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * Indices.size(), &Indices[0], GL_STATIC_DRAW);
+
+  // Set object name
+  name = objectName;
+
+  // Set angles and their divisors
+  spinAngle = 0.0f;
+  orbitAngle = 0.0f;
+  spinAngleDivisor = 1200;
+  orbitAngleDivisor = 1050;
 
   // Set initial vector values for the axis of spin and the orbit
   spinAxisVector = glm::vec3(0.0, 1.0, 0.0);
@@ -171,19 +174,24 @@ glm::mat4 Object::GetModel()
   return model;
 }
 
+char* Object::GetName()
+{
+  return name;
+}
+
 void Object::ToggleSpin()
 {
-  spinEnabled = (spinEnabled) ? false : true;
+  spinEnabled = !spinEnabled;
 }
 
 void Object::ToggleOrbit()
 {
-  orbitEnabled = (orbitEnabled) ? false : true;
+  orbitEnabled = !orbitEnabled;
 }
 
 void Object::InvertSpinDirection()
 {
-  spinClockwise = (spinClockwise) ? false : true;
+  spinClockwise = !spinClockwise;
 
   // if the cube isn't spinning, have it start spinning
   if(!spinEnabled)
@@ -192,7 +200,7 @@ void Object::InvertSpinDirection()
 
 void Object::InvertOrbitDirection()
 {
-  orbitClockwise = (orbitClockwise) ? false : true;
+  orbitClockwise = !orbitClockwise;
 
   // if the cube isn't orbiting, have it start orbiting
   if(!orbitEnabled)

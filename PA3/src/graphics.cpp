@@ -45,7 +45,8 @@ bool Graphics::Initialize(int width, int height)
   }
 
   // Create the object
-  m_cube = new Object();
+  objects.push_back( new Object((char *) "planet") );
+//  objects.push_back( new Object("moon") );
 
   // Set up the shaders
   m_shader = new Shader();
@@ -110,47 +111,83 @@ bool Graphics::Initialize(int width, int height)
 /*
  * Stop or start the cube from spinning on its axis
  */
-bool Graphics::toggleObjectSpin()
+bool Graphics::toggleObjectSpin(char* objectName)
 {
-  m_cube->ToggleSpin();
+  for( int i = 0; i < objects.size(); i++ )
+  {
+    if (objects[i]->GetName() == objectName)
+    {
+      objects[i]->ToggleSpin();
 
-  return true;
+      return true;
+    }
+  }
+
+  return false;
 }
 
 /*
  * Change the direction that the cube is spinning in
  */
-bool Graphics::invertObjectSpin()
+bool Graphics::invertObjectSpin(char* objectName)
 {
-  m_cube->InvertSpinDirection();
+  for( int i = 0; i < objects.size(); i++ )
+  {
+    if (objects[i]->GetName() == objectName)
+    {
+      objects[i]->InvertSpinDirection();
 
-  return true;
+      return true;
+    }
+  }
+
+  return false;
 }
 
 /*
  * Stop or start the cube from rotating in 3d space
  */
-bool Graphics::toggleObjectOrbit()
+bool Graphics::toggleObjectOrbit(char* objectName)
 {
-  m_cube->ToggleOrbit();
+  for( int i = 0; i < objects.size(); i++ )
+  {
+    if (objects[i]->GetName() == objectName)
+    {
+      objects[i]->ToggleOrbit();
 
-  return true;
+      return true;
+    }
+  }
+
+  return false;
 }
 
 /*
  * Change the direction that the cube is rotating in
  */
-bool Graphics::invertObjectOrbit(){
-  m_cube->InvertOrbitDirection();
+bool Graphics::invertObjectOrbit(char* objectName)
+{
+  for( int i = 0; i < objects.size(); i++ )
+  {
+    if (objects[i]->GetName() == objectName)
+    {
+      objects[i]->InvertOrbitDirection();
 
-  return true;
+      return true;
+    }
+  }
+
+  return false;
 }
 
 
 void Graphics::Update(unsigned int dt)
 {
   // Update the object
-  m_cube->Update(dt);
+  for( int i = 0; i < objects.size(); i++ )
+  {
+    objects[i]->Update(dt);
+  }
 }
 
 void Graphics::Render()
@@ -167,8 +204,11 @@ void Graphics::Render()
   glUniformMatrix4fv(m_viewMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetView())); 
 
   // Render the object
-  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr(m_cube->GetModel()));
-  m_cube->Render();
+  for( int i = 0; i < objects.size(); i++ )
+  {
+    glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr( objects[i]->GetModel() ));
+    objects[i]->Render();
+  }
 
   // Get any errors from OpenGL
   auto error = glGetError();

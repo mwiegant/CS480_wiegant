@@ -91,22 +91,22 @@ void Engine::Keyboard()
     // handle w - toggle cube spin
     else if( m_event.key.keysym.sym == SDLK_w )
     {
-      m_graphics->toggleObjectSpin();
+      m_graphics->toggleObjectSpin((char *) "planet");
     }
     // handle e - switch cube spin direction
     else if( m_event.key.keysym.sym == SDLK_e )
     {
-      m_graphics->invertObjectSpin();
+      m_graphics->invertObjectSpin((char *) "planet");
     }
     // handle s - toggle cube orbital rotation
     else if( m_event.key.keysym.sym == SDLK_s )
     {
-      m_graphics->toggleObjectOrbit();
+      m_graphics->toggleObjectOrbit((char *) "planet");
     }
     // handle d - switch cube orbital rotation direction
     else if( m_event.key.keysym.sym == SDLK_d )
     {
-      m_graphics->invertObjectOrbit();
+      m_graphics->invertObjectOrbit((char *) "planet");
     }
   }
 }
@@ -119,7 +119,7 @@ void Engine::Mouse()
 
     if( m_event.button.button == SDL_BUTTON_LEFT )
     {
-      m_graphics->toggleObjectOrbit();
+      m_graphics->toggleObjectOrbit((char *) "planet");
     }
   }
 }

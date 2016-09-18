@@ -2,6 +2,7 @@
 #define GRAPHICS_H
 
 #include <iostream>
+#include <vector>
 using namespace std;
 
 #include "graphics_headers.h"
@@ -19,10 +20,10 @@ class Graphics
     void Render();
 
     // methods for object interaction
-    bool toggleObjectSpin();
-    bool invertObjectSpin();
-    bool toggleObjectOrbit();
-    bool invertObjectOrbit();
+    bool toggleObjectSpin(char* objectName);
+    bool invertObjectSpin(char* objectName);
+    bool toggleObjectOrbit(char* objectName);
+    bool invertObjectOrbit(char* objectName);
 
   private:
     std::string ErrorString(GLenum error);
@@ -34,7 +35,8 @@ class Graphics
     GLint m_viewMatrix;
     GLint m_modelMatrix;
 
-    Object *m_cube;
+//    Object *m_cube;
+    vector<Object *> objects;
 };
 
 #endif /* GRAPHICS_H */
