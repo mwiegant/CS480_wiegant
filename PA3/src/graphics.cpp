@@ -46,7 +46,7 @@ bool Graphics::Initialize(int width, int height)
 
   // Create the object
   objects.push_back( new Object((char *) "planet") );
-//  objects.push_back( new Object("moon") );
+  objects.push_back( new Object((char *) "moon") );
 
   // Set up the shaders
   m_shader = new Shader();
@@ -115,7 +115,7 @@ bool Graphics::toggleObjectSpin(char* objectName)
 {
   for( int i = 0; i < objects.size(); i++ )
   {
-    if (objects[i]->GetName() == objectName)
+    if( strncmp(objects[i]->GetName(), objectName, strlen(objectName)) == 0 )
     {
       objects[i]->ToggleSpin();
 
@@ -133,7 +133,7 @@ bool Graphics::invertObjectSpin(char* objectName)
 {
   for( int i = 0; i < objects.size(); i++ )
   {
-    if (objects[i]->GetName() == objectName)
+    if( strncmp(objects[i]->GetName(), objectName, strlen(objectName)) == 0 )
     {
       objects[i]->InvertSpinDirection();
 
@@ -151,7 +151,7 @@ bool Graphics::toggleObjectOrbit(char* objectName)
 {
   for( int i = 0; i < objects.size(); i++ )
   {
-    if (objects[i]->GetName() == objectName)
+    if( strncmp(objects[i]->GetName(), objectName, strlen(objectName)) == 0 )
     {
       objects[i]->ToggleOrbit();
 
@@ -169,7 +169,7 @@ bool Graphics::invertObjectOrbit(char* objectName)
 {
   for( int i = 0; i < objects.size(); i++ )
   {
-    if (objects[i]->GetName() == objectName)
+    if( strncmp(objects[i]->GetName(), objectName, strlen(objectName)) == 0 )
     {
       objects[i]->InvertOrbitDirection();
 
@@ -183,11 +183,22 @@ bool Graphics::invertObjectOrbit(char* objectName)
 
 void Graphics::Update(unsigned int dt)
 {
-  // Update the object
-  for( int i = 0; i < objects.size(); i++ )
-  {
-    objects[i]->Update(dt);
-  }
+  glm::mat4 model = glm::mat4(1.0f);
+
+  /*
+   * The planet doesn't really need model passed to it, but the
+   * moon definitely does, and since they're the same class I'm going
+   * to have to just do things this way
+   */
+
+  // planet update
+  objects[0]->Update( dt, model );
+
+  // update model with the model from the planet
+  model = objects[0]->GetModel();
+
+  // moon update
+  objects[1]->Update( dt, model );
 }
 
 void Graphics::Render()
@@ -198,6 +209,9 @@ void Graphics::Render()
 
   // Start the correct program
   m_shader->Enable();
+
+  // Set wireframe mode
+//  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
   // Send in the projection and view to the shader
   glUniformMatrix4fv(m_projectionMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetProjection())); 
