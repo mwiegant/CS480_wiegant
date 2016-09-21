@@ -16,7 +16,7 @@ This is a cube that rotates and moves in an orbit on the screen. To run this pro
 Using the same cube from the previous project, but now supporting keyboard and mouse interaction.
 
 ## PA3: Moons
-Continueing on from previous projects, this iteration contains two cubes. Additional keyboard support has been added to control the second cube.
+Continuing on from previous projects, this iteration contains two cubes. Additional keyboard support has been added to control the second cube.
 
 ## PA4: Model Loading
 ```
