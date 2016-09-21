@@ -94,13 +94,11 @@ void Engine::Keyboard()
     // handle 1 - change focus to planet
     if( m_event.key.keysym.sym == SDLK_1 )
     {
-      std::cout << "focus set to planet" << endl;
       focusedObject = (char*) "planet";
     }
     // handle 2 - change focus to moon
     if( m_event.key.keysym.sym == SDLK_2 )
     {
-      std::cout << "focus set to moon" << endl;
       focusedObject = (char*) "moon";
     }
     // handle w - toggle cube spin
