@@ -7,6 +7,9 @@ Engine::Engine(string name, int width, int height)
   m_WINDOW_WIDTH = width;
   m_WINDOW_HEIGHT = height;
   m_FULLSCREEN = false;
+
+  // set which object has keyboard focus, by default
+  focusedObject = (char*) "planet";
 }
 
 Engine::Engine(string name)
@@ -88,25 +91,37 @@ void Engine::Keyboard()
     {
       m_running = false;
     }
+    // handle 1 - change focus to planet
+    if( m_event.key.keysym.sym == SDLK_1 )
+    {
+      std::cout << "focus set to planet" << endl;
+      focusedObject = (char*) "planet";
+    }
+    // handle 2 - change focus to moon
+    if( m_event.key.keysym.sym == SDLK_2 )
+    {
+      std::cout << "focus set to moon" << endl;
+      focusedObject = (char*) "moon";
+    }
     // handle w - toggle cube spin
     else if( m_event.key.keysym.sym == SDLK_w )
     {
-      m_graphics->toggleObjectSpin((char *) "planet");
+      m_graphics->toggleObjectSpin(focusedObject);
     }
     // handle e - switch cube spin direction
     else if( m_event.key.keysym.sym == SDLK_e )
     {
-      m_graphics->invertObjectSpin((char *) "planet");
+      m_graphics->invertObjectSpin(focusedObject);
     }
     // handle s - toggle cube orbital rotation
     else if( m_event.key.keysym.sym == SDLK_s )
     {
-      m_graphics->toggleObjectOrbit((char *) "planet");
+      m_graphics->toggleObjectOrbit(focusedObject);
     }
     // handle d - switch cube orbital rotation direction
     else if( m_event.key.keysym.sym == SDLK_d )
     {
-      m_graphics->invertObjectOrbit((char *) "planet");
+      m_graphics->invertObjectOrbit(focusedObject);
     }
   }
 }
@@ -119,7 +134,7 @@ void Engine::Mouse()
 
     if( m_event.button.button == SDL_BUTTON_LEFT )
     {
-      m_graphics->toggleObjectOrbit((char *) "planet");
+      m_graphics->toggleObjectOrbit(focusedObject);
     }
   }
 }

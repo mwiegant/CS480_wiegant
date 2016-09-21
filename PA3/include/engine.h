@@ -34,6 +34,9 @@ class Engine
     unsigned int m_DT;
     long long m_currentTimeMillis;
     bool m_running;
+
+    // For determining which object keyboard input should affect
+    char* focusedObject;
 };
 
 #endif // ENGINE_H
