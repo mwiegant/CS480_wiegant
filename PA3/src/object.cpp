@@ -75,8 +75,8 @@ Object::Object(char* objectName)
   // Set angles and their divisors
   spinAngle = 0.0f;
   orbitAngle = 0.0f;
-  spinAngleDivisor = 1200;
-  orbitAngleDivisor = 1050;
+  spinAngleDivisor = 2000;
+  orbitAngleDivisor = 2000;
 
   // Set initial vector values for the axis of spin and the orbit
   spinAxisVector = glm::vec3(0.0, 1.0, 0.0);
@@ -87,8 +87,8 @@ Object::Object(char* objectName)
   orbitEnabled = true;
 
   // Set spin and orbit directions
-  spinClockwise = true;
-  orbitClockwise = true;
+  spinDirection = 1;
+  orbitDirection = 1;
 
 }
 
@@ -98,13 +98,13 @@ Object::~Object()
   Indices.clear();
 }
 
-void Object::Update(unsigned int dt)
+void Object::Update(unsigned int dt, glm::mat4 systemModel)
 {
   // update angles of rotation
   updateAngles(dt);
 
   // draw the cube
-  drawCube();
+  drawCube(systemModel);
 }
 
 
@@ -113,60 +113,34 @@ void Object::Update(unsigned int dt)
  */
 void Object::updateAngles(unsigned int dt)
 {
-  // check if the cube is currently spinning
-  if(spinEnabled)
-  {
+  float spinAdjustment, orbitAdjustment;
 
-    // adjust the angle of rotation, according to spin direction
-    if(spinClockwise)
-    {
-      spinAngle += dt * M_PI / spinAngleDivisor;
+  spinAdjustment = float ( dt * M_PI / spinAngleDivisor );
+  orbitAdjustment = float ( dt * M_PI/ orbitAngleDivisor );
 
-      // reset angle when it gets larger than a full rotation
-      spinAngle = (spinAngle <= 360.0f) ? spinAngle : (spinAngle - 360.0f);
-    }
-    else
-    {
-      spinAngle -= dt * M_PI/ spinAngleDivisor;
+  spinAdjustment *= ( (int) spinEnabled * spinDirection );
+  orbitAdjustment *= ( (int) orbitEnabled * orbitDirection );
 
-      // reset angle to 360 when it gets to be less than 0
-      spinAngle = (spinAngle >= 0.0f) ? spinAngle : (spinAngle + 360.0f);
-    }
-  }
-
-
-  // check if the cube is currently orbiting
-  if(orbitEnabled)
-  {
-
-    // adjust the angle of rotation, according to orbit direction
-    if(orbitClockwise)
-    {
-      orbitAngle += dt * M_PI/ orbitAngleDivisor;
-
-      // reset angle when it gets larger than a full rotation
-      orbitAngle = (orbitAngle <= 360.0f) ? orbitAngle : (orbitAngle - 360.0f);
-    }
-    else
-    {
-      orbitAngle -= dt * M_PI/ orbitAngleDivisor;
-
-      // reset angle to 360 when it gets to be less than 0
-      orbitAngle = (orbitAngle >= 0.0f) ? orbitAngle : (orbitAngle + 360.0f);
-    }
-  }
-
+  spinAngle += spinAdjustment;
+  orbitAngle += orbitAdjustment;
 }
 
 
 /*
  * Drawing component of update process
  */
-void Object::drawCube()
+void Object::drawCube(glm::mat4 systemModel)
 {
-  model = glm::rotate(glm::mat4(1.0f), (orbitAngle), spinAxisVector);
+  model = glm::rotate(systemModel, (orbitAngle), spinAxisVector);
   model = glm::translate(model, orbitVector);
   model *= glm::rotate(glm::mat4(1.0f), (spinAngle), spinAxisVector);
+
+  // only scale the moon
+  if( strncmp(name, "moon", 4) == 0)
+  {
+    model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+  }
+
 }
 
 glm::mat4 Object::GetModel()
@@ -191,7 +165,7 @@ void Object::ToggleOrbit()
 
 void Object::InvertSpinDirection()
 {
-  spinClockwise = !spinClockwise;
+  spinDirection *= -1;
 
   // if the cube isn't spinning, have it start spinning
   if(!spinEnabled)
@@ -200,7 +174,7 @@ void Object::InvertSpinDirection()
 
 void Object::InvertOrbitDirection()
 {
-  orbitClockwise = !orbitClockwise;
+  orbitDirection *= -1;
 
   // if the cube isn't orbiting, have it start orbiting
   if(!orbitEnabled)

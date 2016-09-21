@@ -2,6 +2,7 @@
 #define OBJECT_H
 
 #include <vector>
+#include <string>
 #include "graphics_headers.h"
 
 class Object
@@ -9,7 +10,7 @@ class Object
   public:
     Object(char* objectName);
     ~Object();
-    void Update(unsigned int dt);
+    void Update(unsigned int dt, glm::mat4 systemModel);
     void Render();
 
     // Getters
@@ -24,9 +25,10 @@ class Object
 
   private:
     void updateAngles(unsigned int dt);
-    void drawCube();
+    void drawCube(glm::mat4 matrix);
 
     glm::mat4 model;
+
     std::vector<Vertex> Vertices;
     std::vector<unsigned int> Indices;
     GLuint VB;
@@ -39,14 +41,14 @@ class Object
     float spinAngle;
     int spinAngleDivisor;
     bool spinEnabled;
-    bool spinClockwise;
+    int spinDirection;
     glm::vec3 spinAxisVector;
 
     // Orbit variables
     float orbitAngle;
     int orbitAngleDivisor;
     bool orbitEnabled;
-    bool orbitClockwise;
+    int orbitDirection;
     glm::vec3 orbitVector;
 };
 
