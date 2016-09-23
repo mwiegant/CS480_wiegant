@@ -41,6 +41,7 @@ To build this project, first navigate to **CS480_wiegant/PA3**.
 
 Next, run the following commands:
 ```bash
+mkdir build
 cd build
 cmake ..
 make
