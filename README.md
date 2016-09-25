@@ -19,6 +19,9 @@ Using the same cube from the previous project, but now supporting keyboard and m
 Continuing on from previous projects, this iteration contains two cubes. Additional keyboard support has been added to control the second cube.
 
 ## PA4: Model Loading
+This iteration of the codebase includes a model-loader of my design for loading models.
+
+## PA4: Assimp Model Loading
 ```
 coming soon. . .
 ```
