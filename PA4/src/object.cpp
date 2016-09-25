@@ -74,9 +74,9 @@ Object::Object(char* objectName)
 
   // Set angles and their divisors
   spinAngle = 0.0f;
-  orbitAngle = 0.0f;
-  spinAngleDivisor = 2000;
-  orbitAngleDivisor = 2000;
+  orbitAngle = 2.0f;
+  spinAngleDivisor = 1800;
+  orbitAngleDivisor = 1000;
 
   // Set initial vector values for the axis of spin and the orbit
   spinAxisVector = glm::vec3(0.0, 1.0, 0.0);
@@ -114,6 +114,7 @@ void Object::Update(unsigned int dt, glm::mat4 systemModel)
 void Object::updateAngles(unsigned int dt)
 {
   float spinAdjustment, orbitAdjustment;
+  float fullRotation = float( 2 * M_PI );
 
   spinAdjustment = float ( dt * M_PI / spinAngleDivisor );
   orbitAdjustment = float ( dt * M_PI/ orbitAngleDivisor );
@@ -123,6 +124,13 @@ void Object::updateAngles(unsigned int dt)
 
   spinAngle += spinAdjustment;
   orbitAngle += orbitAdjustment;
+
+  // reset angles when they're bigger or smaller than two full rotations
+  spinAngle = (spinAngle > 2 * fullRotation) ? (spinAngle - fullRotation) : (spinAngle);
+  spinAngle = (spinAngle < -2 * fullRotation) ? (spinAngle + fullRotation) : (spinAngle);
+
+  orbitAngle = (orbitAngle > 2 * fullRotation) ? (orbitAngle - fullRotation) : (orbitAngle);
+  orbitAngle = (orbitAngle < -2 * fullRotation) ? (orbitAngle + fullRotation) : (orbitAngle);
 }
 
 
