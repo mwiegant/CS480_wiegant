@@ -26,6 +26,8 @@
 *.exe
 *.out
 *.app
+
+# Build directory files
 build/
 
 # CLion configuration files
