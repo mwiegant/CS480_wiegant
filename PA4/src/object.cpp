@@ -28,32 +28,32 @@ Object::Object(char* objectName)
     f 5 1 8
   */
 
-  Vertices = {
-    // {<position>}, {<color>}
-    {{1.0f, -1.0f, -1.0f}, {0.0f, 0.0f, 0.0f}},
-    {{1.0f, -1.0f, 1.0f}, {1.0f, 0.0f, 0.0f}},
-    {{-1.0f, -1.0f, 1.0f}, {0.0f, 1.0f, 0.0f}},
-    {{-1.0f, -1.0f, -1.0f}, {0.0f, 0.0f, 1.0f}},
-    {{1.0f, 1.0f, -1.0f}, {1.0f, 1.0f, 0.0f}},
-    {{1.0f, 1.0f, 1.0f}, {1.0f, 0.0f, 1.0f}},
-    {{-1.0f, 1.0f, 1.0f}, {0.0f, 1.0f, 1.0f}},
-    {{-1.0f, 1.0f, -1.0f}, {1.0f, 1.0f, 1.0f}}
-  };
-
-  Indices = {
-    2, 3, 4,
-    8, 7, 6,
-    1, 5, 6,
-    2, 6, 7,
-    7, 8, 4,
-    1, 4, 8,
-    1, 2, 4,
-    5, 8, 6,
-    2, 1, 6,
-    3, 2, 7,
-    3, 7, 4,
-    5, 1, 8
-  };
+//  Vertices = {
+//    // {<position>}, {<color>}
+//    {{1.0f, -1.0f, -1.0f}, {0.5f, 0.5f, 0.5f}},
+//    {{1.0f, -1.0f, 1.0f}, {0.0f, 0.0f, 0.0f}},
+//    {{-1.0f, -1.0f, 1.0f}, {0.0f, 0.0f, 0.0f}},
+//    {{-1.0f, -1.0f, -1.0f}, {0.0f, 0.0f, 0.0f}},
+//    {{1.0f, 1.0f, -1.0f}, {0.0f, 0.0f, 0.0f}},
+//    {{1.0f, 1.0f, 1.0f}, {0.0f, 0.0f, 0.0f}},
+//    {{-1.0f, 1.0f, 1.0f}, {0.0f, 0.0f, 0.0f}},
+//    {{-1.0f, 1.0f, -1.0f}, {0.0f, 0.0f, 0.0f}}
+//  };
+//
+//  Indices = {
+//    2, 3, 4,
+//    8, 7, 6,
+//    1, 5, 6,
+//    2, 6, 7,
+//    7, 8, 4,
+//    1, 4, 8,
+//    1, 2, 4,
+//    5, 8, 6,
+//    2, 1, 6,
+//    3, 2, 7,
+//    3, 7, 4,
+//    5, 1, 8
+//  };
 
   // The index works at a 0th index
   for(unsigned int i = 0; i < Indices.size(); i++)
@@ -206,3 +206,49 @@ void Object::Render()
   glDisableVertexAttribArray(1);
 }
 
+bool Object::LoadModel(std::string shaderFilename)
+{
+  // variable initialization
+  bool flag = false;
+  unsigned int numVertices = 0;
+  unsigned int numIndexes = 0;
+  std::ifstream fin;
+  std::string linedata;
+
+  // (1) - read entire file, count number of 'v' and 'f' lines
+  fin.clear();
+  fin.open(shaderFilename.c_str());
+
+  while( fin.good() )
+  {
+    std::getline(fin, linedata, '\n');
+
+    // increment counters if the first character is 'v' or 'f'
+    if( linedata[0] == 'v' )
+      numVertices++;
+    else if( linedata[0] == 'f' )
+      numIndexes++;
+  }
+
+  fin.close();
+
+  // (2) - resize vertex and index arrays to the proper size
+  Vertices.resize(numVertices);
+  Indices.resize(numIndexes);
+
+  // (3) - read entire file, store vertex and face data
+  fin.clear();
+  fin.open(shaderFilename.c_str());
+
+
+
+    // todo - read in the file and do all that stuff
+
+
+
+  // (4) - do any initialization required to finalize model loading
+
+    // todo - initialization to finalize model loading
+
+  return flag;
+}

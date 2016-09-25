@@ -44,29 +44,46 @@ bool Graphics::Initialize(int width, int height)
     return false;
   }
 
-  // Create the object
+  // Create objects
   objects.push_back( new Object((char *) "planet") );
-  objects.push_back( new Object((char *) "moon") );
+//  objects.push_back( new Object((char *) "moon") );
+
+  // todo - add models directory to CMakeLists.txt ( models won't load until I do this :) )
+
+  // Load each object model
+  for(int i = 0; i < objects.size(); i++)
+  {
+    string filename = objects[i]->GetName();
+    filename = "models/" + filename;
+
+    // models located at /models/<object_name>
+    if( !objects[i]->LoadModel(filename) )
+    {
+      printf("Failed to find model for %s\n.", objects[i]->GetName());
+      return false;
+    }
+
+  }
 
   // Set up the shaders
   m_shader = new Shader();
   if(!m_shader->Initialize())
   {
-    printf("Shader Failed to Initialize\n");
+    printf("Shader Failed to Initialize\n.");
     return false;
   }
 
   // Add the vertex shader
   if(!m_shader->AddShader(GL_VERTEX_SHADER, "shaders/vertexShader.glsl"))
   {
-    printf("Vertex Shader failed to Initialize\n");
+    printf("Vertex Shader failed to Initialize\n.");
     return false;
   }
 
   // Add the fragment shader
   if(!m_shader->AddShader(GL_FRAGMENT_SHADER, "shaders/fragmentShader.glsl"))
   {
-    printf("Fragment Shader failed to Initialize\n");
+    printf("Fragment Shader failed to Initialize\n.");
     return false;
   }
 
@@ -191,6 +208,8 @@ void Graphics::Update(unsigned int dt)
    * to have to just do things this way
    */
 
+  // todo - come up with a better way of updating multiple objects, especially those dependant on others
+
   // planet update
   objects[0]->Update( dt, model );
 
@@ -198,7 +217,7 @@ void Graphics::Update(unsigned int dt)
   model = objects[0]->GetModel();
 
   // moon update
-  objects[1]->Update( dt, model );
+//  objects[1]->Update( dt, model );
 }
 
 void Graphics::Render()

@@ -3,7 +3,12 @@
 
 #include <vector>
 #include <string>
+#include <fstream>
 #include "graphics_headers.h"
+
+// todo - implement parent model dependencies (ie Sun < Planet < Moon)
+// todo - change class name?
+// todo - implement loading object properties from files
 
 class Object
 {
@@ -22,6 +27,9 @@ class Object
     void ToggleOrbit();
     void InvertSpinDirection();
     void InvertOrbitDirection();
+
+    // Import model
+    bool LoadModel(std::string shaderFilename);
 
   private:
     void updateAngles(unsigned int dt);
