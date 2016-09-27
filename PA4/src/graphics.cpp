@@ -10,7 +10,7 @@ Graphics::~Graphics()
 
 }
 
-bool Graphics::Initialize(int width, int height)
+bool Graphics::Initialize(int width, int height, char* modelPath)
 {
   // Used for the linux OS
   #if !defined(__APPLE__) && !defined(MACOSX)
@@ -45,45 +45,37 @@ bool Graphics::Initialize(int width, int height)
   }
 
   // Create objects
-  objects.push_back( new Object((char *) "planet") );
-//  objects.push_back( new Object((char *) "moon") );
+  objects.push_back( new Object() );
 
   // todo - add models directory to CMakeLists.txt ( models won't load until I do this :) )
 
-  // Load each object model
-  for(int i = 0; i < objects.size(); i++)
+  // Load object model
+  if( !objects[0]->LoadModel(modelPath) )
   {
-    string filename = objects[i]->GetName();
-    filename = "models/" + filename;
-
-    // models located at /models/<object_name>
-    if( !objects[i]->LoadModel(filename) )
-    {
-      printf("Failed to find model for %s\n.", objects[i]->GetName());
-      return false;
-    }
-
+    printf("Failed to load model.\n");
+    return false;
   }
+
 
   // Set up the shaders
   m_shader = new Shader();
   if(!m_shader->Initialize())
   {
-    printf("Shader Failed to Initialize\n.");
+    printf("Shader Failed to Initialize.\n");
     return false;
   }
 
   // Add the vertex shader
   if(!m_shader->AddShader(GL_VERTEX_SHADER, "shaders/vertexShader.glsl"))
   {
-    printf("Vertex Shader failed to Initialize\n.");
+    printf("Vertex Shader failed to Initialize.\n");
     return false;
   }
 
   // Add the fragment shader
   if(!m_shader->AddShader(GL_FRAGMENT_SHADER, "shaders/fragmentShader.glsl"))
   {
-    printf("Fragment Shader failed to Initialize\n.");
+    printf("Fragment Shader failed to Initialize.\n");
     return false;
   }
 
@@ -125,99 +117,13 @@ bool Graphics::Initialize(int width, int height)
   return true;
 }
 
-/*
- * Stop or start the cube from spinning on its axis
- */
-bool Graphics::toggleObjectSpin(char* objectName)
-{
-  for( int i = 0; i < objects.size(); i++ )
-  {
-    if( strncmp(objects[i]->GetName(), objectName, strlen(objectName)) == 0 )
-    {
-      objects[i]->ToggleSpin();
-
-      return true;
-    }
-  }
-
-  return false;
-}
-
-/*
- * Change the direction that the cube is spinning in
- */
-bool Graphics::invertObjectSpin(char* objectName)
-{
-  for( int i = 0; i < objects.size(); i++ )
-  {
-    if( strncmp(objects[i]->GetName(), objectName, strlen(objectName)) == 0 )
-    {
-      objects[i]->InvertSpinDirection();
-
-      return true;
-    }
-  }
-
-  return false;
-}
-
-/*
- * Stop or start the cube from rotating in 3d space
- */
-bool Graphics::toggleObjectOrbit(char* objectName)
-{
-  for( int i = 0; i < objects.size(); i++ )
-  {
-    if( strncmp(objects[i]->GetName(), objectName, strlen(objectName)) == 0 )
-    {
-      objects[i]->ToggleOrbit();
-
-      return true;
-    }
-  }
-
-  return false;
-}
-
-/*
- * Change the direction that the cube is rotating in
- */
-bool Graphics::invertObjectOrbit(char* objectName)
-{
-  for( int i = 0; i < objects.size(); i++ )
-  {
-    if( strncmp(objects[i]->GetName(), objectName, strlen(objectName)) == 0 )
-    {
-      objects[i]->InvertOrbitDirection();
-
-      return true;
-    }
-  }
-
-  return false;
-}
-
 
 void Graphics::Update(unsigned int dt)
 {
   glm::mat4 model = glm::mat4(1.0f);
 
-  /*
-   * The planet doesn't really need model passed to it, but the
-   * moon definitely does, and since they're the same class I'm going
-   * to have to just do things this way
-   */
-
-  // todo - come up with a better way of updating multiple objects, especially those dependant on others
-
   // planet update
   objects[0]->Update( dt, model );
-
-  // update model with the model from the planet
-  model = objects[0]->GetModel();
-
-  // moon update
-//  objects[1]->Update( dt, model );
 }
 
 void Graphics::Render()

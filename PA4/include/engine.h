@@ -13,10 +13,8 @@ class Engine
     Engine(string name, int width, int height);
     Engine(string name);
     ~Engine();
-    bool Initialize();
+    bool Initialize(char* modelPath);
     void Run();
-    void Keyboard();
-    void Mouse();
     unsigned int getDT();
     long long GetCurrentTimeMillis();
   
@@ -35,8 +33,6 @@ class Engine
     long long m_currentTimeMillis;
     bool m_running;
 
-    // For determining which object keyboard input should affect
-    char* focusedObject;
 };
 
 #endif // ENGINE_H

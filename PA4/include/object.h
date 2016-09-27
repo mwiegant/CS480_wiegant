@@ -6,34 +6,24 @@
 #include <fstream>
 #include "graphics_headers.h"
 
-// todo - implement parent model dependencies (ie Sun < Planet < Moon)
-// todo - change class name?
-// todo - implement loading object properties from files
+// todo - remove when done testing
+#include <iostream>
 
 class Object
 {
   public:
-    Object(char* objectName);
+    Object();
     ~Object();
     void Update(unsigned int dt, glm::mat4 systemModel);
     void Render();
 
     // Getters
     glm::mat4 GetModel();
-    char* GetName();
-
-    // User Input Control Functions
-    void ToggleSpin();
-    void ToggleOrbit();
-    void InvertSpinDirection();
-    void InvertOrbitDirection();
 
     // Import model
-    bool LoadModel(std::string shaderFilename);
+    bool LoadModel(char* filename);
 
   private:
-    void updateAngles(unsigned int dt);
-    void drawCube(glm::mat4 matrix);
 
     glm::mat4 model;
 
@@ -41,9 +31,6 @@ class Object
     std::vector<unsigned int> Indices;
     GLuint VB;
     GLuint IB;
-
-    // Unique Identifier
-    char* name;
 
     // Spin variables
     float spinAngle;

@@ -8,8 +8,6 @@ Engine::Engine(string name, int width, int height)
   m_WINDOW_HEIGHT = height;
   m_FULLSCREEN = false;
 
-  // set which object has keyboard focus, by default
-  focusedObject = (char*) "planet";
 }
 
 Engine::Engine(string name)
@@ -28,7 +26,7 @@ Engine::~Engine()
   m_graphics = NULL;
 }
 
-bool Engine::Initialize()
+bool Engine::Initialize(char* modelPath)
 {
   // Start a window
   m_window = new Window();
@@ -40,7 +38,7 @@ bool Engine::Initialize()
 
   // Start the graphics
   m_graphics = new Graphics();
-  if(!m_graphics->Initialize(m_WINDOW_WIDTH, m_WINDOW_HEIGHT))
+  if(!m_graphics->Initialize(m_WINDOW_WIDTH, m_WINDOW_HEIGHT, modelPath))
   {
     printf("The graphics failed to initialize.\n");
     return false;
@@ -62,13 +60,6 @@ void Engine::Run()
     // Update the DT
     m_DT = getDT();
 
-    // Check keyboard input and mouse events
-    while(SDL_PollEvent(&m_event) != 0)
-    {
-      Keyboard();
-      Mouse();
-    }
-
     // Update and render the graphics
     m_graphics->Update(m_DT);
     m_graphics->Render();
@@ -78,64 +69,7 @@ void Engine::Run()
   }
 }
 
-void Engine::Keyboard()
-{
-  if(m_event.type == SDL_QUIT)
-  {
-    m_running = false;
-  }
-  else if (m_event.type == SDL_KEYDOWN)
-  {
-    // handle escape - end program
-    if( m_event.key.keysym.sym == SDLK_ESCAPE )
-    {
-      m_running = false;
-    }
-    // handle 1 - change focus to planet
-    if( m_event.key.keysym.sym == SDLK_1 )
-    {
-      focusedObject = (char*) "planet";
-    }
-    // handle 2 - change focus to moon
-    if( m_event.key.keysym.sym == SDLK_2 )
-    {
-      focusedObject = (char*) "moon";
-    }
-    // handle w - toggle cube spin
-    else if( m_event.key.keysym.sym == SDLK_w )
-    {
-      m_graphics->toggleObjectSpin(focusedObject);
-    }
-    // handle e - switch cube spin direction
-    else if( m_event.key.keysym.sym == SDLK_e )
-    {
-      m_graphics->invertObjectSpin(focusedObject);
-    }
-    // handle s - toggle cube orbital rotation
-    else if( m_event.key.keysym.sym == SDLK_s )
-    {
-      m_graphics->toggleObjectOrbit(focusedObject);
-    }
-    // handle d - switch cube orbital rotation direction
-    else if( m_event.key.keysym.sym == SDLK_d )
-    {
-      m_graphics->invertObjectOrbit(focusedObject);
-    }
-  }
-}
 
-void Engine::Mouse()
-{
-  // catch a mouse down event
-  if( m_event.type == SDL_MOUSEBUTTONDOWN )
-  {
-
-    if( m_event.button.button == SDL_BUTTON_LEFT )
-    {
-      m_graphics->toggleObjectOrbit(focusedObject);
-    }
-  }
-}
 
 
 unsigned int Engine::getDT()

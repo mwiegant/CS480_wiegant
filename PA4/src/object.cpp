@@ -1,6 +1,6 @@
 #include "object.h"
 
-Object::Object(char* objectName)
+Object::Object()
 {  
   /*
     # Blender File for a Cube
@@ -69,8 +69,6 @@ Object::Object(char* objectName)
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IB);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * Indices.size(), &Indices[0], GL_STATIC_DRAW);
 
-  // Set object name
-  name = objectName;
 
   // Set angles and their divisors
   spinAngle = 0.0f;
@@ -100,94 +98,18 @@ Object::~Object()
 
 void Object::Update(unsigned int dt, glm::mat4 systemModel)
 {
-  // update angles of rotation
-  updateAngles(dt);
-
-  // draw the cube
-  drawCube(systemModel);
-}
-
-
-/*
- * Angle adjustment component of update process
- */
-void Object::updateAngles(unsigned int dt)
-{
-  float spinAdjustment, orbitAdjustment;
-  float fullRotation = float( 2 * M_PI );
-
-  spinAdjustment = float ( dt * M_PI / spinAngleDivisor );
-  orbitAdjustment = float ( dt * M_PI/ orbitAngleDivisor );
-
-  spinAdjustment *= ( (int) spinEnabled * spinDirection );
-  orbitAdjustment *= ( (int) orbitEnabled * orbitDirection );
-
-  spinAngle += spinAdjustment;
-  orbitAngle += orbitAdjustment;
-
-  // reset angles when they're bigger or smaller than two full rotations
-  spinAngle = (spinAngle > 2 * fullRotation) ? (spinAngle - fullRotation) : (spinAngle);
-  spinAngle = (spinAngle < -2 * fullRotation) ? (spinAngle + fullRotation) : (spinAngle);
-
-  orbitAngle = (orbitAngle > 2 * fullRotation) ? (orbitAngle - fullRotation) : (orbitAngle);
-  orbitAngle = (orbitAngle < -2 * fullRotation) ? (orbitAngle + fullRotation) : (orbitAngle);
-}
-
-
-/*
- * Drawing component of update process
- */
-void Object::drawCube(glm::mat4 systemModel)
-{
   model = glm::rotate(systemModel, (orbitAngle), spinAxisVector);
   model = glm::translate(model, orbitVector);
   model *= glm::rotate(glm::mat4(1.0f), (spinAngle), spinAxisVector);
-
-  // only scale the moon
-  if( strncmp(name, "moon", 4) == 0)
-  {
-    model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
-  }
-
 }
+
+
 
 glm::mat4 Object::GetModel()
 {
   return model;
 }
 
-char* Object::GetName()
-{
-  return name;
-}
-
-void Object::ToggleSpin()
-{
-  spinEnabled = !spinEnabled;
-}
-
-void Object::ToggleOrbit()
-{
-  orbitEnabled = !orbitEnabled;
-}
-
-void Object::InvertSpinDirection()
-{
-  spinDirection *= -1;
-
-  // if the cube isn't spinning, have it start spinning
-  if(!spinEnabled)
-    ToggleSpin();
-}
-
-void Object::InvertOrbitDirection()
-{
-  orbitDirection *= -1;
-
-  // if the cube isn't orbiting, have it start orbiting
-  if(!orbitEnabled)
-    ToggleOrbit();
-}
 
 void Object::Render()
 {
@@ -206,49 +128,11 @@ void Object::Render()
   glDisableVertexAttribArray(1);
 }
 
-bool Object::LoadModel(std::string shaderFilename)
+bool Object::LoadModel(char* filepath)
 {
-  // variable initialization
-  bool flag = false;
-  unsigned int numVertices = 0;
-  unsigned int numIndexes = 0;
-  std::ifstream fin;
-  std::string linedata;
 
-  // (1) - read entire file, count number of 'v' and 'f' lines
-  fin.clear();
-  fin.open(shaderFilename.c_str());
-
-  while( fin.good() )
-  {
-    std::getline(fin, linedata, '\n');
-
-    // increment counters if the first character is 'v' or 'f'
-    if( linedata[0] == 'v' )
-      numVertices++;
-    else if( linedata[0] == 'f' )
-      numIndexes++;
-  }
-
-  fin.close();
-
-  // (2) - resize vertex and index arrays to the proper size
-  Vertices.resize(numVertices);
-  Indices.resize(numIndexes);
-
-  // (3) - read entire file, store vertex and face data
-  fin.clear();
-  fin.open(shaderFilename.c_str());
+  std::cout << "filepath in object::LoadModel: " << filepath << std::endl;
 
 
-
-    // todo - read in the file and do all that stuff
-
-
-
-  // (4) - do any initialization required to finalize model loading
-
-    // todo - initialization to finalize model loading
-
-  return flag;
+  return false;
 }
