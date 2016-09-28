@@ -7,7 +7,6 @@ Engine::Engine(string name, int width, int height)
   m_WINDOW_WIDTH = width;
   m_WINDOW_HEIGHT = height;
   m_FULLSCREEN = false;
-
 }
 
 Engine::Engine(string name)
@@ -60,6 +59,12 @@ void Engine::Run()
     // Update the DT
     m_DT = getDT();
 
+    // Check the keyboard input
+    while(SDL_PollEvent(&m_event) != 0)
+    {
+      Keyboard();
+    }
+
     // Update and render the graphics
     m_graphics->Update(m_DT);
     m_graphics->Render();
@@ -69,8 +74,21 @@ void Engine::Run()
   }
 }
 
-
-
+void Engine::Keyboard()
+{
+  if(m_event.type == SDL_QUIT)
+  {
+    m_running = false;
+  }
+  else if (m_event.type == SDL_KEYDOWN)
+  {
+    // handle key down events here
+    if (m_event.key.keysym.sym == SDLK_ESCAPE)
+    {
+      m_running = false;
+    }
+  }
+}
 
 unsigned int Engine::getDT()
 {

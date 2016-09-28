@@ -2,8 +2,6 @@
 #define WINDOW_H
 
 #include <SDL2/SDL.h>
-//#include <SDL/SDL_ttf.h>
-
 #include <string>
 using namespace std;
 
@@ -14,7 +12,6 @@ class Window
     ~Window();
     bool Initialize(const string &name, int* width, int* height);
     void Swap();
-
 
   private:
     SDL_Window* gWindow;

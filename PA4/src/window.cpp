@@ -31,14 +31,6 @@ bool Window::Initialize(const string &name, int* width, int* height)
   SDL_GL_SetAttribute( SDL_GL_GREEN_SIZE, 5 );
   SDL_GL_SetAttribute( SDL_GL_BLUE_SIZE, 5 );
 
-  // Start SDL_TFF
-//  if (TTF_Init() != 0)
-//  {
-//    printf("TTF_Init() Failed: %s\n", TTF_GetError());
-//    SDL_Quit();
-//    return false;
-//  }
-
   // Create window
   SDL_DisplayMode current;
   SDL_GetCurrentDisplayMode(0, &current);

@@ -2,9 +2,6 @@
 #define GRAPHICS_H
 
 #include <iostream>
-#include <vector>
-#include <string>
-
 using namespace std;
 
 #include "graphics_headers.h"
@@ -31,8 +28,7 @@ class Graphics
     GLint m_viewMatrix;
     GLint m_modelMatrix;
 
-//    Object *m_cube;
-    vector<Object *> objects;
+    Object *m_model;
 };
 
 #endif /* GRAPHICS_H */

@@ -15,6 +15,7 @@ class Engine
     ~Engine();
     bool Initialize(char* modelPath);
     void Run();
+    void Keyboard();
     unsigned int getDT();
     long long GetCurrentTimeMillis();
   
@@ -27,12 +28,10 @@ class Engine
     bool m_FULLSCREEN;
     SDL_Event m_event;
 
-    // Graphics related variables
     Graphics *m_graphics;
     unsigned int m_DT;
     long long m_currentTimeMillis;
     bool m_running;
-
 };
 
 #endif // ENGINE_H

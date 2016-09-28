@@ -44,38 +44,35 @@ bool Graphics::Initialize(int width, int height, char* modelPath)
     return false;
   }
 
-  // Create objects
-  objects.push_back( new Object() );
+  // Create the object
+  m_model = new Object();
 
-  // todo - add models directory to CMakeLists.txt ( models won't load until I do this :) )
-
-  // Load object model
-  if( !objects[0]->LoadModel(modelPath) )
+  // Set up the object
+  if(!m_model->Initialize(modelPath))
   {
-    printf("Failed to load model.\n");
+    printf("Model Failed to Initialize\n");
     return false;
   }
-
-
+  
   // Set up the shaders
   m_shader = new Shader();
   if(!m_shader->Initialize())
   {
-    printf("Shader Failed to Initialize.\n");
+    printf("Shader Failed to Initialize\n");
     return false;
   }
 
   // Add the vertex shader
-  if(!m_shader->AddShader(GL_VERTEX_SHADER, "shaders/vertexShader.glsl"))
+  if(!m_shader->AddShader(GL_VERTEX_SHADER))
   {
-    printf("Vertex Shader failed to Initialize.\n");
+    printf("Vertex Shader failed to Initialize\n");
     return false;
   }
 
   // Add the fragment shader
-  if(!m_shader->AddShader(GL_FRAGMENT_SHADER, "shaders/fragmentShader.glsl"))
+  if(!m_shader->AddShader(GL_FRAGMENT_SHADER))
   {
-    printf("Fragment Shader failed to Initialize.\n");
+    printf("Fragment Shader failed to Initialize\n");
     return false;
   }
 
@@ -88,7 +85,7 @@ bool Graphics::Initialize(int width, int height, char* modelPath)
 
   // Locate the projection matrix in the shader
   m_projectionMatrix = m_shader->GetUniformLocation("projectionMatrix");
-  if (m_projectionMatrix == INVALID_UNIFORM_LOCATION) 
+  if (m_projectionMatrix == INVALID_UNIFORM_LOCATION)
   {
     printf("m_projectionMatrix not found\n");
     return false;
@@ -96,7 +93,7 @@ bool Graphics::Initialize(int width, int height, char* modelPath)
 
   // Locate the view matrix in the shader
   m_viewMatrix = m_shader->GetUniformLocation("viewMatrix");
-  if (m_viewMatrix == INVALID_UNIFORM_LOCATION) 
+  if (m_viewMatrix == INVALID_UNIFORM_LOCATION)
   {
     printf("m_viewMatrix not found\n");
     return false;
@@ -104,7 +101,7 @@ bool Graphics::Initialize(int width, int height, char* modelPath)
 
   // Locate the model matrix in the shader
   m_modelMatrix = m_shader->GetUniformLocation("modelMatrix");
-  if (m_modelMatrix == INVALID_UNIFORM_LOCATION) 
+  if (m_modelMatrix == INVALID_UNIFORM_LOCATION)
   {
     printf("m_modelMatrix not found\n");
     return false;
@@ -117,13 +114,10 @@ bool Graphics::Initialize(int width, int height, char* modelPath)
   return true;
 }
 
-
 void Graphics::Update(unsigned int dt)
 {
-  glm::mat4 model = glm::mat4(1.0f);
-
-  // planet update
-  objects[0]->Update( dt, model );
+  // Update the object
+  m_model->Update(dt);
 }
 
 void Graphics::Render()
@@ -139,15 +133,12 @@ void Graphics::Render()
 //  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
   // Send in the projection and view to the shader
-  glUniformMatrix4fv(m_projectionMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetProjection())); 
-  glUniformMatrix4fv(m_viewMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetView())); 
+  glUniformMatrix4fv(m_projectionMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetProjection()));
+  glUniformMatrix4fv(m_viewMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetView()));
 
   // Render the object
-  for( int i = 0; i < objects.size(); i++ )
-  {
-    glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr( objects[i]->GetModel() ));
-    objects[i]->Render();
-  }
+  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr( m_model->GetModel() ));
+  m_model->Render();
 
   // Get any errors from OpenGL
   auto error = glGetError();

@@ -2,7 +2,6 @@
 
 #include "engine.h"
 
-// todo - add logic to check for arguments, like --help or -s <filename>
 
 int main(int argc, char **argv)
 {
@@ -14,9 +13,8 @@ int main(int argc, char **argv)
     return 1;
   }
 
-
   // Start an engine and run it then cleanup after
-  Engine *engine = new Engine("Max Wiegant -- Computer Graphics", 800, 600);
+  Engine *engine = new Engine("Tutorial Window Name", 800, 600);
   if(!engine->Initialize( argv[1] ))
   {
     printf("The engine failed to start.\n");
