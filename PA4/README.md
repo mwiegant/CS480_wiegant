@@ -1,4 +1,4 @@
-# PA0: Triangle
+# PA4: Model Loader
 
 # Dependencies, Building, and Running
 
@@ -12,5 +12,5 @@ To build this project, run the following commands:
 cd build
 cmake ..
 make
-./Tutorial
+./Tutorial path/to/model
 ```
