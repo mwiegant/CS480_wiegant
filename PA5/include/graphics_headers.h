@@ -24,10 +24,36 @@
 
 struct Vertex
 {
+  public:
+
   glm::vec3 vertex;
   glm::vec3 color;
 
   Vertex(glm::vec3 v, glm::vec3 c): vertex(v), color(c) {}
+
 };
+
+/*
+  Vertex::Vertex(glm::vec3 v, glm::vec3 c)
+  : vertex(v), color(c)
+  {
+
+  }
+
+  Vertex::~Vertex()
+  {
+
+  }
+
+  void Vertex::setVertex(glm::vec3 V)
+  {
+   vertex = V;
+  }
+
+  void Vertex::setColor(glm::vec3 C)
+  {
+   color = C;
+  }
+*/
 
 #endif /* GRAPHICS_HEADERS_H */

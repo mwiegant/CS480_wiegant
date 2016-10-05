@@ -48,14 +48,12 @@ bool Graphics::Initialize(int width, int height, const char* modelPath)
   objects.push_back( new Object((char *) "planet") );
 //  objects.push_back( new Object((char *) "moon") );
 
-  //todo - remove after we finish testing
-  std::cout << "I am in the engine Initialize function!!!!" << std::endl;
-
   // Set up the object
   if(!objects[0]->Initialize(modelPath))
   {
     printf("Model failed to load model from %s\n", modelPath);
     printf("Model failed to Initialize\n");
+    return false;
   }
 
   // Set up the shaders
@@ -204,11 +202,6 @@ void Graphics::Update(unsigned int dt)
   // planet update
   objects[0]->Update( dt, model );
 
-  // update model with the model from the planet
-  model = objects[0]->GetModel();
-
-  // moon update
-  objects[1]->Update( dt, model );
 }
 
 void Graphics::Render()
@@ -228,11 +221,9 @@ void Graphics::Render()
   glUniformMatrix4fv(m_viewMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetView())); 
 
   // Render the object
-  for( int i = 0; i < objects.size(); i++ )
-  {
-    glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr( objects[i]->GetModel() ));
-    objects[i]->Render();
-  }
+    glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr( objects[0]->GetModel() ));
+    objects[0]->Render();
+
 
   // Get any errors from OpenGL
   auto error = glGetError();

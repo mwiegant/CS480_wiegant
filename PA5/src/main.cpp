@@ -17,11 +17,8 @@ int main(int argc, char **argv)
 
 //  filename = argv[2];
 
-  //todo - remove after we finish testing
-  std::cout << "ADIOS MOTHER FUCKER!!!!" << std::endl;
-
   // Start an engine and run it then cleanup after
-  Engine *engine = new Engine("Max Wiegant -- Computer Graphics", 800, 600);
+  Engine *engine = new Engine("Cactus Coolers -- Computer Graphics", 800, 600);
   if(!engine->Initialize("omg this is a filename"))
   {
     printf("The engine failed to start.\n");

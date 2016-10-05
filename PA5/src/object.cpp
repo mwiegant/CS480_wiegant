@@ -61,13 +61,16 @@ Object::Object(char* objectName)
 //    Indices[i] = Indices[i] - 1;
 //  }
 //
-//  glGenBuffers(1, &VB);
-//  glBindBuffer(GL_ARRAY_BUFFER, VB);
-//  glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * Vertices.size(), &Vertices[0], GL_STATIC_DRAW);
+
+/*
+  glGenBuffers(1, &VB);
+  glBindBuffer(GL_ARRAY_BUFFER, VB);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * Vertices.size(), &Vertices[0], GL_STATIC_DRAW);
 //
-//  glGenBuffers(1, &IB);
-//  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IB);
-//  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * Indices.size(), &Indices[0], GL_STATIC_DRAW);
+  glGenBuffers(1, &IB);
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IB);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * Indices.size(), &Indices[0], GL_STATIC_DRAW);
+*/
 
   // Set object name
   name = objectName;
@@ -102,55 +105,42 @@ bool Object::Initialize(const char* _filePath)
 {
   std::string filePath = "models/chair.obj";
 
-  std::cout << "hard-coded filePath: " << filePath.c_str() << std::endl;
+  int numFaces = 0;
 
   Assimp::Importer importer;
   const aiScene *myScene = importer.ReadFile( filePath, aiProcess_Triangulate);
+
+  aiMesh* meshOne = myScene->mMeshes[0];
+
+  unsigned int * mIndices = &Indices[0];
 
   glm::vec3 color = glm::vec3(0.5f, 0.2f, 0.0f);
   aiVector3D aiVector;
   unsigned int index;
 
-//  Assimp::Importer
-
-//  Assimp::aiMesh* theAiMesh = aiScene->mMeshes[0]
-
-//   Assimp::aiVector3D aiVertices = myScene->mMeshes[0]->mVertices
-
-  std::cout << "after reading in the file..." << std::endl;
-
   // {<position>}, {<color>}
 
-  // SHOULD get all our vertices
-//  for(int i = 0; i < myScene->mMeshes[0]->mVertices->Length(); i++ )
-  for(int i = 0; i < myScene->mMeshes[0]->mNumVertices; i++ )
+  for( int i = 0; i < meshOne->mNumFaces; i++ )
   {
-    aiVector = myScene->mMeshes[0]->mVertices[i];
+    const aiFace& thisFace = meshOne->mFaces[i];
 
-    Vertices.push_back( { glm::vec3(aiVector.x, aiVector.y, aiVector.z), color } );
-  }
-
-  std::cout << "after reading in the vertices..." << std::endl;
-
-  // get indices
-  for(int i = 0; i < myScene->mMeshes[0]->mNumFaces; i++ )
-  {
-    for(int j = 0; j < myScene->mMeshes[0]->mFaces[i].mNumIndices; j++)
+    for( int j = 0; j < 3; j++ )
     {
-      index = myScene->mMeshes[0]->mFaces[i].mIndices[j];
+      
+      //get the indices
+      index = thisFace.mIndices[j];
+      Indices.push_back( index );
 
-      Indices.push_back( index - 1 );
+      //get the vertices
+      aiVector = meshOne->mVertices[thisFace.mIndices[j]];
+      Vertex *temp = new Vertex( glm::vec3(aiVector.x, aiVector.y, aiVector.z), color);
+      Vertices.push_back( *temp );
+
     }
+
   }
 
-  std::cout << "after reading in the indices..." << std::endl;
 
-  //  // The index works at a 0th index
-//  for(unsigned int i = 0; i < Indices.size(); i++)
-//  {
-//    Indices[i] = Indices[i] - 1;
-//  }
-//
   glGenBuffers(1, &VB);
   glBindBuffer(GL_ARRAY_BUFFER, VB);
   glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * Vertices.size(), &Vertices[0], GL_STATIC_DRAW);
@@ -158,8 +148,6 @@ bool Object::Initialize(const char* _filePath)
   glGenBuffers(1, &IB);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IB);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * Indices.size(), &Indices[0], GL_STATIC_DRAW);
-
-  std::cout << "before returning true from object Initialize..." << std::endl;
 
   return true;
 }
@@ -201,12 +189,6 @@ void Object::drawCube(glm::mat4 systemModel)
   model = glm::rotate(systemModel, (orbitAngle), spinAxisVector);
   model = glm::translate(model, orbitVector);
   model *= glm::rotate(glm::mat4(1.0f), (spinAngle), spinAxisVector);
-
-  // only scale the moon
-  if( strncmp(name, "moon", 4) == 0)
-  {
-    model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
-  }
 
 }
 
@@ -250,7 +232,6 @@ void Object::InvertOrbitDirection()
 
 void Object::Render()
 {
-  std::cout << "before rendering..." << std::endl;
 
   glEnableVertexAttribArray(0);
   glEnableVertexAttribArray(1);
@@ -265,7 +246,27 @@ void Object::Render()
 
   glDisableVertexAttribArray(0);
   glDisableVertexAttribArray(1);
-
-  std::cout << "after rendering..." << std::endl;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
