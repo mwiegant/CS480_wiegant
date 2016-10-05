@@ -15,11 +15,11 @@ int main(int argc, char **argv)
     return -1;
   }
 
-//  filename = argv[2];
+  filename = argv[1];
 
   // Start an engine and run it then cleanup after
   Engine *engine = new Engine("Cactus Coolers -- Computer Graphics", 800, 600);
-  if(!engine->Initialize("omg this is a filename"))
+  if(!engine->Initialize(filename.c_str()))
   {
     printf("The engine failed to start.\n");
     delete engine;

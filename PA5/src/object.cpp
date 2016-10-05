@@ -101,9 +101,8 @@ Object::~Object()
   Indices.clear();
 }
 
-bool Object::Initialize(const char* _filePath)
+bool Object::Initialize(const char* filePath)
 {
-  std::string filePath = "models/chair.obj";
 
   int numFaces = 0;
 
@@ -112,7 +111,7 @@ bool Object::Initialize(const char* _filePath)
 
   aiMesh* meshOne = myScene->mMeshes[0];
 
-  unsigned int * mIndices = &Indices[0];
+  unsigned int* mIndices = &Indices[0];
 
   glm::vec3 color = glm::vec3(0.5f, 0.2f, 0.0f);
   aiVector3D aiVector;
