@@ -100,12 +100,12 @@ Object::~Object()
 
 bool Object::Initialize(const char* _filePath)
 {
-  std::string filePath = "../models/chair.obj";
+  std::string filePath = "models/chair.obj";
 
   std::cout << "hard-coded filePath: " << filePath.c_str() << std::endl;
 
   Assimp::Importer importer;
-  const aiScene *myScene = importer.ReadFile( filePath.c_str(), aiProcess_Triangulate);
+  const aiScene *myScene = importer.ReadFile( filePath, aiProcess_Triangulate);
 
   glm::vec3 color = glm::vec3(0.5f, 0.2f, 0.0f);
   aiVector3D aiVector;
@@ -250,6 +250,8 @@ void Object::InvertOrbitDirection()
 
 void Object::Render()
 {
+  std::cout << "before rendering..." << std::endl;
+
   glEnableVertexAttribArray(0);
   glEnableVertexAttribArray(1);
 
@@ -263,5 +265,7 @@ void Object::Render()
 
   glDisableVertexAttribArray(0);
   glDisableVertexAttribArray(1);
+
+  std::cout << "after rendering..." << std::endl;
 }
 
