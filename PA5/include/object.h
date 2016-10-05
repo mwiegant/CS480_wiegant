@@ -5,6 +5,11 @@
 #include <string>
 #include "graphics_headers.h"
 
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+#include <assimp/color4.h>
+
 class Object
 {
   public:
