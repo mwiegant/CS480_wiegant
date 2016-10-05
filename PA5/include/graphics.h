@@ -17,7 +17,7 @@ class Graphics
   public:
     Graphics();
     ~Graphics();
-    bool Initialize(int width, int height);
+    bool Initialize(int width, int height, const char* modelPath);
     void Update(unsigned int dt);
     void Render();
 
@@ -37,7 +37,7 @@ class Graphics
     GLint m_viewMatrix;
     GLint m_modelMatrix;
 
-//    Object *m_cube;
+    char* modelPath;
     vector<Object *> objects;
 };
 

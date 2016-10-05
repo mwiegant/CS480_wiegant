@@ -28,7 +28,7 @@ Engine::~Engine()
   m_graphics = NULL;
 }
 
-bool Engine::Initialize()
+bool Engine::Initialize(const char* modelPath)
 {
   // Start a window
   m_window = new Window();
@@ -40,7 +40,7 @@ bool Engine::Initialize()
 
   // Start the graphics
   m_graphics = new Graphics();
-  if(!m_graphics->Initialize(m_WINDOW_WIDTH, m_WINDOW_HEIGHT))
+  if(!m_graphics->Initialize(m_WINDOW_WIDTH, m_WINDOW_HEIGHT, modelPath))
   {
     printf("The graphics failed to initialize.\n");
     return false;

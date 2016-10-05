@@ -10,7 +10,7 @@ Graphics::~Graphics()
 
 }
 
-bool Graphics::Initialize(int width, int height)
+bool Graphics::Initialize(int width, int height, const char* modelPath)
 {
   // Used for the linux OS
   #if !defined(__APPLE__) && !defined(MACOSX)
@@ -46,7 +46,14 @@ bool Graphics::Initialize(int width, int height)
 
   // Create the object
   objects.push_back( new Object((char *) "planet") );
-  objects.push_back( new Object((char *) "moon") );
+//  objects.push_back( new Object((char *) "moon") );
+
+  // Set up the object
+  if(!objects[0]->Initialize(modelPath))
+  {
+    printf("Model failed to load model from %s\n", modelPath);
+    printf("Model failed to Initialize\n");
+  }
 
   // Set up the shaders
   m_shader = new Shader();

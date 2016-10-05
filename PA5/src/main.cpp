@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 #include "engine.h"
 
@@ -6,9 +7,18 @@
 
 int main(int argc, char **argv)
 {
+  std::string* filename;
+
+  if( argc < 2 )
+  {
+    cout << "Error - please pass filepath to the model after the executable name" << endl;
+  }
+
+  filename = new std::string(argv[2]);
+
   // Start an engine and run it then cleanup after
   Engine *engine = new Engine("Max Wiegant -- Computer Graphics", 800, 600);
-  if(!engine->Initialize())
+  if(!engine->Initialize(filename->c_str()))
   {
     printf("The engine failed to start.\n");
     delete engine;

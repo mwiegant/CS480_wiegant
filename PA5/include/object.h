@@ -18,6 +18,8 @@ class Object
     void Update(unsigned int dt, glm::mat4 systemModel);
     void Render();
 
+    bool Initialize(const char* filePath);
+
     // Getters
     glm::mat4 GetModel();
     char* GetName();

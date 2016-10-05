@@ -13,7 +13,7 @@ class Engine
     Engine(string name, int width, int height);
     Engine(string name);
     ~Engine();
-    bool Initialize();
+    bool Initialize(const char* modelPath);
     void Run();
     void Keyboard();
     void Mouse();
@@ -37,6 +37,9 @@ class Engine
 
     // For determining which object keyboard input should affect
     char* focusedObject;
+
+    // For specifying path to the model
+    char* modelPath;
 };
 
 #endif // ENGINE_H
