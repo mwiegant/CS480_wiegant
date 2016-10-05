@@ -100,7 +100,9 @@ Object::~Object()
 
 bool Object::Initialize(const char* _filePath)
 {
-  std::string filePath = "theFilepath";
+  std::string filePath = "../models/chair.obj";
+
+  std::cout << "hard-coded filePath: " << filePath.c_str() << std::endl;
 
   Assimp::Importer importer;
   const aiScene *myScene = importer.ReadFile( filePath.c_str(), aiProcess_Triangulate);
@@ -115,6 +117,7 @@ bool Object::Initialize(const char* _filePath)
 
 //   Assimp::aiVector3D aiVertices = myScene->mMeshes[0]->mVertices
 
+  std::cout << "after reading in the file..." << std::endl;
 
   // {<position>}, {<color>}
 
@@ -127,6 +130,8 @@ bool Object::Initialize(const char* _filePath)
     Vertices.push_back( { glm::vec3(aiVector.x, aiVector.y, aiVector.z), color } );
   }
 
+  std::cout << "after reading in the vertices..." << std::endl;
+
   // get indices
   for(int i = 0; i < myScene->mMeshes[0]->mNumFaces; i++ )
   {
@@ -137,6 +142,8 @@ bool Object::Initialize(const char* _filePath)
       Indices.push_back( index - 1 );
     }
   }
+
+  std::cout << "after reading in the indices..." << std::endl;
 
   //  // The index works at a 0th index
 //  for(unsigned int i = 0; i < Indices.size(); i++)
@@ -151,6 +158,8 @@ bool Object::Initialize(const char* _filePath)
   glGenBuffers(1, &IB);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IB);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * Indices.size(), &Indices[0], GL_STATIC_DRAW);
+
+  std::cout << "before returning true from object Initialize..." << std::endl;
 
   return true;
 }

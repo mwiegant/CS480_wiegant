@@ -38,6 +38,10 @@ bool Engine::Initialize(const char* modelPath)
     return false;
   }
 
+  //todo - remove after we finish testing
+  std::cout << "I am in the engine Initialize function!!!!" << std::endl;
+
+
   // Start the graphics
   m_graphics = new Graphics();
   if(!m_graphics->Initialize(m_WINDOW_WIDTH, m_WINDOW_HEIGHT, modelPath))

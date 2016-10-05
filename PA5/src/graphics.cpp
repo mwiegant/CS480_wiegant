@@ -48,6 +48,9 @@ bool Graphics::Initialize(int width, int height, const char* modelPath)
   objects.push_back( new Object((char *) "planet") );
 //  objects.push_back( new Object((char *) "moon") );
 
+  //todo - remove after we finish testing
+  std::cout << "I am in the engine Initialize function!!!!" << std::endl;
+
   // Set up the object
   if(!objects[0]->Initialize(modelPath))
   {

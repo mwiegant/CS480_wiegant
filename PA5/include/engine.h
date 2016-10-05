@@ -4,6 +4,9 @@
 #include <sys/time.h>
 #include <assert.h>
 
+//todo - remove after we finish testing
+#include <iostream>
+
 #include "window.h"
 #include "graphics.h"
 

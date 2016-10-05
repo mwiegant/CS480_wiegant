@@ -5,6 +5,9 @@
 #include <string>
 #include "graphics_headers.h"
 
+//todo - remove after we finish testing
+#include <iostream>
+
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>

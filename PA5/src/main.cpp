@@ -7,7 +7,7 @@
 
 int main(int argc, char **argv)
 {
-  std::string* filename;
+  std::string filename;
 
   if( argc < 2 )
   {
@@ -15,11 +15,14 @@ int main(int argc, char **argv)
     return -1;
   }
 
-  //filename = new std::string(argv[2]);
+//  filename = argv[2];
+
+  //todo - remove after we finish testing
+  std::cout << "ADIOS MOTHER FUCKER!!!!" << std::endl;
 
   // Start an engine and run it then cleanup after
   Engine *engine = new Engine("Max Wiegant -- Computer Graphics", 800, 600);
-  if(!engine->Initialize(filename->c_str()))
+  if(!engine->Initialize("omg this is a filename"))
   {
     printf("The engine failed to start.\n");
     delete engine;
