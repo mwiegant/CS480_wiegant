@@ -12,9 +12,10 @@ int main(int argc, char **argv)
   if( argc < 2 )
   {
     cout << "Error - please pass filepath to the model after the executable name" << endl;
+    return -1;
   }
 
-  filename = new std::string(argv[2]);
+  //filename = new std::string(argv[2]);
 
   // Start an engine and run it then cleanup after
   Engine *engine = new Engine("Max Wiegant -- Computer Graphics", 800, 600);
