@@ -1,0 +1,6 @@
+Body: moon
+Orbits around: earth
+Translation Axis: 2.0, 0.0, 0.0
+Translation speed: 1.6
+Rotation Axis: 1.0, 0.5, 0.0
+Rotation speed: 1.0

@@ -1,0 +1,6 @@
+Body: earth
+Orbits around: sun
+Translation Axis: 8.0, 0.0, 0.0
+Translation speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
