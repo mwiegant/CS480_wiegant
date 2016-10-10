@@ -1,5 +1,7 @@
 Body: moon
-Orbits around: earth
+Model: models/moon.obj
+Texture: textures/moon.jpg
+Scale: 1.0
 Translation Axis: 2.0, 0.0, 0.0
 Translation speed: 1.6
 Rotation Axis: 1.0, 0.5, 0.0
