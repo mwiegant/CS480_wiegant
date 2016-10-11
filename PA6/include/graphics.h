@@ -17,7 +17,7 @@ class Graphics
   public:
     Graphics();
     ~Graphics();
-    bool Initialize(int width, int height, const char* modelPath);
+    bool Initialize(int width, int height);
     void Update(unsigned int dt);
     void Render();
 

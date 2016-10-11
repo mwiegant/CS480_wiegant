@@ -16,7 +16,7 @@ class Engine
     Engine(string name, int width, int height);
     Engine(string name);
     ~Engine();
-    bool Initialize(const char* modelPath);
+    bool Initialize();
     void Run();
     void Keyboard();
     void Mouse();

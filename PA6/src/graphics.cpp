@@ -10,7 +10,7 @@ Graphics::~Graphics()
 
 }
 
-bool Graphics::Initialize(int width, int height, const char* modelPath)
+bool Graphics::Initialize(int width, int height)
 {
   // Used for the linux OS
   #if !defined(__APPLE__) && !defined(MACOSX)
@@ -56,7 +56,6 @@ bool Graphics::Initialize(int width, int height, const char* modelPath)
   // Set up the object
   if(!objects[0]->Initialize())
   {
-    printf("Model failed to load model from %s\n", modelPath);
     printf("Model failed to Initialize\n");
     return false;
   }
