@@ -3,10 +3,8 @@
 
 #include <vector>
 #include <string>
+#include <cstdio>
 #include "graphics_headers.h"
-
-//todo - remove after we finish testing
-#include <iostream>
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
@@ -16,12 +14,13 @@
 class Object
 {
   public:
-    Object(char* objectName);
+//    Object(char* objectName); // todo - depricate this constructor
+    Object(char* configFilePath);  // todo - implement this constructor
     ~Object();
     void Update(unsigned int dt, glm::mat4 systemModel);
     void Render();
 
-    bool Initialize(const char* filePath);
+    bool Initialize();
 
     // Getters
     glm::mat4 GetModel();
@@ -33,7 +32,14 @@ class Object
     void InvertSpinDirection();
     void InvertOrbitDirection();
 
+    void AddSatellite(Object* satellite);
+
   private:
+
+    bool ReadConfig();
+    bool InitializeModel();
+
+    // Update functions
     void updateAngles(unsigned int dt);
     void drawCube(glm::mat4 matrix);
 
@@ -46,6 +52,10 @@ class Object
 
     // Unique Identifier
     char* name;
+
+    // Path names
+    char* configFilePath;
+    char* modelFilePath;
 
     // Spin variables
     float spinAngle;
@@ -60,6 +70,9 @@ class Object
     bool orbitEnabled;
     int orbitDirection;
     glm::vec3 orbitVector;
+
+    // For objects that orbit around this object
+    std::vector<Object *> satellites;
 };
 
 #endif /* OBJECT_H */

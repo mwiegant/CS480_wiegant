@@ -45,11 +45,16 @@ bool Graphics::Initialize(int width, int height, const char* modelPath)
   }
 
   // Create the object
-  objects.push_back( new Object((char *) "planet") );
-//  objects.push_back( new Object((char *) "moon") );
+  Object* Earth = new Object( (char*) "config/earth.txt" );
+
+  // Set up root object
+  objects.push_back(Earth);
+
+  // Set up children
+//  Earth->AddSatellite(new Object( (char*) "config/moon.txt" ));
 
   // Set up the object
-  if(!objects[0]->Initialize(modelPath))
+  if(!objects[0]->Initialize())
   {
     printf("Model failed to load model from %s\n", modelPath);
     printf("Model failed to Initialize\n");
