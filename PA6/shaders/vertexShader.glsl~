@@ -3,7 +3,7 @@
 layout (location = 0) in vec3 v_position;
 layout (location = 1) in vec2 v_color;
 
-smooth out vec2 color;
+varying out vec2 color;
 
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;

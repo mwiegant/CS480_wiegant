@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-//#include <Magick++.h>
+#include <Magick++.h>
 
 #include "engine.h"
 
@@ -18,7 +18,7 @@ int main(int argc, char **argv)
   }
 
   filename = argv[1];
-  //InitializeMagick(*argv);
+  InitializeMagick(*argv);
 
   // Start an engine and run it then cleanup after
   Engine *engine = new Engine("Cactus Coolers -- Computer Graphics", 800, 600);

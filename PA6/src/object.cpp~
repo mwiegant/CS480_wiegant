@@ -44,7 +44,7 @@ bool Object::Initialize(const char* filePath)
   unsigned int index;
 
   //TODO: initalize image loading with magick++
-
+SOIL_load_image();
   //initialze textures
   glGenTextures(1, &aTexture);
   glActiveTexture(GL_TEXTURE0);
