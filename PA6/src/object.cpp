@@ -44,13 +44,17 @@ bool Object::Initialize(const char* filePath)
   unsigned int index;
 
   //TODO: initalize image loading with magick++
+  Magick::Image texture(".jpg");
+  
 
   //initialze textures
   glGenTextures(1, &aTexture);
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, aTexture);
 
-  //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+  //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture.geometry.width, texture.geometry.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
+  //imageData needs to be calculated by using texture.getPixels(x,y,columns,rows)
+
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
@@ -173,12 +177,14 @@ void Object::InvertOrbitDirection()
 
 void Object::Render()
 {
+  //TODO: render texture
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, aTexture);
 
   glEnableVertexAttribArray(0);
   glEnableVertexAttribArray(1);
   //glEnableVertexAttribArray(&aTexture);
+  //glVertexAttribPointer(texture format);
 
   glBindBuffer(GL_ARRAY_BUFFER, VB);
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
@@ -190,7 +196,7 @@ void Object::Render()
 
   glDisableVertexAttribArray(0);
   glDisableVertexAttribArray(1);
- // glDisableVertexAttribArray();
+ //glDisableVertexAttribArray(&aTexture);
 }
 
 
