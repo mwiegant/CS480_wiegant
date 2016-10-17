@@ -1,0 +1,192 @@
+# Solar System
+
+# Sun
+Object: object
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+# Mercury
+Object: object
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+# Venus
+Object: object
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+# Earth
+Object: object
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+# Moon
+Object: object
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+# Mars
+Object: object
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+#
+Object: object
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+#
+Object: object
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+#
+Object: object
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+#
+Object: object
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+#
+Object: object
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+#
+Object: object
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+#
+Object: object
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+#
+Object: object
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+#
+Object: object
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+#
+Object: object
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+#
+Object: object
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+#
+Object: object
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+#
+Object: object
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+#
+Object: object
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+#
+Object: object
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+
