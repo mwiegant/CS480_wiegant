@@ -1,11 +1,10 @@
 #version 330
           
-uniform sampler2D gSampler;
-smooth in vec2 color; 
+smooth in vec3 color;
 
-out vec4 frag_color; 
+out vec4 frag_color;
 
-void main(void) 
-{ 
-   frag_color = texture2D(gSampler, color.xy); 
+void main(void)
+{
+   frag_color = vec4(color.rgb, 1.0);
 } 

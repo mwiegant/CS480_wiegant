@@ -67,6 +67,7 @@ bool Object::Initialize()
 
 
   if(!InitializeModel())
+  {
     std::printf("failed to load model from path: %s", modelFilePath);
     return false;
   }
@@ -75,8 +76,11 @@ bool Object::Initialize()
   for( int i = 0; i < satellites.size(); i++ )
   {
     if(!satellites[i]->Initialize())
+    {
       std::printf("Model failed to Initialize\n");
       return false;
+    }
+
   }
 
   return true;
@@ -193,30 +197,14 @@ bool Object::InitializeModel()
 {
   Assimp::Importer importer;
   const aiScene *myScene = importer.ReadFile( modelFilePath, aiProcess_Triangulate);
-  //glm::vec3 color = glm::vec3(0.5f, 0.2f, 0.0f);
-  aiVector3D aiVector;
-  aiVector3D aiUV;
-  unsigned int index;
-
-  //TODO: initalize image loading with magick++
-  Magick::Image texture(".jpg");
-
-  //initialze textures
-  glGenTextures(1, &aTexture);
-  glActiveTexture(GL_TEXTURE0);
-  glBindTexture(GL_TEXTURE_2D, aTexture);
-
-  //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture.geometry.width, texture.geometry.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
-  //imageData needs to be calculated by using texture.getPixels(x,y,columns,rows)
-
-  glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-  glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
   aiMesh* meshOne = myScene->mMeshes[0];
 
   glm::vec3 color = glm::vec3(0.5f, 0.2f, 0.0f);
   aiVector3D aiVector;
   unsigned int index;
+
+
 
   // load the models and the vertices
   for( int i = 0; i < meshOne->mNumFaces; i++ )
@@ -255,19 +243,12 @@ bool Object::InitializeModel()
 
 void Object::Render()
 {
-  //TODO: render texture
-  glActiveTexture(GL_TEXTURE0);
-  glBindTexture(GL_TEXTURE_2D, aTexture);
-
   glEnableVertexAttribArray(0);
   glEnableVertexAttribArray(1);
-  //glEnableVertexAttribArray(&aTexture);
-  //glVertexAttribPointer(texture format);
 
   glBindBuffer(GL_ARRAY_BUFFER, VB);
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
   glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex,color));
-//  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex,uv));
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IB);
 
@@ -275,7 +256,6 @@ void Object::Render()
 
   glDisableVertexAttribArray(0);
   glDisableVertexAttribArray(1);
- //glDisableVertexAttribArray(&aTexture);
 }
 
 

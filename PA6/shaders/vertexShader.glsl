@@ -1,9 +1,9 @@
 #version 330
 
 layout (location = 0) in vec3 v_position;
-layout (location = 1) in vec2 v_color;
+layout (location = 1) in vec3 v_color;
 
-smooth out vec2 color;
+smooth out vec3 color;
 
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
