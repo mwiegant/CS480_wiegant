@@ -1,7 +1,9 @@
-# Solar System
+# Solar System Config File
+
+# A total of 19 objects in our solar system
 
 # Sun
-Object: object
+Object: sun
 Texture: textures/object.jpg
 Scale: 1.0
 Orbit Axis: 1.0, 0.0, 0.0
@@ -10,7 +12,7 @@ Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
 # Mercury
-Object: object
+Object: mercury
 Texture: textures/object.jpg
 Scale: 1.0
 Orbit Axis: 1.0, 0.0, 0.0
@@ -19,7 +21,7 @@ Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
 # Venus
-Object: object
+Object: venus
 Texture: textures/object.jpg
 Scale: 1.0
 Orbit Axis: 1.0, 0.0, 0.0
@@ -28,7 +30,7 @@ Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
 # Earth
-Object: object
+Object: earth
 Texture: textures/object.jpg
 Scale: 1.0
 Orbit Axis: 1.0, 0.0, 0.0
@@ -37,7 +39,7 @@ Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
 # Moon
-Object: object
+Object: moon
 Texture: textures/object.jpg
 Scale: 1.0
 Orbit Axis: 1.0, 0.0, 0.0
@@ -46,7 +48,7 @@ Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
 # Mars
-Object: object
+Object: mars
 Texture: textures/object.jpg
 Scale: 1.0
 Orbit Axis: 1.0, 0.0, 0.0
@@ -54,8 +56,8 @@ Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
-#
-Object: object
+# Jupiter
+Object: jupiter
 Texture: textures/object.jpg
 Scale: 1.0
 Orbit Axis: 1.0, 0.0, 0.0
@@ -63,8 +65,8 @@ Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
-#
-Object: object
+# Jupiter's Moon Europa
+Object: europa
 Texture: textures/object.jpg
 Scale: 1.0
 Orbit Axis: 1.0, 0.0, 0.0
@@ -72,8 +74,8 @@ Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
-#
-Object: object
+# Jupiter's Moon Ganymede
+Object: ganymede
 Texture: textures/object.jpg
 Scale: 1.0
 Orbit Axis: 1.0, 0.0, 0.0
@@ -81,8 +83,8 @@ Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
-#
-Object: object
+# Jupiter's Moon Castillo
+Object: castillo
 Texture: textures/object.jpg
 Scale: 1.0
 Orbit Axis: 1.0, 0.0, 0.0
@@ -90,8 +92,8 @@ Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
-#
-Object: object
+# Jupiter's Moon Io
+Object: io
 Texture: textures/object.jpg
 Scale: 1.0
 Orbit Axis: 1.0, 0.0, 0.0
@@ -99,8 +101,8 @@ Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
-#
-Object: object
+# Saturn
+Object: saturn
 Texture: textures/object.jpg
 Scale: 1.0
 Orbit Axis: 1.0, 0.0, 0.0
@@ -108,8 +110,8 @@ Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
-#
-Object: object
+# Saturn's Moon Titan
+Object: titan
 Texture: textures/object.jpg
 Scale: 1.0
 Orbit Axis: 1.0, 0.0, 0.0
@@ -117,8 +119,8 @@ Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
-#
-Object: object
+# Saturn's Moon Enceladus
+Object: enceladus
 Texture: textures/object.jpg
 Scale: 1.0
 Orbit Axis: 1.0, 0.0, 0.0
@@ -126,8 +128,8 @@ Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
-#
-Object: object
+# Uranus
+Object: uranus
 Texture: textures/object.jpg
 Scale: 1.0
 Orbit Axis: 1.0, 0.0, 0.0
@@ -135,8 +137,8 @@ Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
-#
-Object: object
+# Uranus's Moon Titania
+Object: titania
 Texture: textures/object.jpg
 Scale: 1.0
 Orbit Axis: 1.0, 0.0, 0.0
@@ -144,8 +146,8 @@ Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
-#
-Object: object
+# Neptune
+Object: neptune
 Texture: textures/object.jpg
 Scale: 1.0
 Orbit Axis: 1.0, 0.0, 0.0
@@ -153,8 +155,8 @@ Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
-#
-Object: object
+# Neptune's Moon Triton
+Object: triton
 Texture: textures/object.jpg
 Scale: 1.0
 Orbit Axis: 1.0, 0.0, 0.0
@@ -162,31 +164,11 @@ Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
-#
-Object: object
+# Pluto
+Object: pluto
 Texture: textures/object.jpg
 Scale: 1.0
 Orbit Axis: 1.0, 0.0, 0.0
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
-
-#
-Object: object
-Texture: textures/object.jpg
-Scale: 1.0
-Orbit Axis: 1.0, 0.0, 0.0
-Orbit speed: 1.0
-Rotation Axis: 0.0, 1.0, 0.0
-Rotation speed: 1.0
-
-#
-Object: object
-Texture: textures/object.jpg
-Scale: 1.0
-Orbit Axis: 1.0, 0.0, 0.0
-Orbit speed: 1.0
-Rotation Axis: 0.0, 1.0, 0.0
-Rotation speed: 1.0
-
-
