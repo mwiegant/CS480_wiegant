@@ -21,13 +21,9 @@ class Graphics
     void Update(unsigned int dt);
     void Render();
 
-    // methods for object interaction
-    bool toggleObjectSpin(char* objectName);
-    bool invertObjectSpin(char* objectName);
-    bool toggleObjectOrbit(char* objectName);
-    bool invertObjectOrbit(char* objectName);
-
   private:
+    bool InitializeObjects();
+
     std::string ErrorString(GLenum error);
 
     Camera *m_camera;
@@ -38,7 +34,7 @@ class Graphics
     GLint m_modelMatrix;
 
     char* modelPath;
-    vector<Object *> objects;
+    Object* Sun;
     vector<Object *> masterList;
 };
 

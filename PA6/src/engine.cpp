@@ -141,6 +141,7 @@ void Engine::Keyboard()
     // -----------------------------------------------
 
     // todo - re-implement object focus
+/*
     // handle w - toggle cube spin
     else if( m_event.key.keysym.sym == SDLK_w )
     {
@@ -161,6 +162,7 @@ void Engine::Keyboard()
     {
       m_graphics->invertObjectOrbit(focusedObject);
     }
+*/
   }
 }
 
@@ -170,10 +172,13 @@ void Engine::Mouse()
   if( m_event.type == SDL_MOUSEBUTTONDOWN )
   {
 
+/*
     if( m_event.button.button == SDL_BUTTON_LEFT )
     {
       m_graphics->toggleObjectOrbit(focusedObject);
     }
+*/
+
   }
 }
 
