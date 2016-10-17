@@ -4,11 +4,9 @@
 #include <sys/time.h>
 #include <assert.h>
 
-//todo - remove after we finish testing
-#include <iostream>
-
 #include "window.h"
 #include "graphics.h"
+#include "graphics_headers.h"
 
 class Engine
 {
@@ -38,6 +36,7 @@ class Engine
     long long m_currentTimeMillis;
     bool m_running;
 
+    // todo - repurpose this variable for solar system project
     // For determining which object keyboard input should affect
     char* focusedObject;
 
