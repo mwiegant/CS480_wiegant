@@ -34,6 +34,24 @@ struct Vertex
 };
 
 /*
+ * We may end up not using this enum, but I've included it here
+ * in case we would like to zoom in on a planet, or do something
+ * like that
+ */
+enum System
+{
+    SOLAR_SYSTEM,
+    MERCURY_SYSTEM,
+    VENUS_SYSTEM,
+    EARTH_SYSTEM,
+    MARS_SYSTEM,
+    JUPITER_SYSTEM,
+    SATURN_SYSTEM,
+    URANUS_SYSTEM,
+    NEPTUNE_SYSTEM
+};
+
+/*
   Vertex::Vertex(glm::vec3 v, glm::vec3 c)
   : vertex(v), color(c)
   {
