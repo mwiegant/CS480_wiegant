@@ -39,6 +39,7 @@ class Graphics
 
     char* modelPath;
     vector<Object *> objects;
+    vector<Object *> masterList;
 };
 
 #endif /* GRAPHICS_H */

@@ -25,19 +25,19 @@
 //
 //}
 
-Object::Object(char* configFilePath)
+Object::Object(glm::vec3 _orbitVector)
 {
 
   // these things get updated from the config file
-  name = (char*) "foo";
+  name = (char*) "planet";
   spinAxisVector = glm::vec3(0.0, 1.0, 0.0);
-  orbitVector = glm::vec3(5.0, 0.0, 0.0);
+  orbitVector = _orbitVector;
 
   // these things always have their value
   spinAngle = 0.0f;
   orbitAngle = 0.0f;
-  spinAngleDivisor = 1000;
-  orbitAngleDivisor = 1000;
+  spinAngleDivisor = 4000;
+  orbitAngleDivisor = 4000;
 
   // Set flags for spinning and orbiting
   spinEnabled = true;
@@ -57,7 +57,7 @@ Object::~Object()
 
 bool Object::Initialize()
 {
-  modelFilePath = (char*) "models/chair.obj";
+  modelFilePath = (char*) "models/sphere.obj";
 
 //  if(!ReadConfig())
 //  {
@@ -69,6 +69,16 @@ bool Object::Initialize()
   {
     std::printf("failed to load model from path: %s", modelFilePath);
     return false;
+  }
+
+  // initialize all satellites that this object may have
+  for( int i = 0; i < satellites.size(); i++ )
+  {
+    if(!satellites[i]->Initialize())
+    {
+      std::printf("Model failed to Initialize\n");
+      return false;
+    }
   }
 
   return true;
@@ -84,8 +94,10 @@ void Object::Update(unsigned int dt, glm::mat4 systemModel)
   drawCube(systemModel);
 
   // call update on each of the children
-
-
+  for( int i = 0; i < satellites.size(); i++ )
+  {
+    satellites[i]->Update(dt, model );
+  }
 
 }
 
@@ -116,7 +128,6 @@ void Object::drawCube(glm::mat4 systemModel)
   model = glm::rotate(systemModel, (orbitAngle), spinAxisVector);
   model = glm::translate(model, orbitVector);
   model *= glm::rotate(glm::mat4(1.0f), (spinAngle), spinAxisVector);
-
 }
 
 glm::mat4 Object::GetModel()

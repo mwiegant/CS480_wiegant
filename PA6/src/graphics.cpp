@@ -7,7 +7,7 @@ Graphics::Graphics()
 
 Graphics::~Graphics()
 {
-
+  // todo - deallocate space for objects vector
 }
 
 bool Graphics::Initialize(int width, int height)
@@ -44,14 +44,28 @@ bool Graphics::Initialize(int width, int height)
     return false;
   }
 
-  // Create the object
-  Object* Earth = new Object( (char*) "config/earth.txt" );
+  // Create planetary objects
+  Object* Sun = new Object( glm::vec3(0.0, 0.0, 0.0) );
+  Object* Mercury = new Object( glm::vec3(2.0, 0.6, 1.0) );
+  Object* Venus = new Object( glm::vec3(4.0, 3.0, 2.0) );
+  Object* Earth = new Object( glm::vec3(6.0, 3.0, 1.0) );
 
-  // Set up root object
-  objects.push_back(Earth);
+  // Add sun to object* vector
+  objects.push_back(Sun);
 
-  // Set up children
-//  Earth->AddSatellite(new Object( (char*) "config/moon.txt" ));
+  // All objects that will be rendered must be added to this list
+  masterList.push_back( Sun );
+  masterList.push_back( Mercury );
+  masterList.push_back( Venus );
+  masterList.push_back( Earth );
+
+  // Add planets as satellites
+  Sun->AddSatellite( Mercury );
+  Sun->AddSatellite( Venus );
+  Sun->AddSatellite( Earth );
+
+  // Add moons as satellites
+
 
   // Set up the object
   if(!objects[0]->Initialize())
@@ -197,14 +211,11 @@ void Graphics::Update(unsigned int dt)
 {
   glm::mat4 model = glm::mat4(1.0f);
 
-  /*
-   * The planet doesn't really need model passed to it, but the
-   * moon definitely does, and since they're the same class I'm going
-   * to have to just do things this way
-   */
-
-  // planet update
-  objects[0]->Update( dt, model );
+  // update all objects, since there could be more than one
+  for( int i = 0; i < objects.size(); i++ )
+  {
+    objects[i]->Update(dt, model);
+  }
 
 }
 
@@ -217,16 +228,20 @@ void Graphics::Render()
   // Start the correct program
   m_shader->Enable();
 
-  // Set wireframe mode
-//  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
   // Send in the projection and view to the shader
   glUniformMatrix4fv(m_projectionMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetProjection())); 
   glUniformMatrix4fv(m_viewMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetView())); 
 
+  // Render all objects in the master list
+  for(int i = 0; i < masterList.size(); i++)
+  {
+    glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr( masterList[i]->GetModel() ));
+    masterList[i]->Render();
+  }
+
   // Render the object
-    glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr( objects[0]->GetModel() ));
-    objects[0]->Render();
+//  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr( masterList[1]->GetModel() ));
+//  masterList[1]->Render();
 
 
   // Get any errors from OpenGL

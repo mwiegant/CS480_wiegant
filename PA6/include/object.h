@@ -15,7 +15,7 @@ class Object
 {
   public:
 //    Object(char* objectName); // todo - depricate this constructor
-    Object(char* configFilePath);  // todo - implement this constructor
+    Object(glm::vec3 _orbitVector);
     ~Object();
     void Update(unsigned int dt, glm::mat4 systemModel);
     void Render();
