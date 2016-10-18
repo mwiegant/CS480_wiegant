@@ -12,7 +12,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include <assimp/color4.h>
-//#include <Magick++.h>
+#include <Magick++.h>
 
 class Object
 {

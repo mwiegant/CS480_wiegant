@@ -31,10 +31,10 @@ Object::~Object()
   Indices.clear();
 }
 
-bool Object::Initialize(const char* filePath)
+bool Object::Initialize(const char* _filePath)
 {
   Assimp::Importer importer;
-  const aiScene *myScene = importer.ReadFile( filePath, aiProcess_Triangulate);
+  const aiScene *myScene = importer.ReadFile("models/buddha.obj", aiProcess_Triangulate);
 
   aiMesh* meshOne = myScene->mMeshes[0];
 
@@ -44,15 +44,16 @@ bool Object::Initialize(const char* filePath)
   unsigned int index;
 
   //TODO: initalize image loading with magick++
-  Magick::Image texture(".jpg");
-  
+  Magick::Image* texture = new Magick::Image("models/granite.jpg");
+  Magick::Blob m_blob;
+  texture->write(&m_blob,"RGBA");
 
   //initialze textures
   glGenTextures(1, &aTexture);
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, aTexture);
 
-  //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture.geometry.width, texture.geometry.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture->columns(), texture->rows(), 0, GL_RGBA, GL_UNSIGNED_BYTE, m_blob.data());
   //imageData needs to be calculated by using texture.getPixels(x,y,columns,rows)
 
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -134,7 +135,6 @@ void Object::drawCube(glm::mat4 systemModel)
   model = glm::rotate(systemModel, (orbitAngle), spinAxisVector);
   model = glm::translate(model, orbitVector);
   model *= glm::rotate(glm::mat4(1.0f), (spinAngle), spinAxisVector);
-
 }
 
 glm::mat4 Object::GetModel()
@@ -178,17 +178,20 @@ void Object::InvertOrbitDirection()
 void Object::Render()
 {
   //TODO: render texture
-  glActiveTexture(GL_TEXTURE0);
-  glBindTexture(GL_TEXTURE_2D, aTexture);
+
 
   glEnableVertexAttribArray(0);
   glEnableVertexAttribArray(1);
-  //glEnableVertexAttribArray(&aTexture);
+  glEnableVertexAttribArray(2);
   //glVertexAttribPointer(texture format);
 
   glBindBuffer(GL_ARRAY_BUFFER, VB);
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
   glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex,uv));
+  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*)12);
+
+  glActiveTexture(GL_TEXTURE0);
+  glBindTexture(GL_TEXTURE_2D, aTexture);
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IB);
 
@@ -196,7 +199,7 @@ void Object::Render()
 
   glDisableVertexAttribArray(0);
   glDisableVertexAttribArray(1);
- //glDisableVertexAttribArray(&aTexture);
+ glDisableVertexAttribArray(2);
 }
 
 
