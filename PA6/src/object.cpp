@@ -92,8 +92,8 @@ void Object::Update(unsigned int dt, glm::mat4 systemModel)
   // update angles of rotation
   updateAngles(dt);
 
-  // draw the cube
-  drawCube(systemModel);
+  // draw the object
+  drawObject(systemModel);
 
   // call update on each of the children
   for( int i = 0; i < satellites.size(); i++ )
@@ -125,7 +125,7 @@ void Object::updateAngles(unsigned int dt)
 /*
  * Drawing component of update process
  */
-void Object::drawCube(glm::mat4 systemModel)
+void Object::drawObject(glm::mat4 systemModel)
 {
   model = glm::rotate(systemModel, (orbitAngle), spinAxisVector);
   model = glm::translate(model, orbitVector);

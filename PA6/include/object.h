@@ -42,7 +42,7 @@ class Object
 
     // Update functions
     void updateAngles(unsigned int dt);
-    void drawCube(glm::mat4 matrix);
+    void drawObject(glm::mat4 matrix);
 
     glm::mat4 model;
 
