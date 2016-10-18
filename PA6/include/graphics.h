@@ -17,17 +17,13 @@ class Graphics
   public:
     Graphics();
     ~Graphics();
-    bool Initialize(int width, int height, const char* modelPath);
+    bool Initialize(int width, int height);
     void Update(unsigned int dt);
     void Render();
 
-    // methods for object interaction
-    bool toggleObjectSpin(char* objectName);
-    bool invertObjectSpin(char* objectName);
-    bool toggleObjectOrbit(char* objectName);
-    bool invertObjectOrbit(char* objectName);
-
   private:
+    bool InitializeObjects();
+
     std::string ErrorString(GLenum error);
 
     Camera *m_camera;
@@ -38,7 +34,8 @@ class Graphics
     GLint m_modelMatrix;
 
     char* modelPath;
-    vector<Object *> objects;
+    Object* Sun;
+    vector<Object *> masterList;
 };
 
 #endif /* GRAPHICS_H */

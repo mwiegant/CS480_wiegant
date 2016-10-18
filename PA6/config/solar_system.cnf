@@ -1,0 +1,174 @@
+# Solar System Config File
+
+# A total of 19 objects in our solar system
+
+# Sun
+Object: sun
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+# Mercury
+Object: mercury
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+# Venus
+Object: venus
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+# Earth
+Object: earth
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+# Moon
+Object: moon
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+# Mars
+Object: mars
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+# Jupiter
+Object: jupiter
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+# Jupiter's Moon Europa
+Object: europa
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+# Jupiter's Moon Ganymede
+Object: ganymede
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+# Jupiter's Moon Castillo
+Object: castillo
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+# Jupiter's Moon Io
+Object: io
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+# Saturn
+Object: saturn
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+# Saturn's Moon Titan
+Object: titan
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+# Saturn's Moon Enceladus
+Object: enceladus
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+# Uranus
+Object: uranus
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+# Uranus's Moon Titania
+Object: titania
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+# Neptune
+Object: neptune
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+# Neptune's Moon Triton
+Object: triton
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0
+
+# Pluto
+Object: pluto
+Texture: textures/object.jpg
+Scale: 1.0
+Orbit Axis: 1.0, 0.0, 0.0
+Orbit speed: 1.0
+Rotation Axis: 0.0, 1.0, 0.0
+Rotation speed: 1.0

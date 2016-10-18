@@ -7,10 +7,10 @@ Graphics::Graphics()
 
 Graphics::~Graphics()
 {
-
+  // todo - deallocate space for objects vector
 }
 
-bool Graphics::Initialize(int width, int height, const char* modelPath)
+bool Graphics::Initialize(int width, int height)
 {
   // Used for the linux OS
   #if !defined(__APPLE__) && !defined(MACOSX)
@@ -44,16 +44,10 @@ bool Graphics::Initialize(int width, int height, const char* modelPath)
     return false;
   }
 
-  // Create the object
-  objects.push_back( new Object((char *) "planet") );
-//  objects.push_back( new Object((char *) "moon") );
-
-  // Set up the object
-  if(!objects[0]->Initialize(modelPath))
+  // Set up the objects
+  if(!InitializeObjects())
   {
-    printf("Model failed to load model from %s\n", modelPath);
-    printf("Model failed to Initialize\n");
-    return false;
+    printf("Failed to Initialize objects\n");
   }
 
   // Set up the shaders
@@ -116,93 +110,14 @@ bool Graphics::Initialize(int width, int height, const char* modelPath)
   return true;
 }
 
-/*
- * Stop or start the cube from spinning on its axis
- */
-bool Graphics::toggleObjectSpin(char* objectName)
-{
-  for( int i = 0; i < objects.size(); i++ )
-  {
-    if( strncmp(objects[i]->GetName(), objectName, strlen(objectName)) == 0 )
-    {
-      objects[i]->ToggleSpin();
-
-      return true;
-    }
-  }
-
-  return false;
-}
-
-/*
- * Change the direction that the cube is spinning in
- */
-bool Graphics::invertObjectSpin(char* objectName)
-{
-  for( int i = 0; i < objects.size(); i++ )
-  {
-    if( strncmp(objects[i]->GetName(), objectName, strlen(objectName)) == 0 )
-    {
-      objects[i]->InvertSpinDirection();
-
-      return true;
-    }
-  }
-
-  return false;
-}
-
-/*
- * Stop or start the cube from rotating in 3d space
- */
-bool Graphics::toggleObjectOrbit(char* objectName)
-{
-  for( int i = 0; i < objects.size(); i++ )
-  {
-    if( strncmp(objects[i]->GetName(), objectName, strlen(objectName)) == 0 )
-    {
-      objects[i]->ToggleOrbit();
-
-      return true;
-    }
-  }
-
-  return false;
-}
-
-/*
- * Change the direction that the cube is rotating in
- */
-bool Graphics::invertObjectOrbit(char* objectName)
-{
-  for( int i = 0; i < objects.size(); i++ )
-  {
-    if( strncmp(objects[i]->GetName(), objectName, strlen(objectName)) == 0 )
-    {
-      objects[i]->InvertOrbitDirection();
-
-      return true;
-    }
-  }
-
-  return false;
-}
-
-
 void Graphics::Update(unsigned int dt)
 {
   glm::mat4 model = glm::mat4(1.0f);
 
-  /*
-   * The planet doesn't really need model passed to it, but the
-   * moon definitely does, and since they're the same class I'm going
-   * to have to just do things this way
-   */
-
-  // planet update
-  objects[0]->Update( dt, model );
-
+  // Update the sun, which will update all other objects
+  Sun->Update(dt, model);
 }
+
 
 void Graphics::Render()
 {
@@ -213,16 +128,20 @@ void Graphics::Render()
   // Start the correct program
   m_shader->Enable();
 
-  // Set wireframe mode
-//  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
   // Send in the projection and view to the shader
-  glUniformMatrix4fv(m_projectionMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetProjection())); 
-  glUniformMatrix4fv(m_viewMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetView())); 
+  glUniformMatrix4fv(m_projectionMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetProjection()));
+  glUniformMatrix4fv(m_viewMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetView()));
+
+  // Render all objects in the master list
+  for(int i = 0; i < masterList.size(); i++)
+  {
+    glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr( masterList[i]->GetModel() ));
+    masterList[i]->Render();
+  }
 
   // Render the object
-    glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr( objects[0]->GetModel() ));
-    objects[0]->Render();
+//  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr( masterList[1]->GetModel() ));
+//  masterList[1]->Render();
 
 
   // Get any errors from OpenGL
@@ -232,6 +151,41 @@ void Graphics::Render()
     string val = ErrorString( error );
     std::cout<< "Error initializing OpenGL! " << error << ", " << val << std::endl;
   }
+}
+
+
+bool Graphics::InitializeObjects()
+{
+  // Create the sun
+  Sun = new Object( glm::vec3(0.0, 0.0, 0.0) );
+
+  // Create planetary objects
+  Object* Mercury = new Object( glm::vec3(2.0, 0.6, 1.0) );
+  Object* Venus = new Object( glm::vec3(4.0, 3.0, 2.0) );
+  Object* Earth = new Object( glm::vec3(6.0, 3.0, 1.0) );
+
+  // All objects that will be rendered must be added to this list
+  masterList.push_back( Sun );
+  masterList.push_back( Mercury );
+  masterList.push_back( Venus );
+  masterList.push_back( Earth );
+
+  // Add planets as satellites
+  Sun->AddSatellite( Mercury );
+  Sun->AddSatellite( Venus );
+  Sun->AddSatellite( Earth );
+
+  // Add moons as satellites
+
+
+  // initialize all the objects
+  if(!Sun->Initialize())
+  {
+    printf("Solar System failed to Initialize\n");
+    return false;
+  }
+
+  return true;
 }
 
 std::string Graphics::ErrorString(GLenum error)

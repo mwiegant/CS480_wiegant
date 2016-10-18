@@ -28,7 +28,7 @@ Engine::~Engine()
   m_graphics = NULL;
 }
 
-bool Engine::Initialize(const char* modelPath)
+bool Engine::Initialize()
 {
   // Start a window
   m_window = new Window();
@@ -40,7 +40,7 @@ bool Engine::Initialize(const char* modelPath)
 
   // Start the graphics
   m_graphics = new Graphics();
-  if(!m_graphics->Initialize(m_WINDOW_WIDTH, m_WINDOW_HEIGHT, modelPath))
+  if(!m_graphics->Initialize(m_WINDOW_WIDTH, m_WINDOW_HEIGHT))
   {
     printf("The graphics failed to initialize.\n");
     return false;
@@ -86,21 +86,62 @@ void Engine::Keyboard()
   }
   else if (m_event.type == SDL_KEYDOWN)
   {
+    // -----------------------------------------------
     // handle escape - end program
+    // -----------------------------------------------
     if( m_event.key.keysym.sym == SDLK_ESCAPE )
     {
       m_running = false;
     }
-    // handle 1 - change focus to planet
+
+    // -----------------------------------------------
+    // adjust which part of solar system to render / focus on
+    // -----------------------------------------------
+
+/*
+    // handle 1 - change focus to solar system
     if( m_event.key.keysym.sym == SDLK_1 )
-    {
-      focusedObject = (char*) "planet";
-    }
-    // handle 2 - change focus to moon
-    if( m_event.key.keysym.sym == SDLK_2 )
-    {
-      focusedObject = (char*) "moon";
-    }
+      planetarySystem = SOLAR_SYSTEM;
+
+    // handle 2 - change focus to mercury system
+    else if( m_event.key.keysym.sym == SDLK_2 )
+      planetarySystem = MERCURY_SYSTEM;
+
+    // handle 3 - change focus to venus system
+    else if( m_event.key.keysym.sym == SDLK_3 )
+      planetarySystem = VENUS_SYSTEM;
+
+    // handle 4 - change focus to earth system
+    else if( m_event.key.keysym.sym == SDLK_4 )
+      planetarySystem = EARTH_SYSTEM;
+
+    // handle 5 - change focus to mars system
+    else if( m_event.key.keysym.sym == SDLK_5 )
+      planetarySystem = MARS_SYSTEM;
+
+    // handle 6 - change focus to jupiter system
+    else if( m_event.key.keysym.sym == SDLK_6 )
+      planetarySystem = JUPITER_SYSTEM;
+
+    // handle 7 - change focus to saturn system
+    else if( m_event.key.keysym.sym == SDLK_7 )
+      planetarySystem = SATURN_SYSTEM;
+
+    // handle 8 - change focus to uranus system
+    else if( m_event.key.keysym.sym == SDLK_8 )
+      planetarySystem = URANUS_SYSTEM;
+
+    // handle 9 - change focus to neptune system
+    else if( m_event.key.keysym.sym == SDLK_9 )
+      planetarySystem = NEPTUNE_SYSTEM;
+*/
+
+    // -----------------------------------------------
+    // other keyboard event handling
+    // -----------------------------------------------
+
+    // todo - re-implement object focus
+/*
     // handle w - toggle cube spin
     else if( m_event.key.keysym.sym == SDLK_w )
     {
@@ -121,6 +162,7 @@ void Engine::Keyboard()
     {
       m_graphics->invertObjectOrbit(focusedObject);
     }
+*/
   }
 }
 
@@ -130,10 +172,13 @@ void Engine::Mouse()
   if( m_event.type == SDL_MOUSEBUTTONDOWN )
   {
 
+/*
     if( m_event.button.button == SDL_BUTTON_LEFT )
     {
       m_graphics->toggleObjectOrbit(focusedObject);
     }
+*/
+
   }
 }
 
