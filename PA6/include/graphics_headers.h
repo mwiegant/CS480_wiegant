@@ -56,11 +56,20 @@ enum System
 };
 
 /*
-  Vertex::Vertex(glm::vec3 v, glm::vec3 c)
-  : vertex(v), color(c)
-  {
+ * For storing the properties for each object that we load in
+ * from the config file
+ */
+struct ObjectConfig
+{
+  char* name;
+  char* texturePath;
+  float scale;
+  glm::vec3 orbitAxis;
+  float orbitSpeed;
+  glm::vec3 rotateAxis;
+  float rotateSpeed;
+};
 
-  }
 
   Vertex::~Vertex()
   {
