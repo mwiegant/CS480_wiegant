@@ -16,9 +16,12 @@ class Camera
 
     bool ZoomIn();
     bool ZoomOut();
+    bool LookLeft();
+    bool LookRight();
   
   private:
     glm::vec3 eyePosition;
+    glm::vec3 focusPoint;
 
     glm::mat4 projection;
     glm::mat4 view;

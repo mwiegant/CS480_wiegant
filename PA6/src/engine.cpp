@@ -150,6 +150,17 @@ void Engine::Keyboard()
       m_graphics->ZoomIn();
     }
 
+    else if( m_event.key.keysym.sym == SDLK_LEFT )
+    {
+      m_graphics->LookLeft();
+    }
+
+    else if( m_event.key.keysym.sym == SDLK_RIGHT )
+    {
+      m_graphics->LookRight();
+    }
+
+
     // -----------------------------------------------
     // other keyboard event handling
     // -----------------------------------------------

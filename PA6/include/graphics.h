@@ -24,6 +24,8 @@ class Graphics
     // for updating the view
     bool ZoomIn();
     bool ZoomOut();
+    bool LookLeft();
+    bool LookRight();
 
   private:
     bool InitializeObjects();
