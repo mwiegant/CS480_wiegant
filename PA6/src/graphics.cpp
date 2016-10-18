@@ -153,6 +153,15 @@ void Graphics::Render()
   }
 }
 
+bool Graphics::ZoomIn()
+{
+  return m_camera->ZoomIn();
+}
+
+bool Graphics::ZoomOut()
+{
+  return m_camera->ZoomOut();
+}
 
 bool Graphics::InitializeObjects()
 {
@@ -160,9 +169,9 @@ bool Graphics::InitializeObjects()
   Sun = new Object( glm::vec3(0.0, 0.0, 0.0) );
 
   // Create planetary objects
-  Object* Mercury = new Object( glm::vec3(2.0, 0.6, 1.0) );
-  Object* Venus = new Object( glm::vec3(4.0, 3.0, 2.0) );
-  Object* Earth = new Object( glm::vec3(6.0, 3.0, 1.0) );
+  Object* Mercury = new Object( glm::vec3(2.0, 0.0, 0.0) );
+  Object* Venus = new Object( glm::vec3(8.0, 0.0, 0.0) );
+  Object* Earth = new Object( glm::vec3(16.0, 0.0, 0.0) );
 
   // All objects that will be rendered must be added to this list
   masterList.push_back( Sun );

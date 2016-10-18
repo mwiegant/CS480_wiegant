@@ -21,6 +21,10 @@ class Graphics
     void Update(unsigned int dt);
     void Render();
 
+    // for updating the view
+    bool ZoomIn();
+    bool ZoomOut();
+
   private:
     bool InitializeObjects();
 

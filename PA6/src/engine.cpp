@@ -136,6 +136,20 @@ void Engine::Keyboard()
       planetarySystem = NEPTUNE_SYSTEM;
 */
 
+
+    // -----------------------------------------------
+    // camera adjustments
+    // -----------------------------------------------
+    else if( m_event.key.keysym.sym == SDLK_DOWN )
+    {
+      m_graphics->ZoomOut();
+    }
+
+    else if( m_event.key.keysym.sym == SDLK_UP )
+    {
+      m_graphics->ZoomIn();
+    }
+
     // -----------------------------------------------
     // other keyboard event handling
     // -----------------------------------------------
