@@ -6,10 +6,10 @@
 #define GL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED
 
 #if defined(__APPLE__) || defined(MACOSX)
-  #include <OpenGL/gl3.h>
-  #include <OpenGL/GLU.h>
+#include <OpenGL/gl3.h>
+#include <OpenGL/GLU.h>
 #else //linux as default
-  #include <GL/glew.h>
+#include <GL/glew.h>
   //#include <GL/glu.h>
 #endif
 
@@ -24,13 +24,13 @@
 
 struct Vertex
 {
-  public:
+public:
 
-  glm::vec3 vertex;
-  glm::vec3 color;
+    glm::vec3 vertex;
+    glm::vec3 color;
 //  glm::vec2 uv;
 
-  Vertex(glm::vec3 v, glm::vec3 c): vertex(v), color(c) {}
+    Vertex(glm::vec3 v, glm::vec3 c): vertex(v), color(c) {}
 
 //  Vertex(glm::vec3 v, glm::vec2 c): vertex(v), uv(c) {}
 
@@ -56,26 +56,18 @@ enum System
 };
 
 /*
-  Vertex::Vertex(glm::vec3 v, glm::vec3 c)
-  : vertex(v), color(c)
-  {
-
-  }
-
-  Vertex::~Vertex()
-  {
-
-  }
-
-  void Vertex::setVertex(glm::vec3 V)
-  {
-   vertex = V;
-  }
-
-  void Vertex::setColor(glm::vec3 C)
-  {
-   color = C;
-  }
-*/
+ * For storing the properties for each object that we load in
+ * from the config file
+ */
+struct ObjectConfig
+{
+    char* name;
+    char* texturePath;
+    float scale;
+    glm::vec3 orbitAxis;
+    float orbitSpeed;
+    glm::vec3 rotateAxis;
+    float rotateSpeed;
+};
 
 #endif /* GRAPHICS_HEADERS_H */
