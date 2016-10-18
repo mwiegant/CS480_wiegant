@@ -3,8 +3,6 @@
 
 #include "graphics_headers.h"
 
-#include <cstdio>
-
 class Camera
 {
   public:
