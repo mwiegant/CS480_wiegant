@@ -1,34 +1,32 @@
-# PA3: Planet with Moon
+# PA6: The Solar System
 
+# Coding Team
 
+```
+Matt Monzon - the texture loading guy
+Max Wiegant - the rendering guy 
+Jayden Wang - the file loader
+```
 
 # Supported Interactions
 
 ## Keyboard
 
 ### General Program Controls
+
 ```
-Q -- Quit the program.
-1 -- Set focus on the planet
-2 -- Set focus on the moon
+Q             -- Quit the program.
+SPACEBAR      -- Pause or unpause all objects in the solar system
 ```
 
-### Cube Controls
-The controls below will affect whichever planet currently has **focus**.
-
-For example, if the moon has **focus**, pressing **S** will stop it from
-orbitting.
+### Camera Controls
 
 ``` 
-W -- Toggle the cube to stop or start spinning on it's axis
-E -- Invert the direction the cube is spinning in
-S -- Toggle the cube to stop or start orbiting
-D -- Invert the direction the cube is orbiting in
+UP-ARROW      -- Zoom the camera in
+DOWN-ARROW    -- Zoom the camera out
+LEFT-ARROW    -- Move the camera to the left
+RIGHT-ARROW   -- Move the camera to the right
 ```
-
-## Mouse
-
-Click anywhere on the screen to toggle the currently focused cube to start or stop orbiting.
 
 # Dependencies, Building, and Running
 
