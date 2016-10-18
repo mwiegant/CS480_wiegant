@@ -165,6 +165,12 @@ void Engine::Keyboard()
     // other keyboard event handling
     // -----------------------------------------------
 
+    // toggle system movement
+    else if( m_event.key.keysym.sym == SDLK_SPACE )
+    {
+      m_graphics->ToggleObjectMovement();
+    }
+
     // todo - re-implement object focus
 /*
     // handle w - toggle cube spin

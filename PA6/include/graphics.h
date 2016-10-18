@@ -27,6 +27,9 @@ class Graphics
     bool LookLeft();
     bool LookRight();
 
+    // for adjusting speed or movement of the system
+    void ToggleObjectMovement();
+
   private:
     bool InitializeObjects();
 
@@ -38,6 +41,8 @@ class Graphics
     GLint m_projectionMatrix;
     GLint m_viewMatrix;
     GLint m_modelMatrix;
+
+    bool moveObjects;
 
     char* modelPath;
     Object* Sun;

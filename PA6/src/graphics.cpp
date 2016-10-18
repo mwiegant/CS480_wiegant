@@ -107,6 +107,9 @@ bool Graphics::Initialize(int width, int height)
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS);
 
+  // enable object movement
+  moveObjects = true;
+
   return true;
 }
 
@@ -114,8 +117,12 @@ void Graphics::Update(unsigned int dt)
 {
   glm::mat4 model = glm::mat4(1.0f);
 
-  // Update the sun, which will update all other objects
-  Sun->Update(dt, model);
+  if(moveObjects)
+  {
+    // Update the sun, which will update all other objects
+    Sun->Update(dt, model);
+  }
+
 }
 
 
@@ -171,6 +178,11 @@ bool Graphics::LookLeft()
 bool Graphics::LookRight()
 {
   return m_camera->LookRight();
+}
+
+void Graphics::ToggleObjectMovement()
+{
+  moveObjects = bool ( moveObjects ? 0 : 1 );
 }
 
 bool Graphics::InitializeObjects()

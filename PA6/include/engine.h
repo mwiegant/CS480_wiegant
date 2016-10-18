@@ -36,7 +36,7 @@ class Engine
     long long m_currentTimeMillis;
     bool m_running;
 
-    // todo - repurpose this variable for solar system project
+    // todo - re purpose this variable for solar system project
     // For determining which object keyboard input should affect
     char* focusedObject;
 
