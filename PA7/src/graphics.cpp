@@ -119,8 +119,14 @@ void Graphics::Update(unsigned int dt)
 
   if(moveObjects)
   {
+    float speedCoeff = 1;
+    float newPos;
+
+    newPos = dt * speedCoeff;
+
+
     // Update the sun, which will update all other objects
-    Sun->Update(dt, model);
+    Sun->Update(newPos, model);
   }
 
 }
@@ -145,11 +151,6 @@ void Graphics::Render()
     glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr( masterList[i]->GetModel() ));
     masterList[i]->Render();
   }
-
-  // Render the object
-//  glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr( masterList[1]->GetModel() ));
-//  masterList[1]->Render();
-
 
   // Get any errors from OpenGL
   auto error = glGetError();
@@ -188,27 +189,27 @@ void Graphics::ToggleObjectMovement()
 bool Graphics::InitializeObjects()
 {
   // Create the sun
-  Sun = new Object( glm::vec3(0.0, 0.0, 0.0) );
+  Sun = new Object();
 
   // Create planetary objects
-  Object* Mercury = new Object( glm::vec3(2.0, 0.0, 0.0) );
-  Object* Venus = new Object( glm::vec3(8.0, 0.0, 0.0) );
-  Object* Earth = new Object( glm::vec3(16.0, 0.0, 0.0) );
-  Object* Moon = new Object( glm::vec3(2.0, 0.0, 0.0) );
-  Object* Mars = new Object( glm::vec3(20.0, 0.0, 0.0) );
-  Object* Jupiter = new Object( glm::vec3(30.0, 0.0, 0.0) );
-  Object* Europa = new Object( glm::vec3(1.0, 0.0, 0.0) );
-  Object* Ganymede = new Object( glm::vec3(2.0, 0.0, 0.0) );
-  Object* Castillo = new Object( glm::vec3(1.5, 0.0, 0.0) );
-  Object* Io = new Object( glm::vec3(4.0, 0.0, 0.0) );
-  Object* Saturn = new Object( glm::vec3(45.0, 0.0, 0.0) );
-  Object* Titan = new Object( glm::vec3(2.0, 0.0, 0.0) );
-  Object* Enceladus = new Object( glm::vec3(5.0, 0.0, 0.0) );
-  Object* Uranus = new Object( glm::vec3(67.0, 0.0, 0.0) );
-  Object* Titania = new Object( glm::vec3(1.0, 0.0, 0.0) );
-  Object* Neptune = new Object( glm::vec3(80.0, 0.0, 0.0) );
-  Object* Triton = new Object( glm::vec3(1.0, 0.0, 0.0) );
-  Object* Pluto = new Object( glm::vec3(105.0, 0.0, 0.0) );
+  Object* Mercury = new Object();
+  Object* Venus = new Object();
+  Object* Earth = new Object();
+  Object* Moon = new Object();
+  Object* Mars = new Object();
+  Object* Jupiter = new Object();
+  Object* Europa = new Object();
+  Object* Ganymede = new Object();
+  Object* Castillo = new Object();
+  Object* Io = new Object();
+  Object* Saturn = new Object();
+  Object* Titan = new Object();
+  Object* Enceladus = new Object();
+  Object* Uranus = new Object();
+  Object* Titania = new Object();
+  Object* Neptune = new Object();
+  Object* Triton = new Object();
+  Object* Pluto = new Object();
 
 
   // All objects that will be rendered must be added to this list
@@ -254,12 +255,47 @@ bool Graphics::InitializeObjects()
   Uranus->AddSatellite( Titania );
   Neptune->AddSatellite( Triton );
 
+  // Read in the objects information from the config file
+  if(!readInAll())
+  {
+   printf("Failed to read in from config file!\n");
+  }
+
   // initialize all the objects
   if(!Sun->Initialize())
   {
     printf("Solar System failed to Initialize\n");
     return false;
   }
+
+  return true;
+}
+
+bool Graphics::readInAll()
+{
+  ifstream fileIn;
+  int i;
+
+  fileIn.clear();
+  fileIn.open( "config/solar_system.cnf" );
+  
+
+  if( !fileIn.good() )
+  {
+    printf("File not good!\n");
+    return false;
+  }
+
+
+  //ignore up to the name of the Sun
+  fileIn.ignore( 256, ':' );
+
+  for( i = 0; i < masterList.size(); i++ )
+  {
+    masterList[i]->ReadConfig( fileIn );
+  }
+
+  fileIn.close();
 
   return true;
 }

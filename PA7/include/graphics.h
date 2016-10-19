@@ -15,6 +15,7 @@ using namespace std;
 class Graphics
 {
   public:
+
     Graphics();
     ~Graphics();
     bool Initialize(int width, int height);
@@ -31,7 +32,9 @@ class Graphics
     void ToggleObjectMovement();
 
   private:
+
     bool InitializeObjects();
+    bool readInAll();
 
     std::string ErrorString(GLenum error);
 

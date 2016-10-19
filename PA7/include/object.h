@@ -4,6 +4,8 @@
 #include <vector>
 #include <string>
 #include <cstdio>
+#include <fstream>
+#include <iostream>
 #include "graphics_headers.h"
 
 #include <assimp/Importer.hpp>
@@ -15,8 +17,8 @@
 class Object
 {
   public:
-//    Object(char* objectName); // todo - depricate this constructor
-    Object(glm::vec3 _orbitVector);
+
+    Object();
     ~Object();
     void Update(unsigned int dt, glm::mat4 systemModel);
     void Render();
@@ -33,11 +35,13 @@ class Object
     void InvertSpinDirection();
     void InvertOrbitDirection();
 
+    //function to read in the required parts from the config file
+    bool ReadConfig(std::ifstream& fileIn);
+
     void AddSatellite(Object* satellite);
 
   private:
 
-    bool ReadConfig();
     bool InitializeTexture();
     bool InitializeModel();
 
@@ -59,12 +63,12 @@ class Object
     char* name;
 
     // Path names
-    char* configFilePath;
     char* modelFilePath;
     char* textureFilePath;
 
     // Spin variables
     float spinAngle;
+    float spinSpeed;
     int spinAngleDivisor;
     bool spinEnabled;
     int spinDirection;
@@ -72,6 +76,7 @@ class Object
 
     // Orbit variables
     float orbitAngle;
+    float orbitSpeed;
     int orbitAngleDivisor;
     bool orbitEnabled;
     int orbitDirection;
