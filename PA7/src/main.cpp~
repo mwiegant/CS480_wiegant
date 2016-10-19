@@ -1,0 +1,41 @@
+#include <cstdio>
+
+<<<<<<< HEAD
+#include <Magick++.h>
+
+
+
+=======
+//#include <Magick++.h>
+>>>>>>> e92e14822d5cbf34133661b596bdb7ac3dd8314f
+#include "engine.h"
+
+int main(int argc, char **argv)
+{
+
+  // Start an engine
+  Engine *engine = new Engine("Cactus Coolers -- Computer Graphics", 800, 600);
+
+<<<<<<< HEAD
+  filename = argv[1];
+  Magick::InitializeMagick(*argv);
+=======
+  //InitializeMagick(*argv);
+>>>>>>> e92e14822d5cbf34133661b596bdb7ac3dd8314f
+
+  // Initialize the engine
+  if(!engine->Initialize())
+  {
+    printf("The engine failed to start.\n");
+    delete engine;
+    engine = NULL;
+    return 1;
+  }
+
+  // Run the engine, and clean it up after
+  engine->Run();
+
+  delete engine;
+  engine = NULL;
+  return 0;
+}
