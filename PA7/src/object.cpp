@@ -1,37 +1,13 @@
 #include "object.h"
 
-//Object::Object(char* objectName)
-//{
-//  // Set object name
-//  name = objectName;
-//
-//  // Set angles and their divisors
-//  spinAngle = 0.0f;
-//  orbitAngle = 0.0f;
-//  spinAngleDivisor = 2000;
-//  orbitAngleDivisor = 2000;
-//
-//  // Set initial vector values for the axis of spin and the orbit
-//  spinAxisVector = glm::vec3(0.0, 1.0, 0.0);
-//  orbitVector = glm::vec3(5.0, 0.0, 0.0);
-//
-//  // Set flags for spinning and orbiting
-//  spinEnabled = true;
-//  orbitEnabled = true;
-//
-//  // Set spin and orbit directions
-//  spinDirection = 1;
-//  orbitDirection = 1;
-//
-//}
 
-Object::Object(glm::vec3 _orbitVector)
+Object::Object()
 {
 
   // these things get updated from the config file
   name = (char*) "planet";
   spinAxisVector = glm::vec3(0.0, 1.0, 0.0);
-  orbitVector = _orbitVector;
+  orbitVector = glm::vec3( 1.0, 0.0, 0.0 );
 
   // these things always have their value
   spinAngle = 0.0f;
@@ -43,9 +19,17 @@ Object::Object(glm::vec3 _orbitVector)
   spinEnabled = true;
   orbitEnabled = true;
 
-  // Set spin and orbit directions
+  // Set spin and orbit directions and speed
   spinDirection = 1;
   orbitDirection = 1;
+
+  spinSpeed = 0;
+  orbitSpeed = 0;
+
+  //allocate size to private member functions
+  name = new char[ 30 ];
+  modelFilePath = new char[ 30 ];
+  textureFilePath = new char[ 30 ];
 
 }
 
@@ -57,14 +41,8 @@ Object::~Object()
 
 bool Object::Initialize()
 {
-  modelFilePath = (char*) "models/sphere.obj";
-  textureFilePath = (char*) "textures/granite.jpg";
-
-//  if(!ReadConfig())
-//  {
-//    std::printf("failed to load model from path: %s", modelFilePath);
-//    return false;
-//  }
+  //modelFilePath = (char*) "models/sphere.obj";
+  //textureFilePath = (char*) "textures/object.jpg";
 
   InitializeTexture();
 
@@ -184,13 +162,48 @@ void Object::AddSatellite(Object* satellite)
 /*
  * Reads in the configuration file that has data for this object.
  */
-bool Object::ReadConfig()
+bool Object::ReadConfig(std::ifstream& fileIn)
 {
+  std::string dummy;
+  char cdummy;
+  float fdumone;
+  float fdumtwo;
+  float fdumthr;
 
-  //TODO: render texture
+  //read in the name to a dummy string - the file is already there
+  fileIn >> dummy;
+  std::strcpy( name, dummy.c_str() );
 
+  //ignore to the model path then read it in
+  fileIn.ignore( 256, ':' );
+  fileIn >> dummy;
+  std::strcpy( modelFilePath, dummy.c_str() );
 
-  // todo
+  //ignore to the texture path then read it in
+  fileIn.ignore( 256, ':' );
+  fileIn >> dummy;
+  std::strcpy( textureFilePath, dummy.c_str() );
+
+  //ignore to the orbit axis
+  fileIn.ignore( 256, ':' );
+  fileIn >> fdumone >> cdummy >> fdumtwo >> cdummy >> fdumthr;
+  orbitVector = glm::vec3( fdumone, fdumtwo, fdumthr );
+
+  //ignore to the orbit speed
+  fileIn.ignore( 256, ':' );
+  fileIn >> orbitSpeed;
+
+  //ignore to the rotation axis
+  fileIn.ignore( 256, ':' );
+  fileIn >> fdumone >> cdummy >> fdumtwo >> cdummy >> fdumthr;
+  spinAxisVector = glm::vec3( fdumone, fdumtwo, fdumthr );
+
+  //ignore to the rotation speed
+  fileIn.ignore( 256, ':' );
+  fileIn >> spinSpeed;
+
+  //ignore to the name of the next object
+  fileIn.ignore( 254, ':' );
 
   return true;
 }

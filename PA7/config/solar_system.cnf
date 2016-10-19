@@ -4,71 +4,71 @@
 
 # Sun
 Object: sun
+Model: models/sphere.obj
 Texture: textures/object.jpg
-Scale: 1.0
-Orbit Axis: 1.0, 0.0, 0.0
+Orbit Axis: 0.0, 0.0, 0.0
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
 # Mercury
 Object: mercury
+Model: models/sphere.obj
 Texture: textures/object.jpg
-Scale: 1.0
-Orbit Axis: 1.0, 0.0, 0.0
+Orbit Axis: 2.0, 0.0, 0.0
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
 # Venus
 Object: venus
+Model: models/sphere.obj
 Texture: textures/object.jpg
-Scale: 1.0
-Orbit Axis: 1.0, 0.0, 0.0
+Orbit Axis: 8.0, 0.0, 0.0
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
 # Earth
 Object: earth
+Model: models/sphere.obj
 Texture: textures/object.jpg
-Scale: 1.0
-Orbit Axis: 1.0, 0.0, 0.0
+Orbit Axis: 16.0, 0.0, 0.0
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
 # Moon
 Object: moon
+Model: models/sphere.obj
 Texture: textures/object.jpg
-Scale: 1.0
-Orbit Axis: 1.0, 0.0, 0.0
+Orbit Axis: 2.0, 0.0, 0.0
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
 # Mars
 Object: mars
+Model: models/sphere.obj
 Texture: textures/object.jpg
-Scale: 1.0
-Orbit Axis: 1.0, 0.0, 0.0
+Orbit Axis: 20.0, 0.0, 0.0
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
 # Jupiter
 Object: jupiter
+Model: models/sphere.obj
 Texture: textures/object.jpg
-Scale: 1.0
-Orbit Axis: 1.0, 0.0, 0.0
+Orbit Axis: 30.0, 0.0, 0.0
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
 # Jupiter's Moon Europa
 Object: europa
+Model: models/sphere.obj
 Texture: textures/object.jpg
-Scale: 1.0
 Orbit Axis: 1.0, 0.0, 0.0
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
@@ -76,71 +76,71 @@ Rotation speed: 1.0
 
 # Jupiter's Moon Ganymede
 Object: ganymede
+Model: models/sphere.obj
 Texture: textures/object.jpg
-Scale: 1.0
-Orbit Axis: 1.0, 0.0, 0.0
+Orbit Axis: 2.0, 0.0, 0.
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
 # Jupiter's Moon Castillo
 Object: castillo
+Model: models/sphere.obj
 Texture: textures/object.jpg
-Scale: 1.0
-Orbit Axis: 1.0, 0.0, 0.0
+Orbit Axis: 1.5, 0.0, 0.0
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
 # Jupiter's Moon Io
 Object: io
+Model: models/sphere.obj
 Texture: textures/object.jpg
-Scale: 1.0
-Orbit Axis: 1.0, 0.0, 0.0
+Orbit Axis: 4.0, 0.0, 0.0
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
 # Saturn
 Object: saturn
+Model: models/sphere.obj
 Texture: textures/object.jpg
-Scale: 1.0
-Orbit Axis: 1.0, 0.0, 0.0
+Orbit Axis: 45.0, 0.0, 0.0
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
 # Saturn's Moon Titan
 Object: titan
+Model: models/sphere.obj
 Texture: textures/object.jpg
-Scale: 1.0
-Orbit Axis: 1.0, 0.0, 0.0
+Orbit Axis: 2.0, 0.0, 0.0
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
 # Saturn's Moon Enceladus
 Object: enceladus
+Model: models/sphere.obj
 Texture: textures/object.jpg
-Scale: 1.0
-Orbit Axis: 1.0, 0.0, 0.0
+Orbit Axis: 5.0, 0.0, 0.0
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
 # Uranus
 Object: uranus
+Model: models/sphere.obj
 Texture: textures/object.jpg
-Scale: 1.0
-Orbit Axis: 1.0, 0.0, 0.0
+Orbit Axis: 67.0, 0.0, 0.0
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
 # Uranus's Moon Titania
 Object: titania
+Model: models/sphere.obj
 Texture: textures/object.jpg
-Scale: 1.0
 Orbit Axis: 1.0, 0.0, 0.0
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
@@ -148,17 +148,17 @@ Rotation speed: 1.0
 
 # Neptune
 Object: neptune
+Model: models/sphere.obj
 Texture: textures/object.jpg
-Scale: 1.0
-Orbit Axis: 1.0, 0.0, 0.0
+Orbit Axis: 80.0, 0.0, 0.0
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
 # Neptune's Moon Triton
 Object: triton
+Model: models/sphere.obj
 Texture: textures/object.jpg
-Scale: 1.0
 Orbit Axis: 1.0, 0.0, 0.0
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
@@ -166,9 +166,9 @@ Rotation speed: 1.0
 
 # Pluto
 Object: pluto
+Model: models/sphere.obj
 Texture: textures/object.jpg
-Scale: 1.0
-Orbit Axis: 1.0, 0.0, 0.0
+Orbit Axis: 105.0, 0.0, 0.0
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
