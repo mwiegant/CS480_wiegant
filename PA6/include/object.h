@@ -10,7 +10,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include <assimp/color4.h>
-//#include <Magick++.h>
+#include <Magick++.h>
 
 class Object
 {
@@ -38,6 +38,7 @@ class Object
   private:
 
     bool ReadConfig();
+    bool InitializeTexture();
     bool InitializeModel();
 
     // Update functions
@@ -51,6 +52,7 @@ class Object
     GLuint VB;
     GLuint IB;
 
+    //Texture
     GLuint aTexture;
 
     // Unique Identifier
@@ -59,6 +61,7 @@ class Object
     // Path names
     char* configFilePath;
     char* modelFilePath;
+    char* textureFilePath;
 
     // Spin variables
     float spinAngle;

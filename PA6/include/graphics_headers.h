@@ -26,14 +26,10 @@ struct Vertex
 {
   public:
 
-  glm::vec3 vertex;
-  glm::vec3 color;
-//  glm::vec2 uv;
+    glm::vec3 vertex;
+    glm::vec2 uv;
 
-  Vertex(glm::vec3 v, glm::vec3 c): vertex(v), color(c) {}
-
-//  Vertex(glm::vec3 v, glm::vec2 c): vertex(v), uv(c) {}
-
+    Vertex(glm::vec3 v, glm::vec2 c): vertex(v), uv(c) {}
 };
 
 /*
@@ -55,19 +51,5 @@ enum System
     PLUTO_SYSTEM
 };
 
-/*
- * For storing the properties for each object that we load in
- * from the config file
- */
-struct ObjectConfig
-{
-  char* name;
-  char* texturePath;
-  float scale;
-  glm::vec3 orbitAxis;
-  float orbitSpeed;
-  glm::vec3 rotateAxis;
-  float rotateSpeed;
-};
 
 #endif /* GRAPHICS_HEADERS_H */

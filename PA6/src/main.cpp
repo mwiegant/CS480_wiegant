@@ -1,6 +1,7 @@
 #include <cstdio>
 
-//#include <Magick++.h>
+#include <Magick++.h>
+
 #include "engine.h"
 
 int main(int argc, char **argv)
@@ -9,7 +10,7 @@ int main(int argc, char **argv)
   // Start an engine
   Engine *engine = new Engine("Cactus Coolers -- Computer Graphics", 800, 600);
 
-  //InitializeMagick(*argv);
+  Magick::InitializeMagick(*argv);
 
   // Initialize the engine
   if(!engine->Initialize())

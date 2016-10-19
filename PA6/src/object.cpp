@@ -58,6 +58,7 @@ Object::~Object()
 bool Object::Initialize()
 {
   modelFilePath = (char*) "models/sphere.obj";
+  textureFilePath = (char*) "textures/granite.jpg";
 
 //  if(!ReadConfig())
 //  {
@@ -65,6 +66,7 @@ bool Object::Initialize()
 //    return false;
 //  }
 
+  InitializeTexture();
 
   if(!InitializeModel())
   {
@@ -184,11 +186,35 @@ void Object::AddSatellite(Object* satellite)
  */
 bool Object::ReadConfig()
 {
+
+  //TODO: render texture
+
+
   // todo
 
   return true;
 }
 
+
+bool Object::InitializeTexture()
+{
+  //initalize image loading with magick++
+  Magick::Image* texture = new Magick::Image(textureFilePath);
+  Magick::Blob m_blob;
+  texture->write(&m_blob,"RGBA");
+
+  //initialze textures
+  glGenTextures(1, &aTexture);
+  glActiveTexture(GL_TEXTURE0);
+  glBindTexture(GL_TEXTURE_2D, aTexture);
+
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture->columns(), texture->rows(), 0, GL_RGBA, GL_UNSIGNED_BYTE, m_blob.data());
+
+  glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+  glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+  return true;
+}
 
 /*
  * Does all the model loading, including loading vertices and indices.
@@ -200,8 +226,8 @@ bool Object::InitializeModel()
 
   aiMesh* meshOne = myScene->mMeshes[0];
 
-  glm::vec3 color = glm::vec3(0.5f, 0.2f, 0.0f);
   aiVector3D aiVector;
+  aiVector3D aiUV;
   unsigned int index;
 
 
@@ -220,9 +246,9 @@ bool Object::InitializeModel()
 
       //get the vertices
       aiVector = meshOne->mVertices[thisFace.mIndices[j]];
+      aiUV = meshOne->mTextureCoords[0][thisFace.mIndices[j]];
 
-      // {<position>}, {<color>}
-      Vertex *temp = new Vertex( glm::vec3(aiVector.x, aiVector.y, aiVector.z), color);
+      Vertex *temp = new Vertex(glm::vec3(aiVector.x, aiVector.y, aiVector.z), glm::vec2(aiUV.x, aiUV.y));
       Vertices.push_back( *temp );
 
     }
@@ -245,10 +271,15 @@ void Object::Render()
 {
   glEnableVertexAttribArray(0);
   glEnableVertexAttribArray(1);
+  glEnableVertexAttribArray(2);
 
   glBindBuffer(GL_ARRAY_BUFFER, VB);
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex,color));
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex,uv));
+  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*)12);
+
+  glActiveTexture(GL_TEXTURE0);
+  glBindTexture(GL_TEXTURE_2D, aTexture);
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IB);
 
@@ -256,6 +287,7 @@ void Object::Render()
 
   glDisableVertexAttribArray(0);
   glDisableVertexAttribArray(1);
+  glDisableVertexAttribArray(2);
 }
 
 
