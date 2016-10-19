@@ -5,7 +5,7 @@
 # Sun
 Object: sun
 Model: models/Sun.obj
-Texture: textures/object.jpg
+Texture: textures/Sun.jpg
 Orbit Axis: 0.0, 0.0, 0.0
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
@@ -14,7 +14,7 @@ Rotation speed: 1.0
 # Mercury
 Object: mercury
 Model: models/Mercury.obj
-Texture: textures/object.jpg
+Texture: textures/Mercury.jpg
 Orbit Axis: 2.0, 0.0, 0.0
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
@@ -23,7 +23,7 @@ Rotation speed: 1.0
 # Venus
 Object: venus
 Model: models/Venus.obj
-Texture: textures/object.jpg
+Texture: textures/Venus.jpg
 Orbit Axis: 8.0, 0.0, 0.0
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
@@ -32,7 +32,7 @@ Rotation speed: 1.0
 # Earth
 Object: earth
 Model: models/Earth.obj
-Texture: textures/object.jpg
+Texture: textures/Earth.jpg
 Orbit Axis: 16.0, 0.0, 0.0
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
@@ -50,7 +50,7 @@ Rotation speed: 1.0
 # Mars
 Object: mars
 Model: models/Mars.obj
-Texture: textures/object.jpg
+Texture: textures/Mars.jpg
 Orbit Axis: 20.0, 0.0, 0.0
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
@@ -59,7 +59,7 @@ Rotation speed: 1.0
 # Jupiter
 Object: jupiter
 Model: models/Jupiter.obj
-Texture: textures/object.jpg
+Texture: textures/Jupiter.jpg
 Orbit Axis: 30.0, 0.0, 0.0
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
@@ -104,7 +104,7 @@ Rotation speed: 1.0
 # Saturn
 Object: saturn
 Model: models/Saturn.obj
-Texture: textures/object.jpg
+Texture: textures/Saturn.jpg
 Orbit Axis: 45.0, 0.0, 0.0
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
@@ -131,7 +131,7 @@ Rotation speed: 1.0
 # Uranus
 Object: uranus
 Model: models/Uranus.obj
-Texture: textures/object.jpg
+Texture: textures/Uranus.jpg
 Orbit Axis: 67.0, 0.0, 0.0
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
@@ -149,7 +149,7 @@ Rotation speed: 1.0
 # Neptune
 Object: neptune
 Model: models/Neptune.obj
-Texture: textures/object.jpg
+Texture: textures/Neptune.jpg
 Orbit Axis: 80.0, 0.0, 0.0
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
@@ -167,7 +167,7 @@ Rotation speed: 1.0
 # Pluto
 Object: pluto
 Model: models/Pluto.obj
-Texture: textures/object.jpg
+Texture: textures/Pluto.jpg
 Orbit Axis: 105.0, 0.0, 0.0
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
