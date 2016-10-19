@@ -41,9 +41,6 @@ Object::~Object()
 
 bool Object::Initialize()
 {
-  //modelFilePath = (char*) "models/sphere.obj";
-  //textureFilePath = (char*) "textures/object.jpg";
-
   InitializeTexture();
 
   if(!InitializeModel())
@@ -91,8 +88,8 @@ void Object::updateAngles(float dt)
 {
   float spinAdjustment, orbitAdjustment;
 
-  spinAdjustment = float ( dt * M_PI / spinAngleDivisor );
-  orbitAdjustment = float ( dt * M_PI/ orbitAngleDivisor );
+  spinAdjustment = float (( dt * M_PI * spinSpeed ) / 5000 );
+  orbitAdjustment = float (( dt * M_PI * orbitSpeed ) / 5000 );
 
   spinAdjustment *= ( (int) spinEnabled * spinDirection );
   orbitAdjustment *= ( (int) orbitEnabled * orbitDirection );
