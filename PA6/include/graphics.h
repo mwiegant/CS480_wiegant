@@ -28,6 +28,8 @@ class Graphics
     bool LookRight();
 
     // for adjusting speed or movement of the system
+    void SlowDownSystem();
+    void SpeedUpSystem();
     void ToggleObjectMovement();
 
   private:

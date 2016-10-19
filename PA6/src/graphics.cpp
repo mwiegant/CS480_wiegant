@@ -180,6 +180,16 @@ bool Graphics::LookRight()
   return m_camera->LookRight();
 }
 
+void Graphics::SlowDownSystem()
+{
+  // todo
+}
+
+void Graphics::SpeedUpSystem()
+{
+  // todo
+}
+
 void Graphics::ToggleObjectMovement()
 {
   moveObjects = bool ( moveObjects ? 0 : 1 );
