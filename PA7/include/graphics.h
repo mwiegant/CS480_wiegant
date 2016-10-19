@@ -29,6 +29,8 @@ class Graphics
     bool LookRight();
 
     // for adjusting speed or movement of the system
+    void SpeedUpSystem();
+    void SlowDownSystem();
     void ToggleObjectMovement();
 
   private:
@@ -45,6 +47,8 @@ class Graphics
     GLint m_viewMatrix;
     GLint m_modelMatrix;
 
+    // System movement variables
+    float systemSpeedModifier;
     bool moveObjects;
 
     char* modelPath;

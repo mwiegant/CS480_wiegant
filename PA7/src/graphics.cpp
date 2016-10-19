@@ -109,6 +109,7 @@ bool Graphics::Initialize(int width, int height)
 
   // enable object movement
   moveObjects = true;
+  systemSpeedModifier = 1.0f;
 
   return true;
 }
@@ -126,7 +127,7 @@ void Graphics::Update(unsigned int dt)
 
 
     // Update the sun, which will update all other objects
-    Sun->Update(newPos, model);
+    Sun->Update(newPos, systemSpeedModifier, model);
   }
 
 }
@@ -179,6 +180,16 @@ bool Graphics::LookLeft()
 bool Graphics::LookRight()
 {
   return m_camera->LookRight();
+}
+
+void Graphics::SpeedUpSystem()
+{
+  systemSpeedModifier += 0.25;
+}
+
+void Graphics::SlowDownSystem()
+{
+  systemSpeedModifier -= 0.25;
 }
 
 void Graphics::ToggleObjectMovement()

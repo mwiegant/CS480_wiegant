@@ -67,10 +67,10 @@ bool Object::Initialize()
 }
 
 
-void Object::Update(unsigned int dt, glm::mat4 systemModel)
+void Object::Update(unsigned int dt, float speedModifier, glm::mat4 systemModel)
 {
   // update angles of rotation
-  updateAngles(dt);
+  updateAngles( dt * speedModifier );
 
   // draw the object
   drawObject(systemModel);
@@ -78,7 +78,7 @@ void Object::Update(unsigned int dt, glm::mat4 systemModel)
   // call update on each of the children
   for( int i = 0; i < satellites.size(); i++ )
   {
-    satellites[i]->Update(dt, model );
+    satellites[i]->Update(dt, speedModifier, model );
   }
 
 }
@@ -87,7 +87,7 @@ void Object::Update(unsigned int dt, glm::mat4 systemModel)
 /*
  * Angle adjustment component of update process
  */
-void Object::updateAngles(unsigned int dt)
+void Object::updateAngles(float dt)
 {
   float spinAdjustment, orbitAdjustment;
 

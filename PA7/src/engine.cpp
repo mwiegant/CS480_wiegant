@@ -162,14 +162,28 @@ void Engine::Keyboard()
 
 
     // -----------------------------------------------
-    // other keyboard event handling
+    // system speed adjustments
     // -----------------------------------------------
+
+    // speed up the system
+    else if( m_event.key.keysym.sym == SDLK_KP_PLUS )
+    {
+      m_graphics->ToggleObjectMovement();
+    }
+
+    // slow down the system
+    else if( m_event.key.keysym.sym == SDLK_KP_MINUS )
+    {
+      m_graphics->ToggleObjectMovement();
+    }
 
     // toggle system movement
     else if( m_event.key.keysym.sym == SDLK_SPACE )
     {
       m_graphics->ToggleObjectMovement();
     }
+
+
 
     // todo - re-implement object focus
 /*

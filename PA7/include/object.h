@@ -20,7 +20,7 @@ class Object
 
     Object();
     ~Object();
-    void Update(unsigned int dt, glm::mat4 systemModel);
+    void Update(unsigned int dt, float speedModifier, glm::mat4 systemModel);
     void Render();
 
     bool Initialize();
@@ -46,7 +46,7 @@ class Object
     bool InitializeModel();
 
     // Update functions
-    void updateAngles(unsigned int dt);
+    void updateAngles(float dt);
     void drawObject(glm::mat4 matrix);
 
     glm::mat4 model;
