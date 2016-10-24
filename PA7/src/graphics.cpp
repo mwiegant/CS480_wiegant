@@ -221,6 +221,11 @@ void Graphics::ToggleObjectMovement()
   moveObjects = bool ( moveObjects ? 0 : 1 );
 }
 
+void Graphics::ToggleChairMode()
+{
+  Sun->ToggleChairMode();
+}
+
 bool Graphics::InitializeObjects()
 {
   // Create the sun

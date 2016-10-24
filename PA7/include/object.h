@@ -20,30 +20,21 @@ class Object
 
     Object();
     ~Object();
+    bool Initialize();
     void Update(unsigned int dt, float speedModifier, glm::mat4 systemModel);
     void Render();
-
-    bool Initialize();
-
-    // Getters
     glm::mat4 GetModel();
-    char* GetName();
 
-    // User Input Control Functions
-    void ToggleSpin();
-    void ToggleOrbit();
-    void InvertSpinDirection();
-    void InvertOrbitDirection();
+    void AddSatellite(Object* satellite);
+    void ToggleChairMode();
 
     //function to read in the required parts from the config file
     bool ReadConfig(std::ifstream& fileIn);
 
-    void AddSatellite(Object* satellite);
-
   private:
 
     bool InitializeTexture();
-    bool InitializeModel();
+    bool InitializeModel(bool chairMode);
 
     // Update functions
     void updateAngles(float dt);
@@ -65,6 +56,9 @@ class Object
     // Path names
     char* modelFilePath;
     char* textureFilePath;
+    char* chairFilePath;
+
+    bool chairMode;
 
     // Spin variables
     float spinAngle;

@@ -26,10 +26,15 @@ Object::Object()
   spinSpeed = 0;
   orbitSpeed = 0;
 
-  //allocate size to private member functions
+  // allocate size to private data members
   name = new char[ 30 ];
   modelFilePath = new char[ 30 ];
   textureFilePath = new char[ 30 ];
+  chairFilePath = new char[ 30 ];
+
+  // set path to the chair model
+  chairMode = false;
+  std::strcpy(chairFilePath, "models/chair.obj");
 
 }
 
@@ -43,7 +48,8 @@ bool Object::Initialize()
 {
   InitializeTexture();
 
-  if(!InitializeModel())
+  // initialize model without chair mode on
+  if(!InitializeModel(false))
   {
     std::printf("failed to load model from path: %s", modelFilePath);
     return false;
@@ -81,70 +87,35 @@ void Object::Update(unsigned int dt, float speedModifier, glm::mat4 systemModel)
 }
 
 
-/*
- * Angle adjustment component of update process
- */
-void Object::updateAngles(float dt)
+void Object::Render()
 {
-  float spinAdjustment, orbitAdjustment;
+  glEnableVertexAttribArray(0);
+  glEnableVertexAttribArray(1);
+  glEnableVertexAttribArray(2);
 
-  spinAdjustment = float (( dt * M_PI * spinSpeed ) / 5000 );
-  orbitAdjustment = float (( dt * M_PI * orbitSpeed ) / 5000 );
+  glBindBuffer(GL_ARRAY_BUFFER, VB);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex,uv));
+  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*)12);
 
-  spinAdjustment *= ( (int) spinEnabled * spinDirection );
-  orbitAdjustment *= ( (int) orbitEnabled * orbitDirection );
+  glActiveTexture(GL_TEXTURE0);
+  glBindTexture(GL_TEXTURE_2D, aTexture);
 
-  spinAngle += spinAdjustment;
-  orbitAngle += orbitAdjustment;
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IB);
+
+  glDrawElements(GL_TRIANGLES, Indices.size(), GL_UNSIGNED_INT, 0);
+
+  glDisableVertexAttribArray(0);
+  glDisableVertexAttribArray(1);
+  glDisableVertexAttribArray(2);
 }
 
-
 /*
- * Drawing component of update process
+ * For use during graphics rendering
  */
-void Object::drawObject(glm::mat4 systemModel)
-{
-  model = glm::rotate(systemModel, (orbitAngle), spinAxisVector);
-  model = glm::translate(model, orbitVector);
-  model *= glm::rotate(glm::mat4(1.0f), (spinAngle), spinAxisVector);
-}
-
 glm::mat4 Object::GetModel()
 {
   return model;
-}
-
-char* Object::GetName()
-{
-  return name;
-}
-
-void Object::ToggleSpin()
-{
-  spinEnabled = !spinEnabled;
-}
-
-void Object::ToggleOrbit()
-{
-  orbitEnabled = !orbitEnabled;
-}
-
-void Object::InvertSpinDirection()
-{
-  spinDirection *= -1;
-
-  // if the cube isn't spinning, have it start spinning
-  if(!spinEnabled)
-    ToggleSpin();
-}
-
-void Object::InvertOrbitDirection()
-{
-  orbitDirection *= -1;
-
-  // if the cube isn't orbiting, have it start orbiting
-  if(!orbitEnabled)
-    ToggleOrbit();
 }
 
 /*
@@ -155,6 +126,29 @@ void Object::AddSatellite(Object* satellite)
   satellites.push_back( satellite );
 }
 
+/*
+ * Toggles chair mode. Either reloads all the models as chairs,
+ * or all the models as their respective planet or moon
+ */
+void Object::ToggleChairMode()
+{
+  chairMode = !chairMode;
+
+  Vertices.clear();
+  Indices.clear();
+
+  // re-initialize the model on this planet
+  if( !InitializeModel(chairMode) )
+  {
+    printf("WARNING - There may have been an issue toggling chair mode.");
+  }
+
+  // re-initialize the model on all satellites
+  for( int i = 0; i < satellites.size(); i++ )
+  {
+    satellites[i]->ToggleChairMode();
+  }
+}
 
 /*
  * Reads in the configuration file that has data for this object.
@@ -205,7 +199,9 @@ bool Object::ReadConfig(std::ifstream& fileIn)
   return true;
 }
 
-
+/*
+ * Does all the texture loading
+ */
 bool Object::InitializeTexture()
 {
   //initalize image loading with magick++
@@ -228,19 +224,27 @@ bool Object::InitializeTexture()
 
 /*
  * Does all the model loading, including loading vertices and indices.
+ *
+ * Supports an extra mode to load chair models instead of the model
+ * specified from the configuration file.
  */
-bool Object::InitializeModel()
+bool Object::InitializeModel(bool chairMode)
 {
   Assimp::Importer importer;
-  const aiScene *myScene = importer.ReadFile( modelFilePath, aiProcess_Triangulate);
-
-  aiMesh* meshOne = myScene->mMeshes[0];
-
+  aiMesh* meshOne;
   aiVector3D aiVector;
   aiVector3D aiUV;
   unsigned int index;
 
-
+  // decide which file to read in from
+  if( chairMode )
+  {
+    const aiScene *myScene = importer.ReadFile( chairFilePath, aiProcess_Triangulate);
+    meshOne = myScene->mMeshes[0];
+  } else {
+    const aiScene *myScene = importer.ReadFile( modelFilePath, aiProcess_Triangulate);
+    meshOne = myScene->mMeshes[0];
+  }
 
   // load the models and the vertices
   for( int i = 0; i < meshOne->mNumFaces; i++ )
@@ -277,29 +281,33 @@ bool Object::InitializeModel()
   return true;
 }
 
-void Object::Render()
+/*
+ * Angle adjustment component of update process
+ */
+void Object::updateAngles(float dt)
 {
-  glEnableVertexAttribArray(0);
-  glEnableVertexAttribArray(1);
-  glEnableVertexAttribArray(2);
+  float spinAdjustment, orbitAdjustment;
 
-  glBindBuffer(GL_ARRAY_BUFFER, VB);
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex,uv));
-  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*)12);
+  spinAdjustment = float (( dt * M_PI * spinSpeed ) / 5000 );
+  orbitAdjustment = float (( dt * M_PI * orbitSpeed ) / 5000 );
 
-  glActiveTexture(GL_TEXTURE0);
-  glBindTexture(GL_TEXTURE_2D, aTexture);
+  spinAdjustment *= ( (int) spinEnabled * spinDirection );
+  orbitAdjustment *= ( (int) orbitEnabled * orbitDirection );
 
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IB);
-
-  glDrawElements(GL_TRIANGLES, Indices.size(), GL_UNSIGNED_INT, 0);
-
-  glDisableVertexAttribArray(0);
-  glDisableVertexAttribArray(1);
-  glDisableVertexAttribArray(2);
+  spinAngle += spinAdjustment;
+  orbitAngle += orbitAdjustment;
 }
 
+
+/*
+ * Drawing component of update process
+ */
+void Object::drawObject(glm::mat4 systemModel)
+{
+  model = glm::rotate(systemModel, (orbitAngle), spinAxisVector);
+  model = glm::translate(model, orbitVector);
+  model *= glm::rotate(glm::mat4(1.0f), (spinAngle), spinAxisVector);
+}
 
 
 

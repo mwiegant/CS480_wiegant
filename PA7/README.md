@@ -14,6 +14,7 @@ Jayden Wang - the file loader
 - (2pts) Live adjustment of simulation speed
 - (2pts) Configuration file
 - (4pts) Proper rings on other planets (total of 2) 
+- (3pts) Chair Mode (toggleable)
 ```
 
 # Supported Interactions
@@ -36,6 +37,12 @@ UP-ARROW      -- Move the camera focus upwards
 DOWN-ARROW    -- Move the camera focus downwards
 LEFT-ARROW    -- Move the camera focus to the left
 RIGHT-ARROW   -- Move the camera focus to the right
+```
+
+### Chair Mode
+
+```
+BACKSPACE     -- Toggle Chair Mode
 ```
 
 # Dependencies, Building, and Running

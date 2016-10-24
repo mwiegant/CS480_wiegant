@@ -35,6 +35,9 @@ class Graphics
     void SlowDownSystem();
     void ToggleObjectMovement();
 
+    // for absolute nonsense
+    void ToggleChairMode();
+
   private:
 
     bool InitializeObjects();
