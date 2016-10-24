@@ -65,12 +65,26 @@ bool Graphics::Initialize(int width, int height)
     return false;
   }
 
+
+// Load different fragment shaders on MAC machines
+#if defined(__APPLE__) || defined(MACOSX)
+
+  // Add the fragment shader
+  if(!m_shader->AddShader(GL_FRAGMENT_SHADER, "shaders/fragmentShader_mac.glsl"))
+  {
+    printf("Fragment Shader failed to Initialize\n");
+    return false;
+  }
+
+#else //linux as default
+
   // Add the fragment shader
   if(!m_shader->AddShader(GL_FRAGMENT_SHADER, "shaders/fragmentShader.glsl"))
   {
     printf("Fragment Shader failed to Initialize\n");
     return false;
   }
+#endif
 
   // Connect the program
   if(!m_shader->Finalize())
