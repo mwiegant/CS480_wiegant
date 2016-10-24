@@ -243,7 +243,9 @@ bool Object::InitializeModel(bool chairMode)
   {
     const aiScene *myScene = importer.ReadFile( chairFilePath, aiProcess_Triangulate);
     meshOne = myScene->mMeshes[0];
-  } else {
+  } 
+  else 
+  {
     const aiScene *myScene = importer.ReadFile( modelFilePath, aiProcess_Triangulate);
     meshOne = myScene->mMeshes[0];
   }
