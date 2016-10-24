@@ -87,9 +87,14 @@ void Engine::Keyboard()
   else if (m_event.type == SDL_KEYDOWN)
   {
     // -----------------------------------------------
-    // handle escape - end program
+    // controls to end program
     // -----------------------------------------------
     if( m_event.key.keysym.sym == SDLK_ESCAPE )
+    {
+      m_running = false;
+    }
+
+    if( m_event.key.keysym.sym == SDLK_q )
     {
       m_running = false;
     }
