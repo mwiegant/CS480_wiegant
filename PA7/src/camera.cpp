@@ -108,7 +108,7 @@ bool Camera::LookDown()
  */
 bool Camera::LookLeft()
 {
-  focusPoint += glm::vec3(0.75, 0.25, 0.0);
+  focusPoint += glm::vec3(1.25, 0.0, 0.0);
 
   view = glm::lookAt( eyePosition, //Eye Position
                       focusPoint, //Focus point
@@ -122,7 +122,7 @@ bool Camera::LookLeft()
  */
 bool Camera::LookRight()
 {
-  focusPoint += glm::vec3(-0.75, -0.25, 0.0);
+  focusPoint += glm::vec3(-1.25, 0.0, 0.0);
 
   view = glm::lookAt( eyePosition, //Eye Position
                       focusPoint, //Focus point
