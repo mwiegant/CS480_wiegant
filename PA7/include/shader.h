@@ -1,3 +1,17 @@
+/**
+ * @file shader.h
+ *
+ * @brief Definition file for shader class
+ * 
+ * @author Cactus Coolers
+ * 
+ * @details Specifies all methods and variables for shader class
+ *
+ * @version 1.00
+ *
+ * @Note None
+ */
+
 #ifndef SHADER_H
 #define SHADER_H
 

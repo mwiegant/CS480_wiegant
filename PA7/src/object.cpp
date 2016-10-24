@@ -1,15 +1,13 @@
 #include "object.h"
 
-
 Object::Object()
 {
 
-  // these things get updated from the config file
+  // Set default variables (updated by config file)
   name = (char*) "planet";
   spinAxisVector = glm::vec3(0.0, 1.0, 0.0);
   orbitVector = glm::vec3( 1.0, 0.0, 0.0 );
 
-  // these things always have their value
   spinAngle = 0.0f;
   orbitAngle = 0.0f;
   spinAngleDivisor = 4000;
@@ -86,7 +84,9 @@ void Object::Update(unsigned int dt, float speedModifier, glm::mat4 systemModel)
 
 }
 
-
+/*
+ * Renders/draws object onto screen
+ */
 void Object::Render()
 {
   glEnableVertexAttribArray(0);
@@ -214,8 +214,10 @@ bool Object::InitializeTexture()
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, aTexture);
 
+  //read texture data into active gl texture
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture->columns(), texture->rows(), 0, GL_RGBA, GL_UNSIGNED_BYTE, m_blob.data());
 
+  //set texture parameters/format
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 

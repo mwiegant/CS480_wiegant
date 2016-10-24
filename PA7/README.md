@@ -13,7 +13,7 @@ Jayden Wang - the file loader
 ```
 - (2pts) Live adjustment of simulation speed
 - (2pts) Configuration file
-- (4pts) Proper rings on other planets (total of 2) 
+- (6pts) Proper rings on other planets (total of 3: Jupiter, Uranus, & Neptune) 
 - (3pts) Chair Mode (toggleable)
 ```
 

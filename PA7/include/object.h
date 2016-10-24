@@ -1,3 +1,17 @@
+/**
+ * @file object.h
+ *
+ * @brief Definition file for object class
+ * 
+ * @author Cactus Coolers
+ * 
+ * @details Specifies all methods and variables for object class
+ *
+ * @version 1.00
+ *
+ * @Note None
+ */
+
 #ifndef OBJECT_H
 #define OBJECT_H
 

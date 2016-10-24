@@ -1,3 +1,17 @@
+/**
+ * @file graphics.h
+ *
+ * @brief Definition file for graphics class
+ * 
+ * @author Cactus Coolers
+ * 
+ * @details Specifies all methods and variables for graphics class
+ *
+ * @version 1.00
+ *
+ * @Note None
+ */
+
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
 
