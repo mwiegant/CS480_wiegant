@@ -15,8 +15,8 @@ Rotation speed: 1.0
 Object: mercury
 Model: models/Mercury.obj
 Texture: textures/Mercury.jpg
-Orbit Axis: 2.0, 0.0, 0.0
-Orbit speed: 1.0
+Orbit Axis: 9.0, 0.0, 0.0
+Orbit speed: 9.6
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
@@ -24,8 +24,8 @@ Rotation speed: 1.0
 Object: venus
 Model: models/Venus.obj
 Texture: textures/Venus.jpg
-Orbit Axis: 8.0, 0.0, 0.0
-Orbit speed: 1.0
+Orbit Axis: 18.0, 0.0, 0.0
+Orbit speed: 7.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
@@ -33,16 +33,16 @@ Rotation speed: 1.0
 Object: earth
 Model: models/Earth.obj
 Texture: textures/Earth.jpg
-Orbit Axis: 16.0, 0.0, 0.0
-Orbit speed: 1.0
+Orbit Axis: 26.0, 0.0, 0.0
+Orbit speed: 5.9
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
 # Moon
 Object: moon
-Model: models/sphere.obj
+Model: models/Pluto.obj
 Texture: textures/object.jpg
-Orbit Axis: 2.0, 0.0, 0.0
+Orbit Axis: 0.5, 0.0, 0.0
 Orbit speed: 1.0
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
@@ -51,8 +51,8 @@ Rotation speed: 1.0
 Object: mars
 Model: models/Mars.obj
 Texture: textures/Mars.jpg
-Orbit Axis: 20.0, 0.0, 0.0
-Orbit speed: 1.0
+Orbit Axis: 30.0, 0.0, 0.0
+Orbit speed: 4.8
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
@@ -60,14 +60,14 @@ Rotation speed: 1.0
 Object: jupiter
 Model: models/Jupiter.obj
 Texture: textures/Jupiter.jpg
-Orbit Axis: 30.0, 0.0, 0.0
-Orbit speed: 1.0
+Orbit Axis: 40.0, 0.0, 0.0
+Orbit speed: 2.5
 Rotation Axis: 0.0, 1.0, 0.0
-Rotation speed: 1.0
+Rotation speed: 2.0
 
 # Jupiter's Moon Europa
 Object: europa
-Model: models/sphere.obj
+Model: models/Pluto.obj
 Texture: textures/object.jpg
 Orbit Axis: 1.0, 0.0, 0.0
 Orbit speed: 1.0
@@ -76,7 +76,7 @@ Rotation speed: 1.0
 
 # Jupiter's Moon Ganymede
 Object: ganymede
-Model: models/sphere.obj
+Model: models/Pluto.obj
 Texture: textures/object.jpg
 Orbit Axis: 2.0, 0.0, 0.
 Orbit speed: 1.0
@@ -85,7 +85,7 @@ Rotation speed: 1.0
 
 # Jupiter's Moon Castillo
 Object: castillo
-Model: models/sphere.obj
+Model: models/Pluto.obj
 Texture: textures/object.jpg
 Orbit Axis: 1.5, 0.0, 0.0
 Orbit speed: 1.0
@@ -94,7 +94,7 @@ Rotation speed: 1.0
 
 # Jupiter's Moon Io
 Object: io
-Model: models/sphere.obj
+Model: models/Pluto.obj
 Texture: textures/object.jpg
 Orbit Axis: 4.0, 0.0, 0.0
 Orbit speed: 1.0
@@ -105,14 +105,14 @@ Rotation speed: 1.0
 Object: saturn
 Model: models/Saturn.obj
 Texture: textures/Saturn.jpg
-Orbit Axis: 45.0, 0.0, 0.0
-Orbit speed: 1.0
+Orbit Axis: 55.0, 0.0, 0.0
+Orbit speed: 1.9
 Rotation Axis: 0.0, 1.0, 0.0
-Rotation speed: 1.0
+Rotation speed: 2.0
 
 # Saturn's Moon Titan
 Object: titan
-Model: models/sphere.obj
+Model: models/Pluto.obj
 Texture: textures/object.jpg
 Orbit Axis: 2.0, 0.0, 0.0
 Orbit speed: 1.0
@@ -121,7 +121,7 @@ Rotation speed: 1.0
 
 # Saturn's Moon Enceladus
 Object: enceladus
-Model: models/sphere.obj
+Model: models/Pluto.obj
 Texture: textures/object.jpg
 Orbit Axis: 5.0, 0.0, 0.0
 Orbit speed: 1.0
@@ -132,14 +132,14 @@ Rotation speed: 1.0
 Object: uranus
 Model: models/Uranus.obj
 Texture: textures/Uranus.jpg
-Orbit Axis: 67.0, 0.0, 0.0
-Orbit speed: 1.0
+Orbit Axis: 77.0, 0.0, 0.0
+Orbit speed: 1.3
 Rotation Axis: 0.0, 1.0, 0.0
-Rotation speed: 1.0
+Rotation speed: 2.0
 
 # Uranus's Moon Titania
 Object: titania
-Model: models/sphere.obj
+Model: models/Pluto.obj
 Texture: textures/object.jpg
 Orbit Axis: 1.0, 0.0, 0.0
 Orbit speed: 1.0
@@ -150,14 +150,14 @@ Rotation speed: 1.0
 Object: neptune
 Model: models/Neptune.obj
 Texture: textures/Neptune.jpg
-Orbit Axis: 80.0, 0.0, 0.0
-Orbit speed: 1.0
+Orbit Axis: 90.0, 0.0, 0.0
+Orbit speed: 1.1
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
 
 # Neptune's Moon Triton
 Object: triton
-Model: models/sphere.obj
+Model: models/Pluto.obj
 Texture: textures/object.jpg
 Orbit Axis: 1.0, 0.0, 0.0
 Orbit speed: 1.0
@@ -168,7 +168,7 @@ Rotation speed: 1.0
 Object: pluto
 Model: models/Pluto.obj
 Texture: textures/Pluto.jpg
-Orbit Axis: 105.0, 0.0, 0.0
-Orbit speed: 1.0
+Orbit Axis: 115.0, 0.0, 0.0
+Orbit speed: 0.9
 Rotation Axis: 0.0, 1.0, 0.0
 Rotation speed: 1.0
