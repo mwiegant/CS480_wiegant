@@ -14,6 +14,8 @@ class Camera
 
     bool ZoomIn();
     bool ZoomOut();
+    bool LookUp();
+    bool LookDown();
     bool LookLeft();
     bool LookRight();
   

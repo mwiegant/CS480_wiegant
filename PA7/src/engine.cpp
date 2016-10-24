@@ -140,21 +140,38 @@ void Engine::Keyboard()
     // -----------------------------------------------
     // camera adjustments
     // -----------------------------------------------
-    else if( m_event.key.keysym.sym == SDLK_DOWN )
+
+    // zoom out
+    else if( m_event.key.keysym.sym == SDLK_z )
     {
       m_graphics->ZoomOut();
     }
 
-    else if( m_event.key.keysym.sym == SDLK_UP )
+    // zoom in
+    else if( m_event.key.keysym.sym == SDLK_x )
     {
       m_graphics->ZoomIn();
     }
 
+    // look up
+    else if( m_event.key.keysym.sym == SDLK_UP )
+    {
+      m_graphics->LookUp();
+    }
+
+    // look down
+    else if( m_event.key.keysym.sym == SDLK_DOWN )
+    {
+      m_graphics->LookDown();
+    }
+
+    // look left
     else if( m_event.key.keysym.sym == SDLK_LEFT )
     {
       m_graphics->LookLeft();
     }
 
+    // look right
     else if( m_event.key.keysym.sym == SDLK_RIGHT )
     {
       m_graphics->LookRight();
@@ -166,15 +183,15 @@ void Engine::Keyboard()
     // -----------------------------------------------
 
     // speed up the system
-    else if( m_event.key.keysym.sym == SDLK_KP_PLUS )
+    else if( m_event.key.keysym.sym == SDLK_EQUALS )
     {
-      m_graphics->ToggleObjectMovement();
+      m_graphics->SpeedUpSystem();
     }
 
     // slow down the system
-    else if( m_event.key.keysym.sym == SDLK_KP_MINUS )
+    else if( m_event.key.keysym.sym == SDLK_MINUS )
     {
-      m_graphics->ToggleObjectMovement();
+      m_graphics->SlowDownSystem();
     }
 
     // toggle system movement

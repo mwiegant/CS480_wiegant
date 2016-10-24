@@ -186,6 +186,16 @@ bool Graphics::ZoomOut()
   return m_camera->ZoomOut();
 }
 
+bool Graphics::LookUp()
+{
+  return m_camera->LookUp();
+}
+
+bool Graphics::LookDown()
+{
+  return m_camera->LookDown();
+}
+
 bool Graphics::LookLeft()
 {
   return m_camera->LookLeft();
@@ -198,12 +208,12 @@ bool Graphics::LookRight()
 
 void Graphics::SpeedUpSystem()
 {
-  systemSpeedModifier += 0.25;
+  systemSpeedModifier *= 1.25;
 }
 
 void Graphics::SlowDownSystem()
 {
-  systemSpeedModifier -= 0.25;
+  systemSpeedModifier *= 0.75;
 }
 
 void Graphics::ToggleObjectMovement()

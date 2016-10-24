@@ -25,6 +25,8 @@ class Graphics
     // for updating the view
     bool ZoomIn();
     bool ZoomOut();
+    bool LookUp();
+    bool LookDown();
     bool LookLeft();
     bool LookRight();
 
