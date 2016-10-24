@@ -41,6 +41,9 @@ glm::mat4 Camera::GetView()
   return view;
 }
 
+/*
+ * Moves the eye position in
+ */
 bool Camera::ZoomIn()
 {
   // check if the user is too close to keep zooming in
@@ -58,6 +61,9 @@ bool Camera::ZoomIn()
   return true;
 }
 
+/*
+ * Moves the eye position out
+ */
 bool Camera::ZoomOut()
 {
   eyePosition += glm::vec3(0.0, 0.0, -1.0);
@@ -69,6 +75,9 @@ bool Camera::ZoomOut()
   return true;
 }
 
+/*
+ * Adjusts the focus point up
+ */
 bool Camera::LookUp()
 {
   focusPoint += glm::vec3(0.0, 0.0, 1.0);
@@ -80,6 +89,9 @@ bool Camera::LookUp()
   return true;
 }
 
+/*
+ * Adjusts the focus point down
+ */
 bool Camera::LookDown()
 {
   focusPoint += glm::vec3(0.0, 0.0, -1.0);
@@ -91,9 +103,12 @@ bool Camera::LookDown()
   return true;
 }
 
+/*
+ * Adjusts the focus point left
+ */
 bool Camera::LookLeft()
 {
-  focusPoint += glm::vec3(0.75, 0.0, 0.0);
+  focusPoint += glm::vec3(0.75, 0.25, 0.0);
 
   view = glm::lookAt( eyePosition, //Eye Position
                       focusPoint, //Focus point
@@ -102,9 +117,12 @@ bool Camera::LookLeft()
   return true;
 }
 
+/*
+ * Adjusts the focus point right
+ */
 bool Camera::LookRight()
 {
-  focusPoint += glm::vec3(-0.75, 0.0, 0.0);
+  focusPoint += glm::vec3(-0.75, -0.25, 0.0);
 
   view = glm::lookAt( eyePosition, //Eye Position
                       focusPoint, //Focus point
