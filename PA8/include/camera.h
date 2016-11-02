@@ -1,17 +1,3 @@
-/**
- * @file camera.h
- *
- * @brief Definition file for camera class
- * 
- * @author Cactus Coolers
- * 
- * @details Specifies all methods and variables for camera class
- *
- * @version 1.00
- *
- * @Note None
- */
-
 #ifndef CAMERA_H
 #define CAMERA_H
 
@@ -28,8 +14,6 @@ class Camera
 
     bool ZoomIn();
     bool ZoomOut();
-    bool LookUp();
-    bool LookDown();
     bool LookLeft();
     bool LookRight();
   

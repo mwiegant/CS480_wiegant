@@ -65,26 +65,12 @@ bool Graphics::Initialize(int width, int height)
     return false;
   }
 
-
-// Load different fragment shaders on MAC machines
-#if defined(__APPLE__) || defined(MACOSX)
-
-  // Add the fragment shader
-  if(!m_shader->AddShader(GL_FRAGMENT_SHADER, "shaders/fragmentShader_mac.glsl"))
-  {
-    printf("Fragment Shader failed to Initialize\n");
-    return false;
-  }
-
-#else //linux as default
-
   // Add the fragment shader
   if(!m_shader->AddShader(GL_FRAGMENT_SHADER, "shaders/fragmentShader.glsl"))
   {
     printf("Fragment Shader failed to Initialize\n");
     return false;
   }
-#endif
 
   // Connect the program
   if(!m_shader->Finalize())
@@ -123,7 +109,6 @@ bool Graphics::Initialize(int width, int height)
 
   // enable object movement
   moveObjects = true;
-  systemSpeedModifier = 1.0f;
 
   return true;
 }
@@ -134,14 +119,10 @@ void Graphics::Update(unsigned int dt)
 
   if(moveObjects)
   {
-    float speedCoeff = 1;
-    float newPos;
-
-    newPos = dt * speedCoeff;
-
-
-    // Update the sun, which will update all other objects
-    Sun->Update(newPos, systemSpeedModifier, model);
+    for(int i = 0; i < masterList.size(); i++)
+    {
+      masterList[i]->Update(dt, model);
+    }
   }
 
 }
@@ -150,7 +131,7 @@ void Graphics::Update(unsigned int dt)
 void Graphics::Render()
 {
   //clear the screen
-  glClearColor(0.1, 0.1, 0.1, 1.0);
+  glClearColor(0.0, 0.0, 0.2, 1.0);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   // Start the correct program
@@ -186,16 +167,6 @@ bool Graphics::ZoomOut()
   return m_camera->ZoomOut();
 }
 
-bool Graphics::LookUp()
-{
-  return m_camera->LookUp();
-}
-
-bool Graphics::LookDown()
-{
-  return m_camera->LookDown();
-}
-
 bool Graphics::LookLeft()
 {
   return m_camera->LookLeft();
@@ -206,136 +177,20 @@ bool Graphics::LookRight()
   return m_camera->LookRight();
 }
 
-void Graphics::SpeedUpSystem()
-{
-  systemSpeedModifier *= 1.25;
-}
-
-void Graphics::SlowDownSystem()
-{
-  systemSpeedModifier *= 0.75;
-}
-
-void Graphics::ToggleObjectMovement()
-{
-  moveObjects = bool ( moveObjects ? 0 : 1 );
-}
-
-void Graphics::ToggleChairMode()
-{
-  Sun->ToggleChairMode();
-}
-
 bool Graphics::InitializeObjects()
 {
-  // Create the sun
-  Sun = new Object();
-
-  // Create planetary objects
-  Object* Mercury = new Object();
-  Object* Venus = new Object();
-  Object* Earth = new Object();
-  Object* Moon = new Object();
-  Object* Mars = new Object();
-  Object* Jupiter = new Object();
-  Object* Europa = new Object();
-  Object* Ganymede = new Object();
-  Object* Castillo = new Object();
-  Object* Io = new Object();
-  Object* Saturn = new Object();
-  Object* Titan = new Object();
-  Object* Enceladus = new Object();
-  Object* Uranus = new Object();
-  Object* Titania = new Object();
-  Object* Neptune = new Object();
-  Object* Triton = new Object();
-  Object* Pluto = new Object();
-
+  // Create the object
+  Object* m_object = new Object( glm::vec3(0.0, 0.0, 0.0) );
 
   // All objects that will be rendered must be added to this list
-  masterList.push_back( Sun );
-  masterList.push_back( Mercury );
-  masterList.push_back( Venus );
-  masterList.push_back( Earth );
-  masterList.push_back( Moon );
-  masterList.push_back( Mars );
-  masterList.push_back( Jupiter );
-  masterList.push_back( Europa );
-  masterList.push_back( Ganymede );
-  masterList.push_back( Castillo );
-  masterList.push_back( Io );
-  masterList.push_back( Saturn );
-  masterList.push_back( Titan );
-  masterList.push_back( Enceladus );
-  masterList.push_back( Uranus );
-  masterList.push_back( Titania );
-  masterList.push_back( Neptune );
-  masterList.push_back( Triton );
-  masterList.push_back( Pluto );
-
-  // Add planets as satellites
-  Sun->AddSatellite( Mercury );
-  Sun->AddSatellite( Venus );
-  Sun->AddSatellite( Earth );
-  Sun->AddSatellite( Mars );
-  Sun->AddSatellite( Jupiter );
-  Sun->AddSatellite( Saturn );
-  Sun->AddSatellite( Uranus );
-  Sun->AddSatellite( Neptune );
-  Sun->AddSatellite( Pluto );
-
-  // Add moons as satellites
-  Earth->AddSatellite( Moon );
-  Jupiter->AddSatellite( Europa );
-  Jupiter->AddSatellite( Ganymede );
-  Jupiter->AddSatellite( Castillo );
-  Jupiter->AddSatellite( Io );
-  Saturn->AddSatellite( Titan );
-  Saturn->AddSatellite( Enceladus );
-  Uranus->AddSatellite( Titania );
-  Neptune->AddSatellite( Triton );
-
-  // Read in the objects information from the config file
-  if(!readInAll())
-  {
-   printf("Failed to read in from config file!\n");
-  }
+  masterList.push_back( m_object );
 
   // initialize all the objects
-  if(!Sun->Initialize())
+  if(!m_object->Initialize())
   {
     printf("Solar System failed to Initialize\n");
     return false;
   }
-
-  return true;
-}
-
-bool Graphics::readInAll()
-{
-  ifstream fileIn;
-  int i;
-
-  fileIn.clear();
-  fileIn.open( "config/solar_system.cnf" );
-  
-
-  if( !fileIn.good() )
-  {
-    printf("File not good!\n");
-    return false;
-  }
-
-
-  //ignore up to the name of the Sun
-  fileIn.ignore( 256, ':' );
-
-  for( i = 0; i < masterList.size(); i++ )
-  {
-    masterList[i]->ReadConfig( fileIn );
-  }
-
-  fileIn.close();
 
   return true;
 }

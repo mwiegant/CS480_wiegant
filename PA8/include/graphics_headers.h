@@ -1,17 +1,3 @@
-/**
- * @file graphics_headers.h
- *
- * @brief Definition file for graphics_headers class
- * 
- * @author Cactus Coolers
- * 
- * @details Specifies all methods and variables for graphics_headers class
- *
- * @version 1.00
- *
- * @Note Made changes to the vertex struct in order to accomodate uv coordinates
- */
-
 #ifndef GRAPHICS_HEADERS_H
 #define GRAPHICS_HEADERS_H
 

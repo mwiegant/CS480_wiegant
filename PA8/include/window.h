@@ -1,17 +1,3 @@
-/**
- * @file window.h
- *
- * @brief Definition file for window class
- * 
- * @author Cactus Coolers
- * 
- * @details Specifies all methods and variables for window class
- *
- * @version 1.00
- *
- * @Note None
- */
-
 #ifndef WINDOW_H
 #define WINDOW_H
 

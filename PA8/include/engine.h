@@ -1,17 +1,3 @@
-/**
- * @file engine.h
- *
- * @brief Definition file for engine class
- * 
- * @author Cactus Coolers
- * 
- * @details Specifies all methods and variables for engine class
- *
- * @version 1.00
- *
- * @Note None
- */
-
 #ifndef ENGINE_H
 #define ENGINE_H
 

@@ -1,25 +1,9 @@
-/**
- * @file object.h
- *
- * @brief Definition file for object class
- * 
- * @author Cactus Coolers
- * 
- * @details Specifies all methods and variables for object class
- *
- * @version 1.00
- *
- * @Note None
- */
-
 #ifndef OBJECT_H
 #define OBJECT_H
 
 #include <vector>
 #include <string>
 #include <cstdio>
-#include <fstream>
-#include <iostream>
 #include "graphics_headers.h"
 
 #include <assimp/Importer.hpp>
@@ -31,28 +15,21 @@
 class Object
 {
   public:
-
-    Object();
+//    Object(char* objectName); // todo - depricate this constructor
+    Object(glm::vec3 _orbitVector);
     ~Object();
-    bool Initialize();
-    void Update(unsigned int dt, float speedModifier, glm::mat4 systemModel);
+    void Update(unsigned int dt, glm::mat4 systemModel);
     void Render();
+
+    bool Initialize();
+
+    // Getters
     glm::mat4 GetModel();
-
-    void AddSatellite(Object* satellite);
-    void ToggleChairMode();
-
-    //function to read in the required parts from the config file
-    bool ReadConfig(std::ifstream& fileIn);
 
   private:
 
     bool InitializeTexture();
-    bool InitializeModel(bool chairMode);
-
-    // Update functions
-    void updateAngles(float dt);
-    void drawObject(glm::mat4 matrix);
+    bool InitializeModel();
 
     glm::mat4 model;
 
@@ -64,34 +41,10 @@ class Object
     //Texture
     GLuint aTexture;
 
-    // Unique Identifier
-    char* name;
-
     // Path names
+    char* configFilePath;
     char* modelFilePath;
     char* textureFilePath;
-    char* chairFilePath;
-
-    bool chairMode;
-
-    // Spin variables
-    float spinAngle;
-    float spinSpeed;
-    int spinAngleDivisor;
-    bool spinEnabled;
-    int spinDirection;
-    glm::vec3 spinAxisVector;
-
-    // Orbit variables
-    float orbitAngle;
-    float orbitSpeed;
-    int orbitAngleDivisor;
-    bool orbitEnabled;
-    int orbitDirection;
-    glm::vec3 orbitVector;
-
-    // For objects that orbit around this object
-    std::vector<Object *> satellites;
 };
 
 #endif /* OBJECT_H */
