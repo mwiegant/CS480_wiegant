@@ -30,6 +30,11 @@ Object::Object(glm::vec3 _orbitVector)
 
 }
 
+Object::Object()
+{
+
+}
+
 Object::~Object()
 {
   Vertices.clear();
@@ -38,14 +43,30 @@ Object::~Object()
 
 bool Object::Initialize()
 {
-  modelFilePath = (char*) "models/Venus.obj";
-  textureFilePath = (char*) "textures/granite.jpg";
+  modelFilePath = "models/Uranus.obj";
+  textureFilePath = "textures/granite.jpg";
 
   InitializeTexture();
 
   if(!InitializeModel())
   {
-    std::printf("failed to load model from path: %s", modelFilePath);
+    std::printf("failed to load model from path: %s", modelFilePath.c_str());
+    return false;
+  }
+
+  return true;
+}
+
+bool Object::Initialize(const char* fileName)
+{
+  modelFilePath = fileName;
+  textureFilePath = "textures/granite.jpg";
+
+  InitializeTexture();
+
+  if(!InitializeModel())
+  {
+    std::printf("failed to load model from path: %s", modelFilePath.c_str());
     return false;
   }
 
@@ -53,7 +74,7 @@ bool Object::Initialize()
 }
 
 
-void Object::Update(unsigned int dt, glm::mat4 systemModel)
+void Object::Update(glm::mat4 systemModel)
 {
   model = systemModel;
 }
@@ -67,7 +88,7 @@ glm::mat4 Object::GetModel()
 bool Object::InitializeTexture()
 {
   //initalize image loading with magick++
-  Magick::Image* texture = new Magick::Image(textureFilePath);
+  Magick::Image* texture = new Magick::Image(textureFilePath.c_str());
   Magick::Blob m_blob;
   texture->write(&m_blob,"RGBA");
 
@@ -90,7 +111,8 @@ bool Object::InitializeTexture()
 bool Object::InitializeModel()
 {
   Assimp::Importer importer;
-  const aiScene *myScene = importer.ReadFile( modelFilePath, aiProcess_Triangulate);
+
+  const aiScene *myScene = importer.ReadFile( modelFilePath.c_str(), aiProcess_Triangulate);
 
   aiMesh* meshOne = myScene->mMeshes[0];
 

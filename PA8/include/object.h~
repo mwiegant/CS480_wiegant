@@ -44,9 +44,9 @@ class Object
     GLuint aTexture;
 
     // Path names
-    std::string configFilePath;
-    std::string modelFilePath;
-    std::string textureFilePath;
+    string configFilePath;
+    string modelFilePath;
+    string textureFilePath;
 };
 
 #endif /* OBJECT_H */

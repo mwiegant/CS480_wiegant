@@ -45,10 +45,10 @@ bool Graphics::Initialize(int width, int height)
   }
 
   // Set up the objects
-  //if(!InitializeObjects())
-  //{
-   // printf("Failed to Initialize objects\n");
-  //}
+  if(!InitializeObjects())
+  {
+    printf("Failed to Initialize objects\n");
+  }
 
   // Set up the physics world
   m_world.Initialize();
