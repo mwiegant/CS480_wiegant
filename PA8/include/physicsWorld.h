@@ -16,6 +16,7 @@ class PhysicsWorld
     bool Initialize();
 
     bool addRigidBody();
+    bool AddFloor();
     bool AddSphere();
 
     void Update(unsigned int dt);

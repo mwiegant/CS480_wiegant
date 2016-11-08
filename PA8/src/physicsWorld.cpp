@@ -92,6 +92,54 @@ bool PhysicsWorld::addRigidBody()
  *  1. Creating a btRigidBody and adding it to the dynamicsWorld
  *  2. Creating an Object and adding it to the objectList
  */
+bool PhysicsWorld::AddFloor()
+{
+  /// 1. Creating a btRigidBody and adding it to the dynamicsWorld
+
+  //create a dynamic rigidbody
+  btCollisionShape* floorShape = new btSphereShape( btScalar(1.) );
+  collisionShapes.push_back(floorShape);
+
+  // Create Dynamic Objects
+  btTransform groundTransform;
+  groundTransform.setIdentity();
+  groundTransform.setOrigin(btVector3(0,-56,0));
+
+  btScalar mass(0.f);
+
+  // the rigidbody is dynamic if and only if mass is non zero, otherwise static
+  bool isDynamic = (mass != 0.f);
+
+  btVector3 localInertia(0,0,0);
+  if (isDynamic)
+  {
+    floorShape->calculateLocalInertia(mass,localInertia);
+  }
+
+  //using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
+  btDefaultMotionState* myMotionState = new btDefaultMotionState( groundTransform );
+  btRigidBody::btRigidBodyConstructionInfo rbInfo( mass, myMotionState, floorShape, localInertia );
+  btRigidBody* body = new btRigidBody( rbInfo );
+
+  dynamicsWorld->addRigidBody(body);
+
+  /// 2. Creating an Object and adding it to the objectList
+
+  Object* plane = new Object();
+
+  plane->Initialize("models/plane.obj");
+
+  objectList.push_back(plane);
+
+  return true;
+}
+
+
+/*
+ * There are two components to adding an object to the physics world:
+ *  1. Creating a btRigidBody and adding it to the dynamicsWorld
+ *  2. Creating an Object and adding it to the objectList
+ */
 bool PhysicsWorld::AddSphere()
 {
   /// 1. Creating a btRigidBody and adding it to the dynamicsWorld
@@ -103,6 +151,7 @@ bool PhysicsWorld::AddSphere()
   // Create Dynamic Objects
   btTransform startTransform;
   startTransform.setIdentity();
+  startTransform.setOrigin(btVector3(2,3,0));
 
   btScalar mass(1.f);
 
@@ -115,9 +164,6 @@ bool PhysicsWorld::AddSphere()
     sphereShape->calculateLocalInertia(mass,localInertia);
   }
 
-  // set the starting location of the shape
-  startTransform.setOrigin(btVector3(2,3,0));
-
   //using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
   btDefaultMotionState* myMotionState = new btDefaultMotionState( startTransform );
   btRigidBody::btRigidBodyConstructionInfo rbInfo( mass, myMotionState, sphereShape, localInertia );
@@ -129,7 +175,7 @@ bool PhysicsWorld::AddSphere()
 
   Object* sphere = new Object();
 
-  sphere->Initialize();
+  sphere->Initialize("models/sphere.obj");
 
   objectList.push_back(sphere);
 
@@ -144,7 +190,7 @@ void PhysicsWorld::Update(unsigned int dt)
   btTransform trans;
   btScalar m[16];
 
-  dynamicsWorld->stepSimulation(dt, 10);
+//  dynamicsWorld->stepSimulation(dt, 10);
 
   // update each object in the physics world
   for( int i = 0; i < objectList.size(); i++)
