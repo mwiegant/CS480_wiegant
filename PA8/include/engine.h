@@ -35,13 +35,6 @@ class Engine
     unsigned int m_DT;
     long long m_currentTimeMillis;
     bool m_running;
-
-    // todo - re purpose this variable for solar system project
-    // For determining which object keyboard input should affect
-    char* focusedObject;
-
-    // For specifying path to the model
-    char* modelPath;
 };
 
 #endif // ENGINE_H

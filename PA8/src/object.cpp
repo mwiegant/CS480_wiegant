@@ -1,35 +1,5 @@
 #include "object.h"
 
-//Object::Object(char* objectName)
-//{
-//  // Set object name
-//  name = objectName;
-//
-//  // Set angles and their divisors
-//  spinAngle = 0.0f;
-//  orbitAngle = 0.0f;
-//  spinAngleDivisor = 2000;
-//  orbitAngleDivisor = 2000;
-//
-//  // Set initial vector values for the axis of spin and the orbit
-//  spinAxisVector = glm::vec3(0.0, 1.0, 0.0);
-//  orbitVector = glm::vec3(5.0, 0.0, 0.0);
-//
-//  // Set flags for spinning and orbiting
-//  spinEnabled = true;
-//  orbitEnabled = true;
-//
-//  // Set spin and orbit directions
-//  spinDirection = 1;
-//  orbitDirection = 1;
-//
-//}
-
-Object::Object(glm::vec3 _orbitVector)
-{
-
-}
-
 Object::Object()
 {
 
@@ -44,13 +14,17 @@ Object::~Object()
 bool Object::Initialize()
 {
   modelFilePath = "models/Uranus.obj";
-  textureFilePath = "textures/granite.jpg";
-
-  InitializeTexture();
+  textureFilePath = "textures/neptune.jpg";
 
   if(!InitializeModel())
   {
-    std::printf("failed to load model from path: %s", modelFilePath.c_str());
+    std::printf("failed to load model from path: %s\n", modelFilePath.c_str());
+    return false;
+  }
+
+  if(!InitializeTexture())
+  {
+    std::printf("failed to load texture from path: %s\n", textureFilePath.c_str());
     return false;
   }
 
@@ -60,13 +34,17 @@ bool Object::Initialize()
 bool Object::Initialize(const char* fileName)
 {
   modelFilePath = fileName;
-  textureFilePath = "textures/granite.jpg";
-
-  InitializeTexture();
+  textureFilePath = "textures/neptune.jpg";
 
   if(!InitializeModel())
   {
-    std::printf("failed to load model from path: %s", modelFilePath.c_str());
+    std::printf("failed to load model from path: %s\n", modelFilePath.c_str());
+    return false;
+  }
+
+  if(!InitializeTexture())
+  {
+    std::printf("failed to load texture from path: %s\n", textureFilePath.c_str());
     return false;
   }
 
@@ -110,17 +88,22 @@ bool Object::InitializeTexture()
  */
 bool Object::InitializeModel()
 {
+  unsigned int index;
+  aiMesh* meshOne;
+  aiVector3D aiUV;
+  aiVector3D aiVector;
   Assimp::Importer importer;
 
-  const aiScene *myScene = importer.ReadFile( modelFilePath.c_str(), aiProcess_Triangulate);
-
-  aiMesh* meshOne = myScene->mMeshes[0];
-
-  aiVector3D aiVector;
-  aiVector3D aiUV;
-  unsigned int index;
-
-
+  // attempt to read the model from file
+  try
+  {
+    const aiScene *myScene = importer.ReadFile( modelFilePath.c_str(), aiProcess_Triangulate);
+    meshOne = myScene->mMeshes[0];
+  }
+  catch (int Exception)
+  {
+    return false;
+  }
 
   // load the models and the vertices
   for( int i = 0; i < meshOne->mNumFaces; i++ )
@@ -140,11 +123,8 @@ bool Object::InitializeModel()
 
       Vertex *temp = new Vertex(glm::vec3(aiVector.x, aiVector.y, aiVector.z), glm::vec2(aiUV.x, aiUV.y));
       Vertices.push_back( *temp );
-
     }
-
   }
-
 
   glGenBuffers(1, &VB);
   glBindBuffer(GL_ARRAY_BUFFER, VB);

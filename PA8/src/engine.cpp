@@ -7,9 +7,6 @@ Engine::Engine(string name, int width, int height)
   m_WINDOW_WIDTH = width;
   m_WINDOW_HEIGHT = height;
   m_FULLSCREEN = false;
-
-  // set which object has keyboard focus, by default
-  focusedObject = (char*) "planet";
 }
 
 Engine::Engine(string name)
@@ -94,48 +91,6 @@ void Engine::Keyboard()
       m_running = false;
     }
 
-    // -----------------------------------------------
-    // adjust which part of solar system to render / focus on
-    // -----------------------------------------------
-
-/*
-    // handle 1 - change focus to solar system
-    if( m_event.key.keysym.sym == SDLK_1 )
-      planetarySystem = SOLAR_SYSTEM;
-
-    // handle 2 - change focus to mercury system
-    else if( m_event.key.keysym.sym == SDLK_2 )
-      planetarySystem = MERCURY_SYSTEM;
-
-    // handle 3 - change focus to venus system
-    else if( m_event.key.keysym.sym == SDLK_3 )
-      planetarySystem = VENUS_SYSTEM;
-
-    // handle 4 - change focus to earth system
-    else if( m_event.key.keysym.sym == SDLK_4 )
-      planetarySystem = EARTH_SYSTEM;
-
-    // handle 5 - change focus to mars system
-    else if( m_event.key.keysym.sym == SDLK_5 )
-      planetarySystem = MARS_SYSTEM;
-
-    // handle 6 - change focus to jupiter system
-    else if( m_event.key.keysym.sym == SDLK_6 )
-      planetarySystem = JUPITER_SYSTEM;
-
-    // handle 7 - change focus to saturn system
-    else if( m_event.key.keysym.sym == SDLK_7 )
-      planetarySystem = SATURN_SYSTEM;
-
-    // handle 8 - change focus to uranus system
-    else if( m_event.key.keysym.sym == SDLK_8 )
-      planetarySystem = URANUS_SYSTEM;
-
-    // handle 9 - change focus to neptune system
-    else if( m_event.key.keysym.sym == SDLK_9 )
-      planetarySystem = NEPTUNE_SYSTEM;
-*/
-
 
     // -----------------------------------------------
     // camera adjustments
@@ -164,36 +119,8 @@ void Engine::Keyboard()
     // -----------------------------------------------
     // other keyboard event handling
     // -----------------------------------------------
+      // none currently
 
-    // toggle system movement
-    else if( m_event.key.keysym.sym == SDLK_SPACE )
-    {
-
-    }
-
-    // todo - re-implement object focus
-/*
-    // handle w - toggle cube spin
-    else if( m_event.key.keysym.sym == SDLK_w )
-    {
-      m_graphics->toggleObjectSpin(focusedObject);
-    }
-    // handle e - switch cube spin direction
-    else if( m_event.key.keysym.sym == SDLK_e )
-    {
-      m_graphics->invertObjectSpin(focusedObject);
-    }
-    // handle s - toggle cube orbital rotation
-    else if( m_event.key.keysym.sym == SDLK_s )
-    {
-      m_graphics->toggleObjectOrbit(focusedObject);
-    }
-    // handle d - switch cube orbital rotation direction
-    else if( m_event.key.keysym.sym == SDLK_d )
-    {
-      m_graphics->invertObjectOrbit(focusedObject);
-    }
-*/
   }
 }
 
