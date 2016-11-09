@@ -42,6 +42,7 @@ bool Engine::Initialize()
     return false;
   }
 
+  m_graphics->InitializeObjects();
 
   // Set the time
   m_currentTimeMillis = GetCurrentTimeMillis();

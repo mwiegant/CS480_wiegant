@@ -15,8 +15,6 @@
 class Object
 {
   public:
-//    Object(char* objectName); // todo - depricate this constructor
-    Object(glm::vec3 _orbitVector);
     Object();
     ~Object();
     void Update(glm::mat4 systemModel);

@@ -42,7 +42,7 @@ class Graphics
 
     bool moveObjects;
 
-    //vector<Object *> masterList;
+    vector<Object *> masterList;
 
     PhysicsWorld m_world;
 };

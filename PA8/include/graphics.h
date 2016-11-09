@@ -44,7 +44,7 @@ class Graphics
 
     vector<Object *> masterList;
 
-    PhysicsWorld m_world;
+    PhysicsWorld physicsWorld;
 };
 
 #endif /* GRAPHICS_H */

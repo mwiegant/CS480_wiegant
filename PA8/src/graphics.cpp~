@@ -45,13 +45,13 @@ bool Graphics::Initialize(int width, int height)
   }
 
   // Set up the objects
-  if(!InitializeObjects())
-  {
-    printf("Failed to Initialize objects\n");
-  }
+  //if(!InitializeObjects())
+  //{
+   // printf("Failed to Initialize objects\n");
+  //}
 
   // Set up the physics world
-  m_world.Initialize();
+  physicsWorld.Initialize();
 
   // Set up the shaders
   m_shader = new Shader();
@@ -68,12 +68,25 @@ bool Graphics::Initialize(int width, int height)
     return false;
   }
 
+  // Load different fragment shaders on MAC machines
+#if defined(__APPLE__) || defined(MACOSX)
+
+  // Add the fragment shader
+  if(!m_shader->AddShader(GL_FRAGMENT_SHADER, "shaders/fragmentShader_mac.glsl"))
+  {
+    printf("Fragment Shader failed to Initialize\n");
+    return false;
+  }
+
+#else //linux as default
+
   // Add the fragment shader
   if(!m_shader->AddShader(GL_FRAGMENT_SHADER, "shaders/fragmentShader.glsl"))
   {
     printf("Fragment Shader failed to Initialize\n");
     return false;
   }
+#endif
 
   // Connect the program
   if(!m_shader->Finalize())
@@ -118,7 +131,7 @@ bool Graphics::Initialize(int width, int height)
 
 void Graphics::Update(unsigned int dt)
 {
-  m_world.Update(dt);
+  physicsWorld.Update(dt);
 }
 
 
@@ -136,10 +149,10 @@ void Graphics::Render()
   glUniformMatrix4fv(m_viewMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetView()));
 
   // Render all objects in the master list
-  for(int i = 0; i < m_world.masterList.size(); i++)
+  for(int i = 0; i < physicsWorld.objectList.size(); i++)
   {
-    glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr( m_world.masterList[i]->GetModel() ));
-    m_world.masterList[i]->Render();
+    glUniformMatrix4fv(m_modelMatrix, 1, GL_FALSE, glm::value_ptr( physicsWorld.objectList[i]->GetModel() ));
+    physicsWorld.objectList[i]->Render();
   }
 
   // Get any errors from OpenGL
@@ -173,18 +186,9 @@ bool Graphics::LookRight()
 
 bool Graphics::InitializeObjects()
 {
-  // Create the object
-  Object* m_object = new Object( glm::vec3(0.0, 0.0, 0.0) );
-
-  // All objects that will be rendered must be added to this list
-  masterList.push_back( m_object );
-
-  // initialize all the objects
-  if(!m_object->Initialize())
-  {
-    printf("Solar System failed to Initialize\n");
-    return false;
-  }
+  // add objects to the physics world
+  physicsWorld.AddSphere();
+  physicsWorld.AddFloor();
 
   return true;
 }
