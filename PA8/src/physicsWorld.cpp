@@ -105,7 +105,7 @@ bool PhysicsWorld::AddFloor()
     floorShape->calculateLocalInertia(mass,localInertia);
   }
 
-  //using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
+  // using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
   btDefaultMotionState* myMotionState = new btDefaultMotionState( groundTransform );
   btRigidBody::btRigidBodyConstructionInfo rbInfo( mass, myMotionState, floorShape, localInertia );
   btRigidBody* body = new btRigidBody( rbInfo );
@@ -119,6 +119,8 @@ bool PhysicsWorld::AddFloor()
   plane->Initialize("models/plane.obj");
 
   objectList.push_back(plane);
+
+  printf("successfully added a plane to the physics world.\n");
 
   return true;
 }
@@ -153,7 +155,7 @@ bool PhysicsWorld::AddSphere()
     sphereShape->calculateLocalInertia(mass,localInertia);
   }
 
-  //using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
+  // using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
   btDefaultMotionState* myMotionState = new btDefaultMotionState( startTransform );
   btRigidBody::btRigidBodyConstructionInfo rbInfo( mass, myMotionState, sphereShape, localInertia );
   btRigidBody* body = new btRigidBody( rbInfo );
@@ -168,6 +170,58 @@ bool PhysicsWorld::AddSphere()
 
   objectList.push_back(sphere);
 
+  printf("successfully added a sphere to the physics world.\n");
+
+  return true;
+}
+
+
+/*
+ * There are two components to adding an object to the physics world:
+ *  1. Creating a btRigidBody and adding it to the dynamicsWorld
+ *  2. Creating an Object and adding it to the objectList
+ */
+bool PhysicsWorld::AddCube()
+{
+  /// 1. Creating a btRigidBody and adding it to the dynamicsWorld
+
+  //create a dynamic rigidbody
+  btCollisionShape* boxShape = new btBoxShape(btVector3(0.5, 0.5, 0.5));
+  collisionShapes.push_back(boxShape);
+
+  // Create Dynamic Objects
+  btTransform boxTransform;
+  boxTransform.setIdentity();
+  boxTransform.setOrigin(btVector3(0,0,0));
+
+  btScalar mass(1.f);
+
+  // the rigidbody is dynamic if and only if mass is non zero, otherwise static
+  bool isDynamic = (mass != 0.f);
+
+  btVector3 localInertia(0,0,0);
+  if (isDynamic)
+  {
+    boxShape->calculateLocalInertia(mass,localInertia);
+  }
+
+  // using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
+  btDefaultMotionState* myMotionState = new btDefaultMotionState( boxTransform );
+  btRigidBody::btRigidBodyConstructionInfo rbInfo( mass, myMotionState, boxShape, localInertia );
+  btRigidBody* body = new btRigidBody( rbInfo );
+
+  dynamicsWorld->addRigidBody(body);
+
+  /// 2. Creating an Object and adding it to the objectList
+
+  Object* cube = new Object();
+
+  cube->Initialize("models/cube.obj");
+
+  objectList.push_back(cube);
+
+  printf("successfully added a cube to the physics world.\n");
+
   return true;
 }
 
@@ -179,7 +233,7 @@ void PhysicsWorld::Update(unsigned int dt)
   btTransform trans;
   btScalar m[16];
 
-  dynamicsWorld->stepSimulation(dt, 10);
+  dynamicsWorld->stepSimulation(dt, 1);
 
   // update each object in the physics world
   for( int i = 0; i < objectList.size(); i++)

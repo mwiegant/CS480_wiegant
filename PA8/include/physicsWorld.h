@@ -3,10 +3,16 @@
 
 #include <vector>
 #include <string>
+
+#include <cstdio>
+
 #include <btBulletDynamicsCommon.h>
+
 #include "object.h"
 #include "graphics_headers.h"
+
 using namespace std;
+
 class PhysicsWorld 
 {
   public:
@@ -18,6 +24,7 @@ class PhysicsWorld
     bool addRigidBody();
     bool AddFloor();
     bool AddSphere();
+    bool AddCube();
 
     void Update(unsigned int dt);
     vector<Object*> objectList;

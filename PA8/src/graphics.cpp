@@ -188,8 +188,10 @@ bool Graphics::LookRight()
 bool Graphics::InitializeObjects()
 {
   // add objects to the physics world
-  physicsWorld.AddSphere();
   physicsWorld.AddFloor();
+  physicsWorld.AddCube();
+  physicsWorld.AddSphere();
+
 
   return true;
 }
