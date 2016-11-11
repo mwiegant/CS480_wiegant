@@ -23,8 +23,8 @@ class PhysicsWorld
 
     bool addRigidBody();
     bool AddFloor();
-    bool AddSphere();
-    bool AddCube();
+    bool AddSphere(btVector3 position);
+    bool AddCube(btVector3 position);
 
     void Update(unsigned int dt);
     vector<Object*> objectList;

@@ -189,8 +189,8 @@ bool Graphics::InitializeObjects()
 {
   // add objects to the physics world
   physicsWorld.AddFloor();
-  physicsWorld.AddCube();
-  physicsWorld.AddSphere();
+  physicsWorld.AddCube( btVector3(0,0,0) );
+  physicsWorld.AddSphere( btVector3(0,40,0.9) );
 
 
   return true;

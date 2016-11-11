@@ -92,7 +92,7 @@ bool PhysicsWorld::AddFloor()
   // Create Dynamic Objects
   btTransform groundTransform;
   groundTransform.setIdentity();
-  groundTransform.setOrigin(btVector3(0,-5,0));
+  groundTransform.setOrigin(btVector3(0,0,0));
 
   btScalar mass(0.f);
 
@@ -131,7 +131,7 @@ bool PhysicsWorld::AddFloor()
  *  1. Creating a btRigidBody and adding it to the dynamicsWorld
  *  2. Creating an Object and adding it to the objectList
  */
-bool PhysicsWorld::AddSphere()
+bool PhysicsWorld::AddSphere(btVector3 position)
 {
   /// 1. Creating a btRigidBody and adding it to the dynamicsWorld
 
@@ -142,7 +142,7 @@ bool PhysicsWorld::AddSphere()
   // Create Dynamic Objects
   btTransform startTransform;
   startTransform.setIdentity();
-  startTransform.setOrigin(btVector3(0,5,-5));
+  startTransform.setOrigin(position);
 
   btScalar mass(1.f);
 
@@ -181,7 +181,7 @@ bool PhysicsWorld::AddSphere()
  *  1. Creating a btRigidBody and adding it to the dynamicsWorld
  *  2. Creating an Object and adding it to the objectList
  */
-bool PhysicsWorld::AddCube()
+bool PhysicsWorld::AddCube(btVector3 position)
 {
   /// 1. Creating a btRigidBody and adding it to the dynamicsWorld
 
@@ -192,9 +192,9 @@ bool PhysicsWorld::AddCube()
   // Create Dynamic Objects
   btTransform boxTransform;
   boxTransform.setIdentity();
-  boxTransform.setOrigin(btVector3(0,0,0));
+  boxTransform.setOrigin(position);
 
-  btScalar mass(1.f);
+  btScalar mass(4.f);
 
   // the rigidbody is dynamic if and only if mass is non zero, otherwise static
   bool isDynamic = (mass != 0.f);
