@@ -88,7 +88,7 @@ bool PhysicsWorld::AddSphere(btVector3 position)
   /// 1. Creating a btRigidBody and adding it to the dynamicsWorld
 
   //create a dynamic rigidbody
-  btCollisionShape* sphereShape = new btSphereShape( btScalar(1.) );
+  btCollisionShape* sphereShape = new btSphereShape( btScalar(1.0f) );
   collisionShapes.push_back(sphereShape);
 
   // Create Dynamic Objects
@@ -96,7 +96,7 @@ bool PhysicsWorld::AddSphere(btVector3 position)
   startTransform.setIdentity();
   startTransform.setOrigin(position);
 
-  btScalar mass(1.f);
+  btScalar mass(4.0f);
 
   // the rigidbody is dynamic if and only if mass is non zero, otherwise static
   bool isDynamic = (mass != 0.f);
@@ -138,7 +138,7 @@ bool PhysicsWorld::AddCube(btVector3 position)
   /// 1. Creating a btRigidBody and adding it to the dynamicsWorld
 
   //create a dynamic rigidbody
-  btCollisionShape* boxShape = new btBoxShape(btVector3(0.5, 0.5, 0.5));
+  btCollisionShape* boxShape = new btBoxShape(btVector3(1.0f, 1.0f, 1.0f));
   collisionShapes.push_back(boxShape);
 
   // Create Dynamic Objects
@@ -146,7 +146,7 @@ bool PhysicsWorld::AddCube(btVector3 position)
   boxTransform.setIdentity();
   boxTransform.setOrigin(position);
 
-  btScalar mass(4.f);
+  btScalar mass(1.0f);
 
   // the rigidbody is dynamic if and only if mass is non zero, otherwise static
   bool isDynamic = (mass != 0.f);
@@ -173,6 +173,56 @@ bool PhysicsWorld::AddCube(btVector3 position)
   objectList.push_back(cube);
 
   printf("successfully added a cube to the physics world.\n");
+
+  return true;
+}
+
+
+/*
+ * There are two components to adding an object to the physics world:
+ *  1. Creating a btRigidBody and adding it to the dynamicsWorld
+ *  2. Creating an Object and adding it to the objectList
+ */
+bool PhysicsWorld::AddCylinder(btVector3 position)
+{
+  /// 1. Creating a btRigidBody and adding it to the dynamicsWorld
+
+  //create a dynamic rigidbody
+  btCollisionShape* cylinderShape = new btCylinderShape(btVector3(1.0f, 1.0f, 1.0f));
+  collisionShapes.push_back(cylinderShape);
+
+  // Create Dynamic Objects
+  btTransform cylinderTransform;
+  cylinderTransform.setIdentity();
+  cylinderTransform.setOrigin(position);
+
+  btScalar mass(1.0f);
+
+  // the rigidbody is dynamic if and only if mass is non zero, otherwise static
+  bool isDynamic = (mass != 0.f);
+
+  btVector3 localInertia(0,0,0);
+  if (isDynamic)
+  {
+    cylinderShape->calculateLocalInertia(mass,localInertia);
+  }
+
+  // using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
+  btDefaultMotionState* myMotionState = new btDefaultMotionState( cylinderTransform );
+  btRigidBody::btRigidBodyConstructionInfo rbInfo( mass, myMotionState, cylinderShape, localInertia );
+  btRigidBody* body = new btRigidBody( rbInfo );
+
+  dynamicsWorld->addRigidBody(body);
+
+  /// 2. Creating an Object and adding it to the objectList
+
+  Object* cube = new Object();
+
+  cube->Initialize("models/cylinder.obj");
+
+  objectList.push_back(cube);
+
+  printf("successfully added a cylinder to the physics world.\n");
 
   return true;
 }

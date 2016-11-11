@@ -24,6 +24,7 @@ class PhysicsWorld
     bool AddFloor();
     bool AddSphere(btVector3 position);
     bool AddCube(btVector3 position);
+    bool AddCylinder(btVector3 position);
 
     void Update(unsigned int dt);
     vector<Object*> objectList;

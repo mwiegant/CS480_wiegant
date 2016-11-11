@@ -190,8 +190,13 @@ bool Graphics::InitializeObjects()
   // add objects to the physics world
   physicsWorld.AddFloor();
   physicsWorld.AddCube( btVector3(0,0,0) );
+  physicsWorld.AddCube( btVector3(5,0,5) );
+  physicsWorld.AddCube( btVector3(5,0,-5) );
+  physicsWorld.AddSphere( btVector3(1,0,1) );
+  physicsWorld.AddCylinder( btVector3(1,12,1) );
   physicsWorld.AddSphere( btVector3(0,40,0.9) );
-
+  physicsWorld.AddSphere( btVector3(5.9,20,3.9) );
+  physicsWorld.AddSphere( btVector3(5.7,80,-5.9) );
 
   return true;
 }
