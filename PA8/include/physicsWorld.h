@@ -21,7 +21,6 @@ class PhysicsWorld
 
     bool Initialize();
 
-    bool addRigidBody();
     bool AddFloor();
     bool AddSphere(btVector3 position);
     bool AddCube(btVector3 position);

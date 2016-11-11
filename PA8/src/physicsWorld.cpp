@@ -29,54 +29,6 @@ bool PhysicsWorld::Initialize() {
 
 
 /*
- * Everything below this line subject to change
- */
-
-
-//  ground = new Object();
-//  ball = new Object();
-//
-//  // todo - come up with a better way to initialize these, so if the models fail to initialize, physicsworld also fails to initialize
-//  ground->Initialize("models/plane.obj");
-//  ball->Initialize("models/sphere.obj");
-//
-//  masterList.push_back(ground);
-//  masterList.push_back(ball);
-//
-//
-//
-//  //add shapes
-//  btCollisionShape* groundShape = new btStaticPlaneShape(btVector3(0, 1, 0), 1);
-//
-//  btCollisionShape* fallShape = new btSphereShape(1);
-//
-//
-//  //add motion states
-//  btDefaultMotionState* groundMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, -1, 0)));
-//  btRigidBody::btRigidBodyConstructionInfo groundRigidBodyCI(0, groundMotionState, groundShape, btVector3(0, 0, 0));
-//  groundRigidBody = new btRigidBody(groundRigidBodyCI);
-//  dynamicsWorld->addRigidBody(groundRigidBody);
-//
-//
-//  btDefaultMotionState* fallMotionState = new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, 50, 0)));
-//  btScalar mass = 1;
-//  btVector3 fallInertia(0, 0, 0);
-//  fallShape->calculateLocalInertia(mass, fallInertia);
-//  btRigidBody::btRigidBodyConstructionInfo fallRigidBodyCI(mass, fallMotionState, fallShape, fallInertia);
-//  fallRigidBody = new btRigidBody(fallRigidBodyCI);
-//  dynamicsWorld->addRigidBody(fallRigidBody);
-//
-//  return true;
-//}
-
-
-bool PhysicsWorld::addRigidBody()
-{
-  return false;
-}
-
-
-/*
  * There are two components to adding an object to the physics world:
  *  1. Creating a btRigidBody and adding it to the dynamicsWorld
  *  2. Creating an Object and adding it to the objectList
