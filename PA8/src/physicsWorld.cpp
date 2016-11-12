@@ -72,8 +72,6 @@ bool PhysicsWorld::AddFloor()
 
   objectList.push_back(plane);
 
-  printf("successfully added a plane to the physics world.\n");
-
   return true;
 }
 
@@ -96,7 +94,7 @@ bool PhysicsWorld::AddSphere(btVector3 position)
   startTransform.setIdentity();
   startTransform.setOrigin(position);
 
-  btScalar mass(4.0f);
+  btScalar mass(80.0f);
 
   // the rigidbody is dynamic if and only if mass is non zero, otherwise static
   bool isDynamic = (mass != 0.f);
@@ -121,8 +119,6 @@ bool PhysicsWorld::AddSphere(btVector3 position)
   sphere->Initialize();
 
   objectList.push_back(sphere);
-
-  printf("successfully added a sphere to the physics world.\n");
 
   return true;
 }
@@ -172,8 +168,6 @@ bool PhysicsWorld::AddCube(btVector3 position)
 
   objectList.push_back(cube);
 
-  printf("successfully added a cube to the physics world.\n");
-
   return true;
 }
 
@@ -222,7 +216,101 @@ bool PhysicsWorld::AddCylinder(btVector3 position)
 
   objectList.push_back(cube);
 
-  printf("successfully added a cylinder to the physics world.\n");
+  return true;
+}
+
+
+/*
+ * There are two components to adding an object to the physics world:
+ *  1. Creating a btRigidBody and adding it to the dynamicsWorld
+ *  2. Creating an Object and adding it to the objectList
+ */
+bool PhysicsWorld::AddFrontFacingWall(btVector3 position)
+{
+  /// 1. Creating a btRigidBody and adding it to the dynamicsWorld
+
+  //create a dynamic rigidbody
+  btCollisionShape* shape = new btBoxShape(btVector3(6.0f, 3.0f, 0.5f));
+  collisionShapes.push_back(shape);
+
+  // Create Dynamic Objects
+  btTransform shapeTransform;
+  shapeTransform.setIdentity();
+  shapeTransform.setOrigin(position);
+
+  btScalar mass(1000.0f);
+
+  // the rigidbody is dynamic if and only if mass is non zero, otherwise static
+  bool isDynamic = (mass != 0.f);
+
+  btVector3 localInertia(0,0,0);
+  if (isDynamic)
+  {
+    shape->calculateLocalInertia(mass,localInertia);
+  }
+
+  // using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
+  btDefaultMotionState* myMotionState = new btDefaultMotionState( shapeTransform );
+  btRigidBody::btRigidBodyConstructionInfo rbInfo( mass, myMotionState, shape, localInertia );
+  btRigidBody* body = new btRigidBody( rbInfo );
+
+  dynamicsWorld->addRigidBody(body);
+
+  /// 2. Creating an Object and adding it to the objectList
+
+  Object* cube = new Object();
+
+  cube->Initialize("models/frontFacingWall.obj");
+
+  objectList.push_back(cube);
+
+  return true;
+}
+
+
+/*
+ * There are two components to adding an object to the physics world:
+ *  1. Creating a btRigidBody and adding it to the dynamicsWorld
+ *  2. Creating an Object and adding it to the objectList
+ */
+bool PhysicsWorld::AddSideFacingWall(btVector3 position)
+{
+  /// 1. Creating a btRigidBody and adding it to the dynamicsWorld
+
+  //create a dynamic rigidbody
+  btCollisionShape* shape = new btBoxShape(btVector3(0.5f, 3.0f, 6.0f));
+  collisionShapes.push_back(shape);
+
+  // Create Dynamic Objects
+  btTransform shapeTransform;
+  shapeTransform.setIdentity();
+  shapeTransform.setOrigin(position);
+
+  btScalar mass(1000.0f);
+
+  // the rigidbody is dynamic if and only if mass is non zero, otherwise static
+  bool isDynamic = (mass != 0.f);
+
+  btVector3 localInertia(0,0,0);
+  if (isDynamic)
+  {
+    shape->calculateLocalInertia(mass,localInertia);
+  }
+
+  // using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
+  btDefaultMotionState* myMotionState = new btDefaultMotionState( shapeTransform );
+  btRigidBody::btRigidBodyConstructionInfo rbInfo( mass, myMotionState, shape, localInertia );
+  btRigidBody* body = new btRigidBody( rbInfo );
+
+  dynamicsWorld->addRigidBody(body);
+
+  /// 2. Creating an Object and adding it to the objectList
+
+  Object* cube = new Object();
+
+  cube->Initialize("models/sideFacingWall.obj");
+
+  objectList.push_back(cube);
 
   return true;
 }
@@ -259,19 +347,4 @@ void PhysicsWorld::Update(unsigned int dt)
 
   }
 
-
-//  //update floor
-//  dynamicsWorld->stepSimulation(dt, 10);
-//  groundRigidBody->getMotionState()->getWorldTransform(trans);
-//  trans.getOpenGLMatrix(m);
-//
-//  objectList[0]->Update(glm::make_mat4(m));
-//
-//
-//  //update ball
-//  dynamicsWorld->stepSimulation(dt, 10);
-//  fallRigidBody->getMotionState()->getWorldTransform(trans);
-//  trans.getOpenGLMatrix(m);
-//
-//  objectList[1]->Update(glm::make_mat4(m));
 }

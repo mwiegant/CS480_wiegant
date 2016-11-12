@@ -40,11 +40,11 @@ macro(_FIND_BULLET_LIBRARY _var)
      NAMES
         ${ARGN}
      HINTS
-        ${BULLET_ROOT}
-        ${BULLET_ROOT}/lib/Release
-        ${BULLET_ROOT}/lib/Debug
-        ${BULLET_ROOT}/out/release8/libs
-        ${BULLET_ROOT}/out/debug8/libs
+        /usr
+        /usr/lib/Release
+        /usr/lib/Debug
+        /usr/out/release8/libs
+        /usr/out/debug8/libs
      PATH_SUFFIXES lib
   )
   mark_as_advanced(${_var})
@@ -61,8 +61,8 @@ endmacro()
 
 find_path(BULLET_INCLUDE_DIR NAMES btBulletCollisionCommon.h
   HINTS
-    ${BULLET_ROOT}/include
-    ${BULLET_ROOT}/src
+    /usr/include
+    /usr/src
   PATH_SUFFIXES bullet
 )
 
