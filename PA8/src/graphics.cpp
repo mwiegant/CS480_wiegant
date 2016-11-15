@@ -196,24 +196,40 @@ bool Graphics::InitializeObjects()
   physicsWorld.AddSideFacingWall( btVector3(6.0f, 0.0f, 0.0f) );
   physicsWorld.AddSideFacingWall( btVector3(-6.0f, 0.0f, 0.0f) );
 
-  physicsWorld.AddCube( btVector3(0,0,0) );
-  physicsWorld.AddCube( btVector3(1,0,3.6) );
-  physicsWorld.AddCube( btVector3(3.6,0,1.0) );
-  physicsWorld.AddCube( btVector3(0,0,0) );
-  physicsWorld.AddCube( btVector3(0,0,0) );
-  physicsWorld.AddCube( btVector3(5,0,5) );
-  physicsWorld.AddCube( btVector3(5,0,-5) );
-  physicsWorld.AddCylinder( btVector3(1,0,1) );
-  physicsWorld.AddCylinder( btVector3(4,0,1) );
-  physicsWorld.AddCylinder( btVector3(1,0,4) );
-  physicsWorld.AddSphere( btVector3(1,0,1) );
+  physicsWorld.AddBox( btVector3(0.0f,0.0f,0.0f), btVector3(1.0f, 1.0f, 1.0f), btScalar(1.0f),
+                       "models/cube.obj", "textures/Neptune.jpg");
+  physicsWorld.AddBox( btVector3(3.6f,0.0f,1.0f), btVector3(1.0f, 1.0f, 1.0f), btScalar(1.0f),
+                       "models/cube.obj", "textures/Neptune.jpg");
+  physicsWorld.AddBox( btVector3(0,0,0), btVector3(1.0f, 1.0f, 1.0f), btScalar(1.0f),
+                       "models/cube.obj", "textures/Neptune.jpg");
+  physicsWorld.AddBox( btVector3(0,0,0), btVector3(1.0f, 1.0f, 1.0f), btScalar(1.0f),
+                       "models/cube.obj", "textures/Neptune.jpg");
+  physicsWorld.AddBox( btVector3(5,0,5), btVector3(1.0f, 1.0f, 1.0f), btScalar(1.0f),
+                       "models/cube.obj", "textures/Neptune.jpg");
+  physicsWorld.AddBox( btVector3(5,0,-5), btVector3(1.0f, 1.0f, 1.0f), btScalar(1.0f),
+                       "models/cube.obj", "textures/Neptune.jpg");
 
-   physicsWorld.AddSphere( btVector3(0,40,0.9) );
-  // physicsWorld.AddSphere( btVector3(5.9,20,3.9) );
-  // physicsWorld.AddSphere( btVector3(2.7,80,-3.9f) );
-  // physicsWorld.AddSphere( btVector3(1.7,60,0.5f) );
-  // physicsWorld.AddSphere( btVector3(2.7,180,3.9f) );
-  // physicsWorld.AddSphere( btVector3(1,59,1) );
+  physicsWorld.AddCylinder( btVector3(1,0,1), btVector3(1.0f, 1.0f, 1.0f), btScalar(1.0f),
+                            "models/cylinder.obj", "textures/Neptune.jpg");
+  physicsWorld.AddCylinder( btVector3(4,0,1), btVector3(1.0f, 1.0f, 1.0f), btScalar(1.0f),
+                            "models/cylinder.obj", "textures/Neptune.jpg");
+  physicsWorld.AddCylinder( btVector3(1,0,4), btVector3(1.0f, 1.0f, 1.0f), btScalar(1.0f),
+                            "models/cylinder.obj", "textures/Neptune.jpg");
+
+  physicsWorld.AddSphere( btVector3(1,0,1), btScalar(1.0f), btScalar(8000.0f),
+                          "models/sphere.obj", "textures/Neptune.jpg");
+
+  physicsWorld.AddSphere( btVector3(0,40,2.9), btScalar(1.0f), btScalar(80.0f),
+                          "models/sphere.obj", "textures/Neptune.jpg");
+
+  physicsWorld.AddSphere( btVector3(0,40,3.9), btScalar(1.0f), btScalar(8000.0f),
+                          "models/sphere.obj", "textures/Neptune.jpg");
+
+  physicsWorld.AddSphere( btVector3(0,40,-1.9), btScalar(1.0f), btScalar(80.0f),
+                          "models/sphere.obj", "textures/Neptune.jpg");
+
+  physicsWorld.AddSphere( btVector3(0,40,-2.9), btScalar(1.0f), btScalar(8000.0f),
+                          "models/sphere.obj", "textures/Neptune.jpg");
 
   return true;
 }

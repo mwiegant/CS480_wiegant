@@ -22,9 +22,9 @@ class PhysicsWorld
     bool Initialize();
 
     bool AddFloor();
-    bool AddSphere(btVector3 position);
-    bool AddCube(btVector3 position);
-    bool AddCylinder(btVector3 position);
+    bool AddSphere(btVector3 position, btScalar radius, btScalar mass, const char* modelPath, const char* texturePath);
+    bool AddBox(btVector3 position, btVector3 halfwayVectors, btScalar mass, const char* modelPath, const char* texturePath);
+    bool AddCylinder(btVector3 position, btVector3 halfwayVectors, btScalar mass, const char* modelPath, const char* texturePath);
     bool AddFrontFacingWall(btVector3 position);
     bool AddSideFacingWall(btVector3 position);
 

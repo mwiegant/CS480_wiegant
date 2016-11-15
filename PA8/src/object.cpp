@@ -32,10 +32,10 @@ bool Object::Initialize()
   return true;
 }
 
-bool Object::Initialize(const char* fileName)
+bool Object::Initialize(const char* modelPath, const char* texturePath)
 {
-  modelFilePath = fileName;
-  textureFilePath = "textures/Neptune.jpg";
+  modelFilePath = modelPath;
+  textureFilePath = texturePath;
 
   if(!InitializeModel())
   {

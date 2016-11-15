@@ -21,7 +21,7 @@ class Object
     void Render();
 
     bool Initialize();
-    bool Initialize(const char*);
+    bool Initialize(const char* modelPath, const char* texturePath);
 
     // Getters
     glm::mat4 GetModel();
