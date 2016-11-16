@@ -315,6 +315,49 @@ bool PhysicsWorld::AddSideFacingWall(btVector3 position)
   return true;
 }
 
+bool PhysicsWorld::AddTriMeshShape(btVector3 position)
+{
+  /// 1. Creating an Object and adding it to the objectList
+
+  btTriangleMesh* triMesh = new btTriangleMesh();
+
+  Object* meshObj = new Object();
+
+  meshObj->Initialize("models/pinball_base.obj", triMesh);
+
+  objectList.push_back(meshObj);
+
+  /// 2. Creating a btRigidBody and adding it to the dynamicsWorld
+
+  //create a dynamic rigidbody
+  btCollisionShape* shape = new btBvhTriangleMeshShape(triMesh, true);
+  collisionShapes.push_back(shape);
+
+  // Create Dynamic Objects
+  btTransform shapeTransform;
+  shapeTransform.setIdentity();
+  shapeTransform.setOrigin(position);
+
+  btScalar mass(0.0f);
+
+  // the rigidbody is dynamic if and only if mass is non zero, otherwise static
+  bool isDynamic = (mass != 0.f);
+
+  btVector3 localInertia(0,0,0);
+  if (isDynamic)
+  {
+    shape->calculateLocalInertia(mass,localInertia);
+  }
+
+  // using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
+  btDefaultMotionState* myMotionState = new btDefaultMotionState( shapeTransform );
+  btRigidBody::btRigidBodyConstructionInfo rbInfo( mass, myMotionState, shape, localInertia );
+  btRigidBody* body = new btRigidBody( rbInfo );
+
+  dynamicsWorld->addRigidBody(body);
+
+  return true;
+}
 
 void PhysicsWorld::Update(unsigned int dt)
 {

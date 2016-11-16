@@ -3,10 +3,16 @@
 
 #include <vector>
 #include <string>
+
+#include <cstdio>
+
 #include <btBulletDynamicsCommon.h>
+
 #include "object.h"
 #include "graphics_headers.h"
+
 using namespace std;
+
 class PhysicsWorld 
 {
   public:
@@ -15,9 +21,12 @@ class PhysicsWorld
 
     bool Initialize();
 
-    bool addRigidBody();
     bool AddFloor();
-    bool AddSphere();
+    bool AddSphere(btVector3 position);
+    bool AddCube(btVector3 position);
+    bool AddCylinder(btVector3 position);
+    bool AddFrontFacingWall(btVector3 position);
+    bool AddSideFacingWall(btVector3 position);
 
     void Update(unsigned int dt);
     vector<Object*> objectList;
@@ -33,7 +42,7 @@ class PhysicsWorld
 
     // I think this is supposed to hold one copy of each unique type of object (a sphere, cube, plane, etc)
     btAlignedObjectArray<btCollisionShape*> collisionShapes;
-    vector<btRigidBody*> rigidBodies;
+
 
 //    //rigid bodies
 //    btRigidBody* groundRigidBody;

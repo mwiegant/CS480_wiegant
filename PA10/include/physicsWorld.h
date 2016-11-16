@@ -27,6 +27,7 @@ class PhysicsWorld
     bool AddCylinder(btVector3 position);
     bool AddFrontFacingWall(btVector3 position);
     bool AddSideFacingWall(btVector3 position);
+    bool AddTriMeshShape(btVector3 position);
 
     void Update(unsigned int dt);
     vector<Object*> objectList;

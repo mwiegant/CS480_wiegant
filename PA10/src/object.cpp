@@ -52,6 +52,26 @@ bool Object::Initialize(const char* fileName)
   return true;
 }
 
+bool Object::Initialize(const char* fileName, btTriangleMesh* triMesh)
+{
+  modelFilePath = fileName;
+  textureFilePath = "textures/Neptune.jpg";
+
+  if(!InitializeModel(triMesh))
+  {
+    std::printf("failed to load model from path: %s\n", modelFilePath.c_str());
+    return false;
+  }
+
+  if(!InitializeTexture())
+  {
+    std::printf("failed to load texture from path: %s\n", textureFilePath.c_str());
+    return false;
+  }
+
+  return true;
+}
+
 
 void Object::Update(glm::mat4 systemModel)
 {
@@ -125,6 +145,64 @@ bool Object::InitializeModel()
       Vertex *temp = new Vertex(glm::vec3(aiVector.x, aiVector.y, aiVector.z), glm::vec2(aiUV.x, aiUV.y));
       Vertices.push_back( *temp );
     }
+  }
+
+  glGenBuffers(1, &VB);
+  glBindBuffer(GL_ARRAY_BUFFER, VB);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * Vertices.size(), &Vertices[0], GL_STATIC_DRAW);
+
+  glGenBuffers(1, &IB);
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IB);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * Indices.size(), &Indices[0], GL_STATIC_DRAW);
+
+  return true;
+}
+
+bool Object::InitializeModel(btTriangleMesh* triMesh)
+{
+  unsigned int index;
+  aiMesh* meshOne;
+  aiVector3D aiUV;
+  aiVector3D aiVector;
+  Assimp::Importer importer;
+  btVector3 triArray[3];
+
+  // attempt to read the model from file
+  try
+  {
+    const aiScene *myScene = importer.ReadFile( modelFilePath.c_str(), aiProcess_Triangulate);
+    meshOne = myScene->mMeshes[0];
+  }
+  catch (int Exception)
+  {
+    return false;
+  }
+
+  // load the models and the vertices
+  for( int i = 0; i < meshOne->mNumFaces; i++ )
+  {
+    const aiFace& thisFace = meshOne->mFaces[i];
+
+    for( int j = 0; j < 3; j++ )
+    {
+
+      //get the indices
+      index = thisFace.mIndices[j];
+      Indices.push_back( index );
+
+      //get the vertices
+      aiVector = meshOne->mVertices[thisFace.mIndices[j]];
+      aiUV = meshOne->mTextureCoords[0][thisFace.mIndices[j]];
+
+      //load triArray vertices for triMesh
+      triArray[j] = btVector3(aiVector.x, aiVector.y, aiVector.z);
+
+      Vertex *temp = new Vertex(glm::vec3(aiVector.x, aiVector.y, aiVector.z), glm::vec2(aiUV.x, aiUV.y));
+      Vertices.push_back( *temp );
+    }
+
+    // add face to triMesh
+    triMesh->addTriangle(triArray[0], triArray[1], triArray[2]);
   }
 
   glGenBuffers(1, &VB);

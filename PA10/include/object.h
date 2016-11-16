@@ -6,6 +6,8 @@
 #include <cstdio>
 #include "graphics_headers.h"
 
+#include <btBulletDynamicsCommon.h>
+
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
@@ -22,6 +24,7 @@ class Object
 
     bool Initialize();
     bool Initialize(const char*);
+    bool Initialize(const char*, btTriangleMesh*);
 
     // Getters
     glm::mat4 GetModel();
@@ -30,6 +33,7 @@ class Object
 
     bool InitializeTexture();
     bool InitializeModel();
+    bool InitializeModel(btTriangleMesh*);
 
     glm::mat4 model;
 
