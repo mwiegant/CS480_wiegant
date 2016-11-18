@@ -14,8 +14,8 @@ Object::~Object()
 
 bool Object::Initialize()
 {
-  modelFilePath = "models/Uranus.obj";
-  textureFilePath = "textures/granite.jpg";
+  modelFilePath = "models/Mercury.obj";
+  textureFilePath = "textures/Neptune.jpg";
 
   if(!InitializeModel())
   {
