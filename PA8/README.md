@@ -1,4 +1,4 @@
-# PA6: The Solar System
+# PA10: Pinball
 
 # Coding Team
 
@@ -6,15 +6,6 @@
 Matt Monzon - the texture loading guy
 Max Wiegant - the rendering guy 
 Jayden Wang - the file loader
-```
-
-# Extra Credit Components
-
-```
-- (2pts) Live adjustment of simulation speed
-- (2pts) Configuration file
-- (6pts) Proper rings on other planets (total of 3: Jupiter, Uranus, & Neptune) 
-- (3pts) Chair Mode (toggleable)
 ```
 
 # Supported Interactions
@@ -25,7 +16,6 @@ Jayden Wang - the file loader
 
 ```
 Q             -- Quit the program.
-SPACEBAR      -- Pause or unpause all objects in the solar system
 ```
 
 ### Camera Controls
@@ -39,11 +29,7 @@ LEFT-ARROW    -- Move the camera focus to the left
 RIGHT-ARROW   -- Move the camera focus to the right
 ```
 
-### Chair Mode
 
-```
-BACKSPACE     -- Toggle Chair Mode
-```
 
 # Dependencies, Building, and Running
 
@@ -52,7 +38,7 @@ Please refer to the wiki for information on [installing dependencies](https://gi
 ## Building and Running
 This project has both a cmake and a makefile, but only the cmake is maintained.
 
-To build this project, first navigate to **CS480_wiegant/PA7**.
+To build this project, first navigate to **CS480_wiegant/PA10**.
 
 Next, run the following commands:
 ```bash
@@ -60,5 +46,5 @@ mkdir build
 cd build
 cmake ..
 make
-./Tutorial
+./CactusCoolers
 ```
