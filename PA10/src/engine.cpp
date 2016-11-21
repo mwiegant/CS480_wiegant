@@ -112,6 +112,19 @@ void Engine::Keyboard()
       m_graphics->LaunchBall();
     }
 
+    // -----------------------------------------------
+    // move the paddles
+    // -----------------------------------------------
+    else if( m_event.key.keysym.sym == SDLK_LSHIFT )
+    {
+      m_graphics->LaunchBall();
+    }
+
+    else if( m_event.key.keysym.sym == SDLK_RSHIFT )
+    {
+      m_graphics->LaunchBall();
+    }
+
   }
 
   else if (m_event.type == SDL_KEYUP)

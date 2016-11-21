@@ -22,10 +22,13 @@ bool PhysicsWorld::Initialize() {
   solver = new btSequentialImpulseConstraintSolver();
   dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
 
+  // set bodies to NULL
   pinballBody = NULL;
+  leftPaddle = NULL;
+  rightPaddle = NULL;
 
   // set gravity in the environment
-  dynamicsWorld->setGravity(btVector3(0, -9.81, 0));
+  dynamicsWorld->setGravity(btVector3(0.0f, -9.81f, 0.0f));
 
   return true;
 }
@@ -48,7 +51,7 @@ bool PhysicsWorld::AddPinball(btVector3 position, btScalar radius, btScalar mass
   /// 0. Do not add pinball if there is already one on this world
   if( pinballBody != NULL )
   {
-    printf("failed to add pinball to the world; one pinball already exists in the world.\n");
+    printf("Error - failed to add pinball to the world; one pinball already exists in the world.\n");
     return false;
   }
 
@@ -64,9 +67,9 @@ bool PhysicsWorld::AddPinball(btVector3 position, btScalar radius, btScalar mass
   startTransform.setOrigin(position);
 
   // the rigidbody is dynamic if and only if mass is non zero, otherwise static
-  bool isDynamic = (mass != 0.f);
+  bool isDynamic = (mass != 0.0f);
 
-  btVector3 localInertia(0,0,0);
+  btVector3 localInertia(0.0f,0.0f,0.0f);
   if (isDynamic)
   {
     sphereShape->calculateLocalInertia(mass,localInertia);
@@ -89,6 +92,88 @@ bool PhysicsWorld::AddPinball(btVector3 position, btScalar radius, btScalar mass
 
   /// 3. Keep track of this Object
   pinballBody = body;
+
+  return true;
+}
+
+
+/* A function that is for specific use in adding paddles to the physics world.
+ *
+ * The paddleIdentifier param accepts any one of these options: { "paddle_left", "paddle_right" }
+ *
+ * @param position = the (x,y,z) position of this object in the world
+ * @param paddleIdentifier = which paddle this will be
+ * @param mass = how heavy the object is (i.e. how far it flies when hit)
+ * @param modelPath = the path to the model for this object
+ * @param texturePath = the path to the texture for this object
+ */
+bool PhysicsWorld::AddPaddle(btVector3 position, const char* paddleIdentifier, btScalar mass,
+               const char* modelPath, const char* texturePath)
+{
+  /// 0. Check if the paddle should be added to the world, before we ever think about adding it
+  if( (paddleIdentifier != "paddle_left") || (paddleIdentifier != "paddle_right") )
+  {
+    printf("Error - wrong paddleIdentifier, failed to add paddle to the world. \n");
+    return false;
+  }
+
+  /// 1. Creating an Object and adding it to the objectList
+
+  btTriangleMesh* triMesh = new btTriangleMesh();
+
+  Object* meshObj = new Object();
+
+  meshObj->Initialize(modelPath, texturePath, triMesh);
+
+  objectList.push_back(meshObj);
+
+  /// 2. Creating a btRigidBody and adding it to the dynamicsWorld
+
+  //create a dynamic rigidbody
+  btCollisionShape* shape = new btBvhTriangleMeshShape(triMesh, true);
+  collisionShapes.push_back(shape);
+
+  // Create Dynamic Objects
+  btTransform shapeTransform;
+  shapeTransform.setIdentity();
+  shapeTransform.setOrigin(position);
+
+  // the rigidbody is dynamic if and only if mass is non zero, otherwise static
+  bool isDynamic = (mass != 0.f);
+
+  btVector3 localInertia(0.0f,0.0f,0.0f);
+  if (isDynamic)
+  {
+    shape->calculateLocalInertia(mass,localInertia);
+  }
+
+  // using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
+  btDefaultMotionState* myMotionState = new btDefaultMotionState( shapeTransform );
+  btRigidBody::btRigidBodyConstructionInfo rbInfo( mass, myMotionState, shape, localInertia );
+  btRigidBody* body = new btRigidBody( rbInfo );
+
+  dynamicsWorld->addRigidBody(body);
+
+  /// 3. Keep track of this paddle, after doing some additional error checking
+
+  /* Left Paddle */
+  if( paddleIdentifier == "paddle_left" && leftPaddle != NULL )
+  {
+    printf("Error - there is already a left paddle, cannot add another\n");
+  } else
+  {
+    leftPaddle = body;
+  }
+
+  /* Right Paddle */
+  if( paddleIdentifier == "paddle_right" && rightPaddle != NULL )
+  {
+    printf("Error - there is already a right paddle, cannot add another\n");
+  } else
+  {
+    rightPaddle = body;
+  }
+
 
   return true;
 }
@@ -121,7 +206,7 @@ bool PhysicsWorld::AddCylinder(btVector3 position, btVector3 halfwayVectors, btS
   // the rigidbody is dynamic if and only if mass is non zero, otherwise static
   bool isDynamic = (mass != 0.f);
 
-  btVector3 localInertia(0,0,0);
+  btVector3 localInertia(0.0f,0.0f,0.0f);
   if (isDynamic)
   {
     cylinderShape->calculateLocalInertia(mass,localInertia);
@@ -172,7 +257,7 @@ bool PhysicsWorld::AddTriMeshShape(btVector3 position, btScalar mass, const char
   // the rigidbody is dynamic if and only if mass is non zero, otherwise static
   bool isDynamic = (mass != 0.f);
 
-  btVector3 localInertia(0,0,0);
+  btVector3 localInertia(0.0f,0.0f,0.0f);
   if (isDynamic)
   {
     shape->calculateLocalInertia(mass,localInertia);
@@ -203,10 +288,13 @@ bool PhysicsWorld::MovePinball(btVector3 position)
     return false;
   }
 
-  // todo - this function
-  printf("move pinball not imple. yet\n");
 
-  return true;
+  // todo - write this function
+
+
+  printf("Error - move pinball not implemented yet\n");
+
+  return false;
 }
 
 

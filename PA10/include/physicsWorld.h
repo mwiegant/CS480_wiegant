@@ -21,15 +21,21 @@ class PhysicsWorld
 
     bool Initialize();
 
+    // for adding specific shapes
     bool AddPinball(btVector3 position, btScalar radius, btScalar mass, const char* modelPath, const char* texturePath);
-    bool AddCylinder(btVector3 position, btVector3 halfwayVectors, btScalar mass, const char* modelPath, const char* texturePath);
+    bool AddPaddle(btVector3 position, const char* paddleIdentifier, btScalar mass, const char* modelPath, const char* texturePath);
+
+    // for adding generic shapes
     bool AddTriMeshShape(btVector3 position, btScalar mass, const char* modelPath, const char* texturePath);
+    bool AddCylinder(btVector3 position, btVector3 halfwayVectors, btScalar mass, const char* modelPath, const char* texturePath);
 
     bool MovePinball(btVector3 position);
     bool setPinballVelocity(btVector3 velocity);
 
     void Update(unsigned int dt);
     vector<Object*> objectList;
+
+    // todo - build functionality to move the paddles
 
   private:
 
@@ -44,8 +50,11 @@ class PhysicsWorld
     btAlignedObjectArray<btCollisionShape*> collisionShapes;
 
 
-    //rigid bodies
+    // rigid bodies
     btRigidBody* pinballBody;
+
+    btRigidBody* leftPaddle;
+    btRigidBody* rightPaddle;
 
 };
 
