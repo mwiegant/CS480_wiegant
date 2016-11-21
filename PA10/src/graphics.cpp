@@ -247,7 +247,15 @@ bool Graphics::InitializeObjects()
   /// Pinball Board
   /* position, weight, modelPath, texturePath */
   physicsWorld.AddTriMeshShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f),
-                                "models/Board_Base.obj", "textures/Base_Tex.jpg");
+                                "models/Board_Base.obj", "textures/Neptune.jpg");
+
+  /// Plunger
+  physicsWorld.AddTriMeshShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f),
+                                "models/Plunger.obj", "textures/granite.jpg");
+
+  /// Backboard
+  physicsWorld.AddTriMeshShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f),
+                                "models/Board_Back.obj", "textures/Cactus_Coolers.jpg");
 
   /// Paddles
   /* position, paddleIdentifier, mass, modelPath, texturePath */
