@@ -115,7 +115,7 @@ bool Object::InitializeModel()
   aiMesh* meshOne;
   aiVector3D aiUV;
   aiVector3D aiVector;
-  aiVector3D* aiNormal;
+  aiVector3D aiNormal;
   Assimp::Importer importer;
 
   // attempt to read the model from file
@@ -145,10 +145,12 @@ bool Object::InitializeModel()
       aiVector = meshOne->mVertices[thisFace.mIndices[j]];
       aiUV = meshOne->mTextureCoords[0][thisFace.mIndices[j]];
 
-      //get the normals
-      aiNormal = meshOne -> mNormals;
+      std::cout << "WORKING INDEX: " << thisFace.mIndices[j] << " I: " << i << std::endl;
 
-      Vertex *temp = new Vertex(glm::vec3(aiVector.x, aiVector.y, aiVector.z), glm::vec2(aiUV.x, aiUV.y)/*, glm::vec3(aiNormal.x, aiNormal.y, aiNormal.z)*/);
+      //get the normals
+      //aiNormal = meshOne -> mNormals[i];
+
+      Vertex *temp = new Vertex(glm::vec3(aiVector.x, aiVector.y, aiVector.z), glm::vec2(aiUV.x, aiUV.y), glm::vec3(3.0f, 3.0f, 3.0f));
 
       Vertices.push_back( *temp );
     }
@@ -171,7 +173,7 @@ bool Object::InitializeModel(btTriangleMesh* triMesh)
   aiMesh* meshOne;
   aiVector3D aiUV;
   aiVector3D aiVector;
-  aiVector3D* aiNormal;
+  aiVector3D aiNormal;
   Assimp::Importer importer;
   btVector3 triArray[3];
 
@@ -206,9 +208,9 @@ bool Object::InitializeModel(btTriangleMesh* triMesh)
       triArray[j] = btVector3(aiVector.x, aiVector.y, aiVector.z);
 
       //get the normals
-      aiNormal = meshOne -> mNormals;
+      //aiNormal = meshOne -> mNormals[i];
 
-      Vertex *temp = new Vertex(glm::vec3(aiVector.x, aiVector.y, aiVector.z), glm::vec2(aiUV.x, aiUV.y)/*, glm::vec3(aiNormal.x, aiNormal.y, aiNormal.z)*/);
+      Vertex *temp = new Vertex(glm::vec3(aiVector.x, aiVector.y, aiVector.z), glm::vec2(aiUV.x, aiUV.y), glm::vec3(3.0f, 3.0f, 3.0f));
 
       Vertices.push_back( *temp );
     }
@@ -232,12 +234,12 @@ void Object::Render()
 {
   glEnableVertexAttribArray(0);
   glEnableVertexAttribArray(1);
-  //glEnableVertexAttribArray(2);
+  glEnableVertexAttribArray(2);
 
   glBindBuffer(GL_ARRAY_BUFFER, VB);
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
   glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex,uv));
-  //glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex,normal));
+  glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex,normal));
 
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, aTexture);
@@ -248,7 +250,7 @@ void Object::Render()
 
   glDisableVertexAttribArray(0);
   glDisableVertexAttribArray(1);
-  //glDisableVertexAttribArray(2);
+  glDisableVertexAttribArray(2);
 }
 
 

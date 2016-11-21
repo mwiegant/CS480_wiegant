@@ -124,6 +124,9 @@ bool Graphics::Initialize(int width, int height)
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS);
 
+  //enable lighting??
+  glEnable(GL_LIGHTING);
+
   // enable object movement
   moveObjects = true;
 

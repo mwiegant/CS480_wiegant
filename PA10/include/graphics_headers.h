@@ -28,11 +28,11 @@ struct Vertex
 
     glm::vec3 vertex;
     glm::vec2 uv;
-    //glm::vec3 normal;
+    glm::vec3 normal;
 
-    //Vertex(glm::vec3 v, glm::vec2 c, glm::vec3 n): vertex(v), uv(c), normal(n) {}
+    Vertex(glm::vec3 v, glm::vec2 c, glm::vec3 n): vertex(v), uv(c), normal(n) {}
 
-    Vertex(glm::vec3 v, glm::vec2 c): vertex(v), uv(c) {}
+    //Vertex(glm::vec3 v, glm::vec2 c): vertex(v), uv(c) {}
 };
 
 /*
