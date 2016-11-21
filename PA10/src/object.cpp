@@ -135,8 +135,6 @@ bool Object::InitializeModel()
 
   //get the normals
   aiNormal = meshOne -> mNormals;
-  if( aiNormal == NULL )
-  std::cout << "THERE'S NOTHING THERE!" << std::endl << std::endl << std::endl;
 
   // load the models and the vertices
   for( int i = 0; i < meshOne->mNumFaces; i++ )
@@ -150,18 +148,16 @@ bool Object::InitializeModel()
       index = thisFace.mIndices[j];
       Indices.push_back( index );
 
-      std::cout << "BEFORE ASSIGNMENT!!" << std::endl << std::endl << std::endl;
-
-      //test = aiNormal[count].x;
-
       //get the vertices
       aiVector = meshOne->mVertices[thisFace.mIndices[j]];
       aiUV = meshOne->mTextureCoords[0][thisFace.mIndices[j]];
 
-      std::cout << "WORKING INDEX: " << thisFace.mIndices[j] << " I: " << i << "aiNormal.x: " << test << std::endl << std::endl << std::endl << std::endl;
+      test = aiNormal[thisFace.mIndices[j]].x;
+
+      std::cout << "WORKING INDEX: " << thisFace.mIndices[j] << " I: " << i << " aiNormal.x: " << test << std::endl << std::endl << std::endl << std::endl;
 
 
-      Vertex *temp = new Vertex(glm::vec3(aiVector.x, aiVector.y, aiVector.z), glm::vec2(aiUV.x, aiUV.y), glm::vec3(3.0f, 3.0f, 3.0f));
+      Vertex *temp = new Vertex(glm::vec3(aiVector.x, aiVector.y, aiVector.z), glm::vec2(aiUV.x, aiUV.y), glm::vec3(aiNormal[thisFace.mIndices[j]].x, aiNormal[thisFace.mIndices[j]].y, aiNormal[thisFace.mIndices[j]].z));
 
       Vertices.push_back( *temp );
     }
@@ -221,7 +217,7 @@ bool Object::InitializeModel(btTriangleMesh* triMesh)
       //load triArray vertices for triMesh
       triArray[j] = btVector3(aiVector.x, aiVector.y, aiVector.z);
 
-      Vertex *temp = new Vertex(glm::vec3(aiVector.x, aiVector.y, aiVector.z), glm::vec2(aiUV.x, aiUV.y), glm::vec3(3.0f, 3.0f, 3.0f));
+      Vertex *temp = new Vertex(glm::vec3(aiVector.x, aiVector.y, aiVector.z), glm::vec2(aiUV.x, aiUV.y), glm::vec3(aiNormal[thisFace.mIndices[j]].x, aiNormal[thisFace.mIndices[j]].y, aiNormal[thisFace.mIndices[j]].z));
 
       Vertices.push_back( *temp );
     }
