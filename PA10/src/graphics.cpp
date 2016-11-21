@@ -236,8 +236,8 @@ bool Graphics::InitializeObjects()
 
   /// Pinball ball
   /* position, half-size vectors, weight, modelPath, texturePath */
-  physicsWorld.AddPinball( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.7f), btScalar(1.0f),
-                           "models/pinball.obj", "textures/Neptune.jpg" );
+  physicsWorld.AddPinball( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f), btScalar(1.0f),
+                           "models/sphere.obj", "textures/Neptune.jpg" );
 
   return true;
 }
@@ -276,17 +276,56 @@ std::string Graphics::ErrorString(GLenum error)
 
 void Graphics::ambientChange(int change)
 {
-
+  if( change > 0 )
+  {
+    if( ambientVal < 1.0f )
+    {
+      ambientVal += 0.01f;
+    }
+  }
+  else if( change < 0 )
+  {
+    if( ambientVal > 0 )
+    {
+      ambientVal -= 0.01f;
+    }
+  }
 }
 
 void Graphics::diffuseChange(int change)
 {
-
+  if( change > 0 )
+  {
+    if( diffuseVal < 1.0f )
+    {
+      diffuseVal += 0.01f;
+    }
+  }
+  else if( change < 0 )
+  {
+    if( diffuseVal > 0 )
+    {
+      diffuseVal -= 0.01f;
+    }
+  }
 }
 
 void Graphics::specularChagne(int change)
 {
-
+  if( change > 0 )
+  {
+    if( specularVal < 1.0f )
+    {
+      specularVal += 0.01f;
+    }
+  }
+  else if( change < 0 )
+  {
+    if( specularVal > 0 )
+    {
+      specularVal -= 0.01f;
+    }
+  }
 }
 
 
