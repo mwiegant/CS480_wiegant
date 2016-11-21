@@ -205,14 +205,14 @@ bool Graphics::InitializeObjects()
    physicsWorld.AddTriMeshShape(btVector3(0,0,0));
 
     /* position, half-size vectors, weight, modelPath, texturePath */
-   physicsWorld.AddSphere( btVector3(0,10,0.9), btScalar(1.0f), btScalar(8000.0f),
-                           "models/sphere.obj", "textures/Neptune.jpg" );
-   physicsWorld.AddSphere( btVector3(0,10,0.9), btScalar(1.0f), btScalar(8000.0f),
-                           "models/sphere.obj", "textures/Neptune.jpg" );
-   physicsWorld.AddSphere( btVector3(0,10,0.9), btScalar(1.0f), btScalar(8000.0f),
-                           "models/sphere.obj", "textures/Neptune.jpg" );
-   physicsWorld.AddSphere( btVector3(0,10,0.9), btScalar(1.0f), btScalar(8000.0f),
-                           "models/sphere.obj", "textures/Neptune.jpg" );
+   physicsWorld.AddSphere( btVector3(8.0f, 1.0f, -4.0f), btScalar(0.125f), btScalar(1.0f),
+                           "models/pinball_ball.obj", "textures/granite.jpg" );
+//   physicsWorld.AddSphere( btVector3(0,10,0.9), btScalar(1.0f), btScalar(8000.0f),
+//                           "models/sphere.obj", "textures/Neptune.jpg" );
+//   physicsWorld.AddSphere( btVector3(0,10,0.9), btScalar(1.0f), btScalar(8000.0f),
+//                           "models/sphere.obj", "textures/Neptune.jpg" );
+//   physicsWorld.AddSphere( btVector3(0,10,0.9), btScalar(1.0f), btScalar(8000.0f),
+//                           "models/sphere.obj", "textures/Neptune.jpg" );
 
 
 
