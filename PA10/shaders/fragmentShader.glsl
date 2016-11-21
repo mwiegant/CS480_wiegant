@@ -10,7 +10,6 @@ out vec4 frag_color;
 uniform vec4 AmbientProduct = vec4(0.1, 0.1, 0.1, 2.0);
 uniform vec4 DiffuseProduct = vec4(0.5, 0.5, 0.5, 0.5);
 uniform vec4 SpecularProduct = vec4(0.1, 0.1, 0.1, 0.1);
-uniform vec4 LightPosition;
 uniform float Shininess = .1;
 uniform sampler2D gSampler;
 

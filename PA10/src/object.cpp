@@ -115,8 +115,12 @@ bool Object::InitializeModel()
   aiMesh* meshOne;
   aiVector3D aiUV;
   aiVector3D aiVector;
-  aiVector3D aiNormal;
+  aiVector3D* aiNormal;
   Assimp::Importer importer;
+
+  float test;
+
+  int count = 0;
 
   // attempt to read the model from file
   try
@@ -128,6 +132,11 @@ bool Object::InitializeModel()
   {
     return false;
   }
+
+  //get the normals
+  aiNormal = meshOne -> mNormals;
+  if( aiNormal == NULL )
+  std::cout << "THERE'S NOTHING THERE!" << std::endl << std::endl << std::endl;
 
   // load the models and the vertices
   for( int i = 0; i < meshOne->mNumFaces; i++ )
@@ -141,14 +150,16 @@ bool Object::InitializeModel()
       index = thisFace.mIndices[j];
       Indices.push_back( index );
 
+      std::cout << "BEFORE ASSIGNMENT!!" << std::endl << std::endl << std::endl;
+
+      //test = aiNormal[count].x;
+
       //get the vertices
       aiVector = meshOne->mVertices[thisFace.mIndices[j]];
       aiUV = meshOne->mTextureCoords[0][thisFace.mIndices[j]];
 
-      std::cout << "WORKING INDEX: " << thisFace.mIndices[j] << " I: " << i << std::endl;
+      std::cout << "WORKING INDEX: " << thisFace.mIndices[j] << " I: " << i << "aiNormal.x: " << test << std::endl << std::endl << std::endl << std::endl;
 
-      //get the normals
-      //aiNormal = meshOne -> mNormals[i];
 
       Vertex *temp = new Vertex(glm::vec3(aiVector.x, aiVector.y, aiVector.z), glm::vec2(aiUV.x, aiUV.y), glm::vec3(3.0f, 3.0f, 3.0f));
 
@@ -173,7 +184,7 @@ bool Object::InitializeModel(btTriangleMesh* triMesh)
   aiMesh* meshOne;
   aiVector3D aiUV;
   aiVector3D aiVector;
-  aiVector3D aiNormal;
+  aiVector3D* aiNormal;
   Assimp::Importer importer;
   btVector3 triArray[3];
 
@@ -187,6 +198,9 @@ bool Object::InitializeModel(btTriangleMesh* triMesh)
   {
     return false;
   }
+
+  //get the normals
+  aiNormal = meshOne -> mNormals;
 
   // load the models and the vertices
   for( int i = 0; i < meshOne->mNumFaces; i++ )
@@ -206,9 +220,6 @@ bool Object::InitializeModel(btTriangleMesh* triMesh)
 
       //load triArray vertices for triMesh
       triArray[j] = btVector3(aiVector.x, aiVector.y, aiVector.z);
-
-      //get the normals
-      //aiNormal = meshOne -> mNormals[i];
 
       Vertex *temp = new Vertex(glm::vec3(aiVector.x, aiVector.y, aiVector.z), glm::vec2(aiUV.x, aiUV.y), glm::vec3(3.0f, 3.0f, 3.0f));
 
