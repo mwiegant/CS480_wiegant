@@ -251,10 +251,10 @@ bool Graphics::InitializeObjects()
 
   /// Paddles
   /* position, paddleIdentifier, mass, modelPath, texturePath */
-  physicsWorld.AddPaddle( btVector3(0.0f, 0.0f, 0.0f), "paddle_left", btScalar(1.0f),
+  physicsWorld.AddPaddle( btVector3(0.0f, 0.0f, -2.0f), "paddle_left", btScalar(1.0f),
                           "models/Paddle_Left.obj", "textures/granite.jpg" );
 
-  physicsWorld.AddPaddle( btVector3(0.0f, 0.0f, 0.0f), "paddle_right", btScalar(1.0f),
+  physicsWorld.AddPaddle( btVector3(0.0f, 0.0f, 2.0f), "paddle_right", btScalar(1.0f),
                           "models/Paddle_Right.obj", "textures/granite.jpg" );
 
   /// Pinball ball
