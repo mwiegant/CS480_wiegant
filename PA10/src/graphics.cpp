@@ -124,8 +124,9 @@ bool Graphics::Initialize(int width, int height)
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS);
 
-  // enable object movement
-  moveObjects = true;
+  // pinball variable initialization
+  gameState = GAME_STATE_READY;
+  ballsLeft = 3;
 
   return true;
 }
@@ -162,6 +163,19 @@ void Graphics::Render()
   {
     string val = ErrorString( error );
     std::cout<< "Error initializing OpenGL! " << error << ", " << val << std::endl;
+  }
+}
+
+/*
+ * Launches the pinball ball if the game is in the correct state to launch the ball.
+ */
+void Graphics::LaunchBall()
+{
+  if( gameState == GAME_STATE_READY)
+  {
+    physicsWorld.setPinballVelocity(btVector3(-15.0f, 0.0f, 0.0f) );
+
+    gameState = GAME_STATE_PLAYING;
   }
 }
 
@@ -205,7 +219,7 @@ bool Graphics::InitializeObjects()
    physicsWorld.AddTriMeshShape(btVector3(0,0,0));
 
     /* position, half-size vectors, weight, modelPath, texturePath */
-   physicsWorld.AddSphere( btVector3(8.0f, 1.0f, -4.0f), btScalar(0.125f), btScalar(1.0f),
+   physicsWorld.AddPinball( btVector3(8.0f, 1.0f, -4.0f), btScalar(0.125f), btScalar(1.0f),
                            "models/pinball_ball.obj", "textures/granite.jpg" );
 //   physicsWorld.AddSphere( btVector3(0,10,0.9), btScalar(1.0f), btScalar(8000.0f),
 //                           "models/sphere.obj", "textures/Neptune.jpg" );

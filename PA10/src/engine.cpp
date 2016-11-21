@@ -117,9 +117,12 @@ void Engine::Keyboard()
 
 
     // -----------------------------------------------
-    // other keyboard event handling
+    // launch the ball from the plunger
     // -----------------------------------------------
-      // none currently
+    else if( m_event.key.keysym.sym == SDLK_SPACE )
+    {
+      m_graphics->LaunchBall();
+    }
 
   }
 }

@@ -32,23 +32,11 @@ struct Vertex
     Vertex(glm::vec3 v, glm::vec2 c): vertex(v), uv(c) {}
 };
 
-/*
- * We may end up not using this enum, but I've included it here
- * in case we would like to zoom in on a planet, or do something
- * like that
- */
-enum System
+enum game_state
 {
-    SOLAR_SYSTEM,
-    MERCURY_SYSTEM,
-    VENUS_SYSTEM,
-    EARTH_SYSTEM,
-    MARS_SYSTEM,
-    JUPITER_SYSTEM,
-    SATURN_SYSTEM,
-    URANUS_SYSTEM,
-    NEPTUNE_SYSTEM,
-    PLUTO_SYSTEM
+  GAME_STATE_READY,
+  GAME_STATE_PLAYING,
+  GAME_STATE_GAME_OVER
 };
 
 

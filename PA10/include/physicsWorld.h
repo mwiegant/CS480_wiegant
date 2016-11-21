@@ -21,10 +21,12 @@ class PhysicsWorld
 
     bool Initialize();
 
-    bool AddSphere(btVector3 position, btScalar radius, btScalar mass, const char* modelPath, const char* texturePath);
-    bool AddBox(btVector3 position, btVector3 halfwayVectors, btScalar mass, const char* modelPath, const char* texturePath);
+    bool AddPinball(btVector3 position, btScalar radius, btScalar mass, const char* modelPath, const char* texturePath);
     bool AddCylinder(btVector3 position, btVector3 halfwayVectors, btScalar mass, const char* modelPath, const char* texturePath);
     bool AddTriMeshShape(btVector3 position);
+
+    bool MovePinball(btVector3 position);
+    bool setPinballVelocity(btVector3 velocity);
 
     void Update(unsigned int dt);
     vector<Object*> objectList;
@@ -42,13 +44,9 @@ class PhysicsWorld
     btAlignedObjectArray<btCollisionShape*> collisionShapes;
 
 
-//    //rigid bodies
-//    btRigidBody* groundRigidBody;
-//    btRigidBody* fallRigidBody;
-//
-//    //objects
-//    Object *ground;
-//    Object *ball;
+    //rigid bodies
+    btRigidBody* pinballBody;
+
 };
 
 #endif

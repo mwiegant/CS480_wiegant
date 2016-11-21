@@ -22,6 +22,9 @@ class Graphics
     void Update(unsigned int dt);
     void Render();
 
+    void LaunchBall();
+
+    // todo - update or depricate some of these
     // for updating the view
     bool ZoomIn();
     bool ZoomOut();
@@ -40,9 +43,9 @@ class Graphics
     GLint m_viewMatrix;
     GLint m_modelMatrix;
 
-    bool moveObjects;
-
-    vector<Object *> masterList;
+    // pinball specific variables
+    int gameState;
+    int ballsLeft;
 
     PhysicsWorld physicsWorld;
 };
