@@ -26,11 +26,22 @@ struct Vertex
 {
   public:
 
+  glm::vec3 vertex;
+  glm::vec3 color;
+
+  Vertex(glm::vec3 v, glm::vec3 c): vertex(v), color(c) {}
+
+};
+
+/*struct Vertex
+{
+  public:
+
     glm::vec3 vertex;
     glm::vec2 uv;
 
     Vertex(glm::vec3 v, glm::vec2 c): vertex(v), uv(c) {}
-};
+};*/
 
 /*
  * We may end up not using this enum, but I've included it here

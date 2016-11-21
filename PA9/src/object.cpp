@@ -46,7 +46,7 @@ bool Object::Initialize()
   modelFilePath = "models/Uranus.obj";
   textureFilePath = "textures/granite.jpg";
 
-  InitializeTexture();
+  //InitializeTexture();
 
   if(!InitializeModel())
   {
@@ -62,7 +62,7 @@ bool Object::Initialize(const char* fileName)
   modelFilePath = fileName;
   textureFilePath = "textures/granite.jpg";
 
-  InitializeTexture();
+  //InitializeTexture();
 
   if(!InitializeModel())
   {
@@ -117,7 +117,9 @@ bool Object::InitializeModel()
   aiMesh* meshOne = myScene->mMeshes[0];
 
   aiVector3D aiVector;
-  aiVector3D aiUV;
+
+  //aiVector3D aiUV;
+
   unsigned int index;
 
 
@@ -136,9 +138,13 @@ bool Object::InitializeModel()
 
       //get the vertices
       aiVector = meshOne->mVertices[thisFace.mIndices[j]];
-      aiUV = meshOne->mTextureCoords[0][thisFace.mIndices[j]];
 
-      Vertex *temp = new Vertex(glm::vec3(aiVector.x, aiVector.y, aiVector.z), glm::vec2(aiUV.x, aiUV.y));
+      //aiUV = meshOne->mTextureCoords[0][thisFace.mIndices[j]];
+
+      /*Vertex *temp = new Vertex(glm::vec3(aiVector.x, aiVector.y, aiVector.z), glm::vec2(aiUV.x, aiUV.y));*/
+
+      Vertex *temp = new Vertex(glm::vec3(aiVector.x, aiVector.y, aiVector.z), glm::vec3(30,30,30));
+
       Vertices.push_back( *temp );
 
     }
@@ -161,15 +167,17 @@ void Object::Render()
 {
   glEnableVertexAttribArray(0);
   glEnableVertexAttribArray(1);
-  glEnableVertexAttribArray(2);
+  //glEnableVertexAttribArray(2);
 
   glBindBuffer(GL_ARRAY_BUFFER, VB);
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex,uv));
-  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*)12);
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, color));
+  //glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*)12);
 
+/*
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, aTexture);
+*/
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IB);
 
@@ -177,7 +185,7 @@ void Object::Render()
 
   glDisableVertexAttribArray(0);
   glDisableVertexAttribArray(1);
-  glDisableVertexAttribArray(2);
+  //glDisableVertexAttribArray(2);
 }
 
 

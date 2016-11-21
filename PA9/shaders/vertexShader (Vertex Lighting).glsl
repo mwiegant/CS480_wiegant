@@ -1,7 +1,7 @@
 #version 330
 
-layout (location = 0) in vec3 vPosition;
-layout (location = 1) in vec3 vColor;
+in vec4 vPosition;
+in vec4 vColor;
 in vec3 vNormal;
 
 out vec4 color;
@@ -14,9 +14,7 @@ uniform float Shininess;
 void main(void)
 {
 
-  vec4 v = vec4( vPosition, 1.0 );
-
-  vec3 pos = (ModelView * v).xyz;
+  vec3 pos = (ModelView * vPosition).xyz;
 
   vec3 L = normalize( LightPosition.xyz - pos );
   vec3 E = normalize( -pos );
@@ -31,9 +29,7 @@ void main(void)
   float Ks = pow( max(dot(N, H), 0.0), Shininess );
   vec4  specular = Ks * SpecularProduct;
   if( dot(L, N) < 0.0 )  specular = vec4(0.0, 0.0, 0.0, 1.0); 
-  gl_Position = Projection * ModelView * v;
-
-  color = vec4( vColor.rgb, 1.0 );
+  gl_Position = Projection * ModelView * vPosition;
 
   color = ambient + diffuse + specular;
   color.a = 1.0;
