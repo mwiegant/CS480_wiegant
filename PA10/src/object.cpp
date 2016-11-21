@@ -1,5 +1,7 @@
 
 #include "object.h"
+#include <iostream>
+
 
 Object::Object()
 {
@@ -113,7 +115,12 @@ bool Object::InitializeModel()
   aiMesh* meshOne;
   aiVector3D aiUV;
   aiVector3D aiVector;
+  aiVector3D* aiNormal;
   Assimp::Importer importer;
+
+  float test;
+
+  int count = 0;
 
   // attempt to read the model from file
   try
@@ -125,6 +132,11 @@ bool Object::InitializeModel()
   {
     return false;
   }
+
+  //get the normals
+  aiNormal = meshOne -> mNormals;
+  if( aiNormal == NULL )
+  std::cout << "THERE'S NOTHING THERE!" << std::endl << std::endl << std::endl;
 
   // load the models and the vertices
   for( int i = 0; i < meshOne->mNumFaces; i++ )
@@ -138,11 +150,19 @@ bool Object::InitializeModel()
       index = thisFace.mIndices[j];
       Indices.push_back( index );
 
+      std::cout << "BEFORE ASSIGNMENT!!" << std::endl << std::endl << std::endl;
+
+      //test = aiNormal[count].x;
+
       //get the vertices
       aiVector = meshOne->mVertices[thisFace.mIndices[j]];
       aiUV = meshOne->mTextureCoords[0][thisFace.mIndices[j]];
 
-      Vertex *temp = new Vertex(glm::vec3(aiVector.x, aiVector.y, aiVector.z), glm::vec2(aiUV.x, aiUV.y));
+      std::cout << "WORKING INDEX: " << thisFace.mIndices[j] << " I: " << i << "aiNormal.x: " << test << std::endl << std::endl << std::endl << std::endl;
+
+
+      Vertex *temp = new Vertex(glm::vec3(aiVector.x, aiVector.y, aiVector.z), glm::vec2(aiUV.x, aiUV.y), glm::vec3(3.0f, 3.0f, 3.0f));
+
       Vertices.push_back( *temp );
     }
   }
@@ -164,6 +184,7 @@ bool Object::InitializeModel(btTriangleMesh* triMesh)
   aiMesh* meshOne;
   aiVector3D aiUV;
   aiVector3D aiVector;
+  aiVector3D* aiNormal;
   Assimp::Importer importer;
   btVector3 triArray[3];
 
@@ -177,6 +198,9 @@ bool Object::InitializeModel(btTriangleMesh* triMesh)
   {
     return false;
   }
+
+  //get the normals
+  aiNormal = meshOne -> mNormals;
 
   // load the models and the vertices
   for( int i = 0; i < meshOne->mNumFaces; i++ )
@@ -197,7 +221,8 @@ bool Object::InitializeModel(btTriangleMesh* triMesh)
       //load triArray vertices for triMesh
       triArray[j] = btVector3(aiVector.x, aiVector.y, aiVector.z);
 
-      Vertex *temp = new Vertex(glm::vec3(aiVector.x, aiVector.y, aiVector.z), glm::vec2(aiUV.x, aiUV.y));
+      Vertex *temp = new Vertex(glm::vec3(aiVector.x, aiVector.y, aiVector.z), glm::vec2(aiUV.x, aiUV.y), glm::vec3(3.0f, 3.0f, 3.0f));
+
       Vertices.push_back( *temp );
     }
 
@@ -224,8 +249,8 @@ void Object::Render()
 
   glBindBuffer(GL_ARRAY_BUFFER, VB);
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex,uv));
-  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*)12);
+  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex,uv));
+  glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex,normal));
 
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, aTexture);
@@ -238,3 +263,12 @@ void Object::Render()
   glDisableVertexAttribArray(1);
   glDisableVertexAttribArray(2);
 }
+
+
+
+
+//texture2D( gSampler, texture.xy ) + 
+
+
+
+

@@ -97,7 +97,7 @@ bool Graphics::Initialize(int width, int height)
   }
 
   // Locate the projection matrix in the shader
-  m_projectionMatrix = m_shader->GetUniformLocation("projectionMatrix");
+  m_projectionMatrix = m_shader->GetUniformLocation("Projection");
   if (m_projectionMatrix == INVALID_UNIFORM_LOCATION) 
   {
     printf("m_projectionMatrix not found\n");
@@ -105,7 +105,7 @@ bool Graphics::Initialize(int width, int height)
   }
 
   // Locate the view matrix in the shader
-  m_viewMatrix = m_shader->GetUniformLocation("viewMatrix");
+  m_viewMatrix = m_shader->GetUniformLocation("View");
   if (m_viewMatrix == INVALID_UNIFORM_LOCATION) 
   {
     printf("m_viewMatrix not found\n");
@@ -113,12 +113,15 @@ bool Graphics::Initialize(int width, int height)
   }
 
   // Locate the model matrix in the shader
-  m_modelMatrix = m_shader->GetUniformLocation("modelMatrix");
+  m_modelMatrix = m_shader->GetUniformLocation("Model");
   if (m_modelMatrix == INVALID_UNIFORM_LOCATION) 
   {
     printf("m_modelMatrix not found\n");
     return false;
   }
+
+  // Locate the light position in the shader
+  lightPos = glm::vec4( 1.0f, 1.0f, 1.0f, 1.0f );
 
   //enable depth testing
   glEnable(GL_DEPTH_TEST);
@@ -127,6 +130,12 @@ bool Graphics::Initialize(int width, int height)
   // pinball variable initialization
   gameState = GAME_STATE_READY;
   ballsLeft = 3;
+
+  //enable lighting??
+  glEnable(GL_LIGHTING);
+
+  // enable object movement
+  moveObjects = true;
 
   return true;
 }

@@ -46,6 +46,12 @@ class Graphics
     int gameState;
     int ballsLeft;
 
+    glm::vec4 lightPos;
+
+    bool moveObjects;
+
+    vector<Object *> masterList;
+
     PhysicsWorld physicsWorld;
 };
 

@@ -1,17 +1,29 @@
 #version 330
 
-layout (location = 0) in vec3 v_position;
-layout (location = 1) in vec2 v_texture;
+layout (location = 0) in vec4 vPosition;
+layout (location = 1) in vec2 vTexture;
+layout (location = 2) in vec3 vNormal;
 
-smooth out vec2 _texture;
+smooth out vec3 fN;
+smooth out vec3 fE;
+smooth out vec3 fL;
+smooth out vec2 texture;
 
-uniform mat4 projectionMatrix;
-uniform mat4 viewMatrix;
-uniform mat4 modelMatrix;
+uniform mat4 Model, View, Projection;
+uniform vec4 LightPosition = vec4( 0.0, 3.0, 3.0, 3.0 );
 
-void main(void)
+void main()
 {
-  vec4 v = vec4(v_position, 1.0);
-  gl_Position = (projectionMatrix * viewMatrix * modelMatrix) * v;
-  _texture = v_texture;
+  fN = vNormal;
+  fE = vPosition.xyz;
+  fL = LightPosition.xyz;
+    
+  if( LightPosition.w != 0.0 ) 
+  {
+	 fL = LightPosition.xyz - vPosition.xyz;
+  }
+
+  gl_Position = Projection * View * Model * vPosition;
+
+  texture = vTexture;
 }
