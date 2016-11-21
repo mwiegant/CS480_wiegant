@@ -121,7 +121,20 @@ bool Graphics::Initialize(int width, int height)
   }
 
   // Locate the light position in the shader
-  lightPos = glm::vec4( 1.0f, 1.0f, 1.0f, 1.0f );
+  lightPos = m_shader -> GetUniformLocation("LightPosition");
+  if (ambientProd == INVALID_UNIFORM_LOCATION) 
+  {
+    printf("LightPosition not found\n");
+    return false;
+  }
+
+  // Locate the ambient product in the shader
+  ambientProd = m_shader -> GetUniformLocation("AmbientProduct");
+  if (ambientProd == INVALID_UNIFORM_LOCATION) 
+  {
+    printf("AmbientProduct not found\n");
+    return false;
+  }
 
   //enable depth testing
   glEnable(GL_DEPTH_TEST);
