@@ -46,7 +46,11 @@ class Graphics
     int gameState;
     int ballsLeft;
 
-    glm::vec4 lightPos;
+    //GL locations for lighting variables
+    GLint lightPos;
+    GLint ambientProd;
+    GLint diffuseProd;
+    GLint SpecularProd;
 
     bool moveObjects;
 
