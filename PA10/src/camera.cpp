@@ -13,8 +13,9 @@ Camera::~Camera()
 bool Camera::Initialize(int w, int h)
 {
   // Initialize vectors that will be changed during runtime
-  eyePosition = glm::vec3(25.0, 20.0, 0.0);
-  focusPoint = glm::vec3(0.0, 0.0, 0.0);
+  eyePosition = glm::vec3(25.0f, 20.0f, 0.0f);
+  focusPoint = glm::vec3(0.0f, 0.0f, 0.0f);
+  yAxis = glm::vec3(0.0f, 1.0f, 0.0f); // we do not change this vector
 
   //--Init the view and projection matrices
   //  if you will be having a moving camera the view matrix will need to more dynamic
@@ -22,12 +23,25 @@ bool Camera::Initialize(int w, int h)
   //  for this project having them static will be fine
   view = glm::lookAt( eyePosition, //Eye Position
                       focusPoint, //Focus point
-                      glm::vec3(0.0, 1.0, 0.0)); //Positive Y is up
+                      yAxis); //Positive Y is up
 
   projection = glm::perspective( 45.0f, //the FoV typically 90 degrees is good which is what this is set to
                                  float(w)/float(h), //Aspect Ratio, so Circles stay Circular
                                  0.01f, //Distance to the near plane, normally a small value like this
                                  100.0f); //Distance to the far plane, 
+
+  // for looking up at the scoreboard
+  lookUp = false;
+
+  // the hard-coded position of the scoreboard
+  scoreboardPosition = glm::vec3(0.0f, 8.0f, -3.0f);
+
+  // the modifier that will be used to get back-and-forth from the scoreboardPositin
+  // (dividing by -30 is intentional)
+  focusPointModifier = scoreboardPosition / (float) maxMoves;
+
+  moveNumber = 0;
+
   return true;
 }
 
@@ -38,60 +52,39 @@ glm::mat4 Camera::GetProjection()
 
 glm::mat4 Camera::GetView()
 {
+  // factor in movement to-and-from the scoreboard
+  UpdateView();
+
   return view;
 }
 
-bool Camera::ZoomIn()
+void Camera::ToggleLookUp(bool lookUp)
 {
-  // check if the user is too close to keep zooming in
-  if( eyePosition.z == -1.0 )
+  this->lookUp = lookUp;
+}
+
+void Camera::UpdateView()
+{
+  // if looking up, and haven't finished the movement to look up
+  if( lookUp && moveNumber < maxMoves )
   {
-    return false;
+    focusPoint += focusPointModifier;
+
+    moveNumber++;
+  }
+  // else, if looking down, and haven't finished the movement to look down
+  else if( !lookUp && moveNumber > 0)
+  {
+    focusPoint += -focusPointModifier;
+
+    moveNumber--;
   }
 
-  eyePosition += glm::vec3(0.0, 0.0, 1.0);
-
+  // re-calculate the view
   view = glm::lookAt( eyePosition, //Eye Position
                       focusPoint, //Focus point
-                      glm::vec3(0.0, 1.0, 0.0)); //Positive Y is up
-
-  return true;
+                      yAxis); //Positive Y is up
 }
-
-bool Camera::ZoomOut()
-{
-  eyePosition += glm::vec3(0.0, 0.0, -1.0);
-
-  view = glm::lookAt( eyePosition, //Eye Position
-                      focusPoint, //Focus point
-                      glm::vec3(0.0, 1.0, 0.0)); //Positive Y is up
-
-  return true;
-}
-
-bool Camera::LookLeft()
-{
-  focusPoint += glm::vec3(0.25, 0.0, 0.0);
-
-  view = glm::lookAt( eyePosition, //Eye Position
-                      focusPoint, //Focus point
-                      glm::vec3(0.0, 1.0, 0.0)); //Positive Y is up
-
-  return true;
-}
-
-bool Camera::LookRight()
-{
-  focusPoint += glm::vec3(-0.25, 0.0, 0.0);
-
-  view = glm::lookAt( eyePosition, //Eye Position
-                      focusPoint, //Focus point
-                      glm::vec3(0.0, 1.0, 0.0)); //Positive Y is up
-
-  return true;
-}
-
-
 
 
 

@@ -12,14 +12,28 @@ class Camera
     glm::mat4 GetProjection();
     glm::mat4 GetView();
 
-    bool ZoomIn();
-    bool ZoomOut();
-    bool LookLeft();
-    bool LookRight();
+    void ToggleLookUp(bool lookUp);
   
   private:
+    void UpdateView();
+
+
+    // for looking up at the scoreboard
+    bool lookUp;
+
+    // the position of the scoreboard (hard-coded)
+    glm::vec3 scoreboardPosition;
+
+    // the movement vector to get back-and-forth from the scoreboardPosition
+    glm::vec3 focusPointModifier;
+
+    // for determining movement back-and-forth from the scoreboardPosition
+    int moveNumber;
+    const int maxMoves = 30;
+
     glm::vec3 eyePosition;
     glm::vec3 focusPoint;
+    glm::vec3 yAxis;
 
     glm::mat4 projection;
     glm::mat4 view;

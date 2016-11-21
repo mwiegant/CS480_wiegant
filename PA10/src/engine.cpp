@@ -77,6 +77,8 @@ void Engine::Run()
 
 void Engine::Keyboard()
 {
+  bool lookUp = false;
+
   if(m_event.type == SDL_QUIT)
   {
     m_running = false;
@@ -93,28 +95,14 @@ void Engine::Keyboard()
 
 
     // -----------------------------------------------
-    // camera adjustments
+    // look up at the scoreboard
     // -----------------------------------------------
-    else if( m_event.key.keysym.sym == SDLK_DOWN )
-    {
-      m_graphics->ZoomOut();
-    }
-
     else if( m_event.key.keysym.sym == SDLK_UP )
     {
-      m_graphics->ZoomIn();
-    }
+      lookUp = true;
 
-    else if( m_event.key.keysym.sym == SDLK_LEFT )
-    {
-      m_graphics->LookLeft();
+      m_graphics->ToggleLookUp(lookUp);
     }
-
-    else if( m_event.key.keysym.sym == SDLK_RIGHT )
-    {
-      m_graphics->LookRight();
-    }
-
 
     // -----------------------------------------------
     // launch the ball from the plunger
@@ -125,6 +113,20 @@ void Engine::Keyboard()
     }
 
   }
+
+  else if (m_event.type == SDL_KEYUP)
+  {
+    // -----------------------------------------------
+    // look back down at the board
+    // -----------------------------------------------
+    if( m_event.key.keysym.sym == SDLK_UP )
+    {
+      lookUp = false;
+
+      m_graphics->ToggleLookUp(lookUp);
+    }
+  }
+
 }
 
 void Engine::Mouse()

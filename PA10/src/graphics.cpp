@@ -179,24 +179,9 @@ void Graphics::LaunchBall()
   }
 }
 
-bool Graphics::ZoomIn()
+void Graphics::ToggleLookUp(bool lookUp)
 {
-  return m_camera->ZoomIn();
-}
-
-bool Graphics::ZoomOut()
-{
-  return m_camera->ZoomOut();
-}
-
-bool Graphics::LookLeft()
-{
-  return m_camera->LookLeft();
-}
-
-bool Graphics::LookRight()
-{
-  return m_camera->LookRight();
+  m_camera->ToggleLookUp(lookUp);
 }
 
 bool Graphics::InitializeObjects()

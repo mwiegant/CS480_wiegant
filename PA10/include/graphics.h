@@ -26,10 +26,9 @@ class Graphics
 
     // todo - update or depricate some of these
     // for updating the view
-    bool ZoomIn();
-    bool ZoomOut();
-    bool LookLeft();
-    bool LookRight();
+    void ToggleLookUp(bool lookUp);
+    void LookLeft();
+    void LookRight();
 
   private:
     bool InitializeObjects();
