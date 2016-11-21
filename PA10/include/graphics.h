@@ -30,6 +30,10 @@ class Graphics
     void LookLeft();
     void LookRight();
 
+    void ambientChange(int change);
+    void diffuseChange(int change);
+    void specularChagne(int change);
+
   private:
     bool InitializeObjects();
 
@@ -51,6 +55,11 @@ class Graphics
     GLint ambientProd;
     GLint diffuseProd;
     GLint SpecularProd;
+
+    //values to be used for lighting variables
+    float ambientVal;
+    float diffuseVal;
+    float specularVal;
 
     bool moveObjects;
 

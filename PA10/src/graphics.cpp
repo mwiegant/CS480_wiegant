@@ -224,7 +224,7 @@ bool Graphics::InitializeObjects()
   /// Pinball Board
   /* position, weight, modelPath, texturePath */
   physicsWorld.AddTriMeshShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f),
-                                "models/Board_Base.obj", "textures/orange.jpg");
+                                "models/Board_Base.obj", "textures/Mars.jpg");
 
   /// Paddles
   /* position, paddleIdentifier, mass, modelPath, texturePath */
@@ -273,4 +273,33 @@ std::string Graphics::ErrorString(GLenum error)
     return "None";
   }
 }
+
+void Graphics::ambientChange(int change)
+{
+
+}
+
+void Graphics::diffuseChange(int change)
+{
+
+}
+
+void Graphics::specularChagne(int change)
+{
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
