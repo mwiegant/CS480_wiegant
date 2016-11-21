@@ -3,7 +3,7 @@
 smooth in vec3 fN;
 smooth in vec3 fL;
 smooth in vec3 fE;
-smooth in vec2 texture;
+smooth in vec2 _texture;
 
 out vec4 frag_color;
 
@@ -31,6 +31,6 @@ void main()
   if( dot(L, N) < 0.0 ) 
   specular = vec4(0.0, 0.0, 0.0, 1.0);
   
-  frag_color = texture2D( gSampler, texture.xy ) + ambient + diffuse + specular;
+  frag_color = texture2D( gSampler, _texture.xy ) + ambient + diffuse + specular;
   frag_color.a = 1.0;
 } 
