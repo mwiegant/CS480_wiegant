@@ -125,6 +125,39 @@ void Engine::Keyboard()
       m_graphics->LaunchBall();
     }
 
+    // -----------------------------------------------
+    // change the lighting effects
+    // -----------------------------------------------
+    else if( m_event.key.keysym.sym == SDLK_EQUALS )
+    {
+      m_graphics->ambientChange(1);
+    }
+
+    else if( m_event.key.keysym.sym == SDLK_MINUS )
+    {
+      m_graphics->ambientChange(-1);
+    }
+
+    else if( m_event.key.keysym.sym == SDLK_p)
+    {
+      m_graphics->diffuseChange(1);
+    }
+
+    else if( m_event.key.keysym.sym == SDLK_o )
+    {
+      m_graphics->diffuseChange(-1);
+    }
+
+    else if( m_event.key.keysym.sym == SDLK_PERIOD )
+    {
+      m_graphics->specularChange(1);
+    }
+
+    else if( m_event.key.keysym.sym == SDLK_COMMA )
+    {
+      m_graphics->specularChange(-1);
+    }
+
   }
 
   else if (m_event.type == SDL_KEYUP)

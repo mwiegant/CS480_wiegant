@@ -32,7 +32,7 @@ class Graphics
 
     void ambientChange(int change);
     void diffuseChange(int change);
-    void specularChagne(int change);
+    void specularChange(int change);
 
   private:
     bool InitializeObjects();
@@ -54,7 +54,7 @@ class Graphics
     GLint lightPos;
     GLint ambientProd;
     GLint diffuseProd;
-    GLint SpecularProd;
+    GLint specularProd;
 
     //values to be used for lighting variables
     float ambientVal;

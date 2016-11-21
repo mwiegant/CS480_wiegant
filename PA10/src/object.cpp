@@ -153,9 +153,9 @@ bool Object::InitializeModel()
       aiUV = meshOne->mTextureCoords[0][thisFace.mIndices[j]];
 
       test = aiNormal[thisFace.mIndices[j]].x;
-
+/*
       std::cout << "WORKING INDEX: " << thisFace.mIndices[j] << " I: " << i << " aiNormal.x: " << test << std::endl << std::endl << std::endl << std::endl;
-
+*/
 
       Vertex *temp = new Vertex(glm::vec3(aiVector.x, aiVector.y, aiVector.z), glm::vec2(aiUV.x, aiUV.y), glm::vec3(aiNormal[thisFace.mIndices[j]].x, aiNormal[thisFace.mIndices[j]].y, aiNormal[thisFace.mIndices[j]].z));
 

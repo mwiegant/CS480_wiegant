@@ -2,7 +2,9 @@
 
 Graphics::Graphics()
 {
-
+  ambientVal = 0.1f;
+  diffuseVal = 0.1f;
+  specularVal = 0.1f;
 }
 
 Graphics::~Graphics()
@@ -136,6 +138,22 @@ bool Graphics::Initialize(int width, int height)
     return false;
   }
 
+  // Locate the diffuse product in the shader
+  diffuseProd = m_shader -> GetUniformLocation("DiffuseProduct");
+  if (diffuseProd == INVALID_UNIFORM_LOCATION) 
+  {
+    printf("DiffuseProduct not found\n");
+    return false;
+  }
+
+  // Locate the specular product in the shader
+  specularProd = m_shader -> GetUniformLocation("SpecularProduct");
+  if (specularProd == INVALID_UNIFORM_LOCATION) 
+  {
+    printf("SpecularProduct not found\n");
+    return false;
+  }
+
   //enable depth testing
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS);
@@ -171,6 +189,11 @@ void Graphics::Render()
   // Send in the projection and view to the shader
   glUniformMatrix4fv(m_projectionMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetProjection()));
   glUniformMatrix4fv(m_viewMatrix, 1, GL_FALSE, glm::value_ptr(m_camera->GetView()));
+
+  // Send in the lighting values to the shader
+  glUniform4f(ambientProd, ambientVal, ambientVal, ambientVal, 2.0f);
+  glUniform4f(diffuseProd, diffuseVal, diffuseVal, diffuseVal, diffuseVal);
+  glUniform4f(specularProd, specularVal, specularVal, specularVal, 0.1f);
 
   // Render all objects in the master list
   for(int i = 0; i < physicsWorld.objectList.size(); i++)
@@ -224,7 +247,7 @@ bool Graphics::InitializeObjects()
   /// Pinball Board
   /* position, weight, modelPath, texturePath */
   physicsWorld.AddTriMeshShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f),
-                                "models/Board_Base.obj", "textures/Mars.jpg");
+                                "models/Board_Base.obj", "textures/Base_Tex.jpg");
 
   /// Paddles
   /* position, paddleIdentifier, mass, modelPath, texturePath */
@@ -238,6 +261,7 @@ bool Graphics::InitializeObjects()
   /* position, half-size vectors, weight, modelPath, texturePath */
   physicsWorld.AddPinball( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f), btScalar(1.0f),
                            "models/sphere.obj", "textures/Neptune.jpg" );
+
 
   return true;
 }
@@ -310,7 +334,7 @@ void Graphics::diffuseChange(int change)
   }
 }
 
-void Graphics::specularChagne(int change)
+void Graphics::specularChange(int change)
 {
   if( change > 0 )
   {
