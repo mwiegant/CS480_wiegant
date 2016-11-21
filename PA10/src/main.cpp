@@ -8,7 +8,7 @@ int main(int argc, char **argv)
 {
 
   // Start an engine
-  Engine *engine = new Engine("Cactus Coolers -- Computer Graphics", 800, 600);
+  Engine *engine = new Engine("Cactus Coolers -- Computer Graphics", 800, 650);
 
   Magick::InitializeMagick(*argv);
 

@@ -13,8 +13,8 @@ Camera::~Camera()
 bool Camera::Initialize(int w, int h)
 {
   // Initialize vectors that will be changed during runtime
-  eyePosition = glm::vec3(25.0f, 20.0f, 0.0f);
-  focusPoint = glm::vec3(0.0f, 0.0f, 0.0f);
+  eyePosition = glm::vec3(5.0f, 75.0f, 0.0f);
+  focusPoint = glm::vec3(-13.0f, 0.0f, 0.0f);
   yAxis = glm::vec3(0.0f, 1.0f, 0.0f); // we do not change this vector
 
   //--Init the view and projection matrices
@@ -34,7 +34,7 @@ bool Camera::Initialize(int w, int h)
   lookUp = false;
 
   // the hard-coded position of the scoreboard
-  scoreboardPosition = glm::vec3(0.0f, 8.0f, -3.0f);
+  scoreboardPosition = glm::vec3(-20.0f, 20.0f, 0.0f);
 
   // the modifier that will be used to get back-and-forth from the scoreboardPositin
   // (dividing by -30 is intentional)

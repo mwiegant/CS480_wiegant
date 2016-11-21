@@ -111,7 +111,7 @@ bool PhysicsWorld::AddPaddle(btVector3 position, const char* paddleIdentifier, b
                const char* modelPath, const char* texturePath)
 {
   /// 0. Check if the paddle should be added to the world, before we ever think about adding it
-  if( (paddleIdentifier != "paddle_left") || (paddleIdentifier != "paddle_right") )
+  if( strncmp(paddleIdentifier, "paddle_left", 10) != 0 && strncmp(paddleIdentifier, "paddle_right", 10) != 0 )
   {
     printf("Error - wrong paddleIdentifier, failed to add paddle to the world. \n");
     return false;
@@ -157,7 +157,7 @@ bool PhysicsWorld::AddPaddle(btVector3 position, const char* paddleIdentifier, b
   /// 3. Keep track of this paddle, after doing some additional error checking
 
   /* Left Paddle */
-  if( paddleIdentifier == "paddle_left" && leftPaddle != NULL )
+  if( strncmp(paddleIdentifier, "paddle_left", 10) == 0 && leftPaddle != NULL )
   {
     printf("Error - there is already a left paddle, cannot add another\n");
   } else
@@ -166,7 +166,7 @@ bool PhysicsWorld::AddPaddle(btVector3 position, const char* paddleIdentifier, b
   }
 
   /* Right Paddle */
-  if( paddleIdentifier == "paddle_right" && rightPaddle != NULL )
+  if( strncmp(paddleIdentifier, "paddle_right", 10) != 0 && rightPaddle != NULL )
   {
     printf("Error - there is already a right paddle, cannot add another\n");
   } else

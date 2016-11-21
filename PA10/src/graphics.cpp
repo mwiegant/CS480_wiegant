@@ -199,22 +199,23 @@ bool Graphics::InitializeObjects()
    */
 
 
-
+  /// Pinball Board
   /* position, weight, modelPath, texturePath */
-  physicsWorld.AddTriMeshShape( btVector3(0,0,0), btScalar(0.0f),
-                                "models/pinball_base.obj", "textures/Neptune.jpg");
+  physicsWorld.AddTriMeshShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f),
+                                "models/Board_Base.obj", "textures/Mars.jpg");
 
-    /* position, half-size vectors, weight, modelPath, texturePath */
+  /// Paddles
+  /* position, paddleIdentifier, mass, modelPath, texturePath */
+  physicsWorld.AddPaddle( btVector3(0.0f, 3.0f, 0.0f), "paddle_left", btScalar(1.0f),
+                          "models/Paddle_Left.obj", "textures/granite.jpg" );
+
+  physicsWorld.AddPaddle( btVector3(0.0f, 3.0f, 0.0f), "paddle_right", btScalar(1.0f),
+                          "models/Paddle_Right.obj", "textures/granite.jpg" );
+
+  /// Pinball ball
+  /* position, half-size vectors, weight, modelPath, texturePath */
   physicsWorld.AddPinball( btVector3(8.0f, 1.0f, -4.0f), btScalar(0.125f), btScalar(1.0f),
                            "models/pinball_ball.obj", "textures/granite.jpg" );
-//   physicsWorld.AddSphere( btVector3(0,10,0.9), btScalar(1.0f), btScalar(8000.0f),
-//                           "models/sphere.obj", "textures/Neptune.jpg" );
-//   physicsWorld.AddSphere( btVector3(0,10,0.9), btScalar(1.0f), btScalar(8000.0f),
-//                           "models/sphere.obj", "textures/Neptune.jpg" );
-//   physicsWorld.AddSphere( btVector3(0,10,0.9), btScalar(1.0f), btScalar(8000.0f),
-//                           "models/sphere.obj", "textures/Neptune.jpg" );
-
-
 
   return true;
 }
