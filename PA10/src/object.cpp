@@ -52,10 +52,10 @@ bool Object::Initialize(const char* modelPath, const char* texturePath)
   return true;
 }
 
-bool Object::Initialize(const char* fileName, btTriangleMesh* triMesh)
+bool Object::Initialize(const char* fileName, const char* texturePath, btTriangleMesh* triMesh)
 {
   modelFilePath = fileName;
-  textureFilePath = "textures/Neptune.jpg";
+  textureFilePath = texturePath;
 
   if(!InitializeModel(triMesh))
   {

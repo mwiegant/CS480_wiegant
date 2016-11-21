@@ -25,7 +25,7 @@ class Object
     bool Initialize();
     bool Initialize(const char*);
     bool Initialize(const char* modelPath, const char* texturePath);
-    bool Initialize(const char*, btTriangleMesh*);
+    bool Initialize(const char*, const char* texturePath, btTriangleMesh*);
 
     // Getters
     glm::mat4 GetModel();

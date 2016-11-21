@@ -23,7 +23,7 @@ class PhysicsWorld
 
     bool AddPinball(btVector3 position, btScalar radius, btScalar mass, const char* modelPath, const char* texturePath);
     bool AddCylinder(btVector3 position, btVector3 halfwayVectors, btScalar mass, const char* modelPath, const char* texturePath);
-    bool AddTriMeshShape(btVector3 position);
+    bool AddTriMeshShape(btVector3 position, btScalar mass, const char* modelPath, const char* texturePath);
 
     bool MovePinball(btVector3 position);
     bool setPinballVelocity(btVector3 velocity);

@@ -215,11 +215,12 @@ bool Graphics::InitializeObjects()
 
 
 
-
-   physicsWorld.AddTriMeshShape(btVector3(0,0,0));
+  /* position, weight, modelPath, texturePath */
+  physicsWorld.AddTriMeshShape( btVector3(0,0,0), btScalar(0.0f),
+                                "models/pinball_base.obj", "textures/Neptune.jpg");
 
     /* position, half-size vectors, weight, modelPath, texturePath */
-   physicsWorld.AddPinball( btVector3(8.0f, 1.0f, -4.0f), btScalar(0.125f), btScalar(1.0f),
+  physicsWorld.AddPinball( btVector3(8.0f, 1.0f, -4.0f), btScalar(0.125f), btScalar(1.0f),
                            "models/pinball_ball.obj", "textures/granite.jpg" );
 //   physicsWorld.AddSphere( btVector3(0,10,0.9), btScalar(1.0f), btScalar(8000.0f),
 //                           "models/sphere.obj", "textures/Neptune.jpg" );

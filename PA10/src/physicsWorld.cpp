@@ -146,7 +146,7 @@ bool PhysicsWorld::AddCylinder(btVector3 position, btVector3 halfwayVectors, btS
 }
 
 
-bool PhysicsWorld::AddTriMeshShape(btVector3 position)
+bool PhysicsWorld::AddTriMeshShape(btVector3 position, btScalar mass, const char* modelPath, const char* texturePath)
 {
   /// 1. Creating an Object and adding it to the objectList
 
@@ -154,7 +154,7 @@ bool PhysicsWorld::AddTriMeshShape(btVector3 position)
 
   Object* meshObj = new Object();
 
-  meshObj->Initialize("models/pinball_base.obj", triMesh);
+  meshObj->Initialize(modelPath, texturePath, triMesh);
 
   objectList.push_back(meshObj);
 
@@ -168,8 +168,6 @@ bool PhysicsWorld::AddTriMeshShape(btVector3 position)
   btTransform shapeTransform;
   shapeTransform.setIdentity();
   shapeTransform.setOrigin(position);
-
-  btScalar mass(0.0f);
 
   // the rigidbody is dynamic if and only if mass is non zero, otherwise static
   bool isDynamic = (mass != 0.f);
