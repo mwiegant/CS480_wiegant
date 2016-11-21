@@ -29,73 +29,30 @@ bool PhysicsWorld::Initialize() {
 }
 
 
+
 /*
- * There are two components to adding an object to the physics world:
- *  1. Creating a btRigidBody and adding it to the dynamicsWorld
- *  2. Creating an Object and adding it to the objectList
+ * Adds a sphere object to the bullet world, and adds a regular object to
+ * the drawing world that is tied to the sphere object.
+ *
+ * @param position = the (x,y,z) position of this object in the world
+ * @param radius = the radius of the object
+ * @param mass = how heavy the object is (i.e. how far it flies when hit)
+ * @param modelPath = the path to the model for this object
+ * @param texturePath = the path to the texture for this object
  */
-bool PhysicsWorld::AddFloor()
+bool PhysicsWorld::AddSphere(btVector3 position, btScalar radius, btScalar mass,
+                             const char* modelPath, const char* texturePath)
 {
   /// 1. Creating a btRigidBody and adding it to the dynamicsWorld
 
   //create a dynamic rigidbody
-  btCollisionShape* floorShape = new btStaticPlaneShape(btVector3(0, 1, 0), 1);
-  collisionShapes.push_back(floorShape);
-
-  // Create Dynamic Objects
-  btTransform groundTransform;
-  groundTransform.setIdentity();
-  groundTransform.setOrigin(btVector3(0,0,0));
-
-  btScalar mass(0.f);
-
-  // the rigidbody is dynamic if and only if mass is non zero, otherwise static
-  bool isDynamic = (mass != 0.f);
-
-  btVector3 localInertia(0,0,0);
-  if (isDynamic)
-  {
-    floorShape->calculateLocalInertia(mass,localInertia);
-  }
-
-  // using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
-  btDefaultMotionState* myMotionState = new btDefaultMotionState( groundTransform );
-  btRigidBody::btRigidBodyConstructionInfo rbInfo( mass, myMotionState, floorShape, localInertia );
-  btRigidBody* body = new btRigidBody( rbInfo );
-
-  dynamicsWorld->addRigidBody(body);
-
-  /// 2. Creating an Object and adding it to the objectList
-
-  Object* plane = new Object();
-
-  plane->Initialize("models/plane.obj");
-
-  objectList.push_back(plane);
-
-  return true;
-}
-
-
-/*
- * There are two components to adding an object to the physics world:
- *  1. Creating a btRigidBody and adding it to the dynamicsWorld
- *  2. Creating an Object and adding it to the objectList
- */
-bool PhysicsWorld::AddSphere(btVector3 position)
-{
-  /// 1. Creating a btRigidBody and adding it to the dynamicsWorld
-
-  //create a dynamic rigidbody
-  btCollisionShape* sphereShape = new btSphereShape( btScalar(1.0f) );
+  btCollisionShape* sphereShape = new btSphereShape( radius );
   collisionShapes.push_back(sphereShape);
 
   // Create Dynamic Objects
   btTransform startTransform;
   startTransform.setIdentity();
   startTransform.setOrigin(position);
-
-  btScalar mass(80.0f);
 
   // the rigidbody is dynamic if and only if mass is non zero, otherwise static
   bool isDynamic = (mass != 0.f);
@@ -110,14 +67,14 @@ bool PhysicsWorld::AddSphere(btVector3 position)
   btDefaultMotionState* myMotionState = new btDefaultMotionState( startTransform );
   btRigidBody::btRigidBodyConstructionInfo rbInfo( mass, myMotionState, sphereShape, localInertia );
   btRigidBody* body = new btRigidBody( rbInfo );
-  
+
   dynamicsWorld->addRigidBody(body);
 
   /// 2. Creating an Object and adding it to the objectList
 
   Object* sphere = new Object();
 
-  sphere->Initialize();
+  sphere->Initialize( modelPath, texturePath );
 
   objectList.push_back(sphere);
 
@@ -126,24 +83,28 @@ bool PhysicsWorld::AddSphere(btVector3 position)
 
 
 /*
- * There are two components to adding an object to the physics world:
- *  1. Creating a btRigidBody and adding it to the dynamicsWorld
- *  2. Creating an Object and adding it to the objectList
+ * Adds a box/cube to the bullet world, and adds a regular object to the
+ * drawing world that is tied to the box/cube object.
+ *
+ * @param position = the (x,y,z) position of this object in the world
+ * @param halfwayVectors = half the total size of the box
+ * @param mass = how heavy the object is (i.e. how far it flies when hit)
+ * @param modelPath = the path to the model for this object
+ * @param texturePath = the path to the texture for this object
  */
-bool PhysicsWorld::AddCube(btVector3 position)
+bool PhysicsWorld::AddBox(btVector3 position, btVector3 halfwayVectors, btScalar mass,
+                          const char* modelPath, const char* texturePath)
 {
   /// 1. Creating a btRigidBody and adding it to the dynamicsWorld
 
   //create a dynamic rigidbody
-  btCollisionShape* boxShape = new btBoxShape(btVector3(1.0f, 1.0f, 1.0f));
+  btCollisionShape* boxShape = new btBoxShape( halfwayVectors );
   collisionShapes.push_back(boxShape);
 
   // Create Dynamic Objects
   btTransform boxTransform;
   boxTransform.setIdentity();
   boxTransform.setOrigin(position);
-
-  btScalar mass(1.0f);
 
   // the rigidbody is dynamic if and only if mass is non zero, otherwise static
   bool isDynamic = (mass != 0.f);
@@ -165,7 +126,7 @@ bool PhysicsWorld::AddCube(btVector3 position)
 
   Object* cube = new Object();
 
-  cube->Initialize("models/cube.obj");
+  cube->Initialize( modelPath, texturePath );
 
   objectList.push_back(cube);
 
@@ -174,24 +135,28 @@ bool PhysicsWorld::AddCube(btVector3 position)
 
 
 /*
- * There are two components to adding an object to the physics world:
- *  1. Creating a btRigidBody and adding it to the dynamicsWorld
- *  2. Creating an Object and adding it to the objectList
+ * Adds a cylinder to the bullet world, and adds a regular object to the
+ * drawing world that is tied to the cylinder object.
+ *
+ * @param position = the (x,y,z) position of this object in the world
+ * @param halfwayVectors = half the dimensions of the cylinder (x,y,z dimensions)
+ * @param mass = how heavy the object is (i.e. how far it flies when hit)
+ * @param modelPath = the path to the model for this object
+ * @param texturePath = the path to the texture for this object
  */
-bool PhysicsWorld::AddCylinder(btVector3 position)
+bool PhysicsWorld::AddCylinder(btVector3 position, btVector3 halfwayVectors, btScalar mass,
+                               const char* modelPath, const char* texturePath)
 {
   /// 1. Creating a btRigidBody and adding it to the dynamicsWorld
 
   //create a dynamic rigidbody
-  btCollisionShape* cylinderShape = new btCylinderShape(btVector3(1.0f, 1.0f, 1.0f));
+  btCollisionShape* cylinderShape = new btCylinderShape( halfwayVectors );
   collisionShapes.push_back(cylinderShape);
 
   // Create Dynamic Objects
   btTransform cylinderTransform;
   cylinderTransform.setIdentity();
   cylinderTransform.setOrigin(position);
-
-  btScalar mass(1.0f);
 
   // the rigidbody is dynamic if and only if mass is non zero, otherwise static
   bool isDynamic = (mass != 0.f);
@@ -213,108 +178,13 @@ bool PhysicsWorld::AddCylinder(btVector3 position)
 
   Object* cube = new Object();
 
-  cube->Initialize("models/cylinder.obj");
+  cube->Initialize( modelPath, texturePath );
 
   objectList.push_back(cube);
 
   return true;
 }
 
-
-/*
- * There are two components to adding an object to the physics world:
- *  1. Creating a btRigidBody and adding it to the dynamicsWorld
- *  2. Creating an Object and adding it to the objectList
- */
-bool PhysicsWorld::AddFrontFacingWall(btVector3 position)
-{
-  /// 1. Creating a btRigidBody and adding it to the dynamicsWorld
-
-  //create a dynamic rigidbody
-  btCollisionShape* shape = new btBoxShape(btVector3(6.0f, 3.0f, 0.5f));
-  collisionShapes.push_back(shape);
-
-  // Create Dynamic Objects
-  btTransform shapeTransform;
-  shapeTransform.setIdentity();
-  shapeTransform.setOrigin(position);
-
-  btScalar mass(1000.0f);
-
-  // the rigidbody is dynamic if and only if mass is non zero, otherwise static
-  bool isDynamic = (mass != 0.f);
-
-  btVector3 localInertia(0,0,0);
-  if (isDynamic)
-  {
-    shape->calculateLocalInertia(mass,localInertia);
-  }
-
-  // using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
-  btDefaultMotionState* myMotionState = new btDefaultMotionState( shapeTransform );
-  btRigidBody::btRigidBodyConstructionInfo rbInfo( mass, myMotionState, shape, localInertia );
-  btRigidBody* body = new btRigidBody( rbInfo );
-
-  dynamicsWorld->addRigidBody(body);
-
-  /// 2. Creating an Object and adding it to the objectList
-
-  Object* cube = new Object();
-
-  cube->Initialize("models/frontFacingWall.obj");
-
-  objectList.push_back(cube);
-
-  return true;
-}
-
-
-/*
- * There are two components to adding an object to the physics world:
- *  1. Creating a btRigidBody and adding it to the dynamicsWorld
- *  2. Creating an Object and adding it to the objectList
- */
-bool PhysicsWorld::AddSideFacingWall(btVector3 position)
-{
-  /// 1. Creating a btRigidBody and adding it to the dynamicsWorld
-
-  //create a dynamic rigidbody
-  btCollisionShape* shape = new btBoxShape(btVector3(0.5f, 3.0f, 6.0f));
-  collisionShapes.push_back(shape);
-
-  // Create Dynamic Objects
-  btTransform shapeTransform;
-  shapeTransform.setIdentity();
-  shapeTransform.setOrigin(position);
-
-  btScalar mass(1000.0f);
-
-  // the rigidbody is dynamic if and only if mass is non zero, otherwise static
-  bool isDynamic = (mass != 0.f);
-
-  btVector3 localInertia(0,0,0);
-  if (isDynamic)
-  {
-    shape->calculateLocalInertia(mass,localInertia);
-  }
-
-  // using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
-  btDefaultMotionState* myMotionState = new btDefaultMotionState( shapeTransform );
-  btRigidBody::btRigidBodyConstructionInfo rbInfo( mass, myMotionState, shape, localInertia );
-  btRigidBody* body = new btRigidBody( rbInfo );
-
-  dynamicsWorld->addRigidBody(body);
-
-  /// 2. Creating an Object and adding it to the objectList
-
-  Object* cube = new Object();
-
-  cube->Initialize("models/sideFacingWall.obj");
-
-  objectList.push_back(cube);
-
-  return true;
-}
 
 bool PhysicsWorld::AddTriMeshShape(btVector3 position)
 {

@@ -1,4 +1,0 @@
-model path:
-texture path:
-shape:
-coordinates:

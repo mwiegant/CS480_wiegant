@@ -24,6 +24,7 @@ class Object
 
     bool Initialize();
     bool Initialize(const char*);
+    bool Initialize(const char* modelPath, const char* texturePath);
     bool Initialize(const char*, btTriangleMesh*);
 
     // Getters

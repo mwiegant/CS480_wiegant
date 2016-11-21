@@ -187,37 +187,34 @@ bool Graphics::LookRight()
 
 bool Graphics::InitializeObjects()
 {
-  // add objects to the physics world
-  //physicsWorld.AddFloor();
+  /*
+   * Objects we need:
+   *  - pinball board
+   *  - pinball ball
+   *  - flippers (2)
+   *
+   *
+   *  Objects we may need:
+   *  - cylindrical bumpers (2?)
+   *  - plunger (we can probably do without this)
+   */
 
-  /*physicsWorld.AddFrontFacingWall( btVector3(0.0f, 0.0f, 6.0f) );
-  physicsWorld.AddFrontFacingWall( btVector3(0.0f, 0.0f, -6.0f) );
 
-  physicsWorld.AddSideFacingWall( btVector3(6.0f, 0.0f, 0.0f) );
-  physicsWorld.AddSideFacingWall( btVector3(-6.0f, 0.0f, 0.0f) );
 
-  physicsWorld.AddCube( btVector3(0,0,0) );
-  physicsWorld.AddCube( btVector3(1,0,3.6) );
-  physicsWorld.AddCube( btVector3(3.6,0,1.0) );
-  physicsWorld.AddCube( btVector3(0,0,0) );
-  physicsWorld.AddCube( btVector3(0,0,0) );
-  physicsWorld.AddCube( btVector3(5,0,5) );
-  physicsWorld.AddCube( btVector3(5,0,-5) );
-  physicsWorld.AddCylinder( btVector3(1,0,1) );
-  physicsWorld.AddCylinder( btVector3(4,0,1) );
-  physicsWorld.AddCylinder( btVector3(1,0,4) );
-  physicsWorld.AddSphere( btVector3(1,0,1) );
-*/
+
    physicsWorld.AddTriMeshShape(btVector3(0,0,0));
-   physicsWorld.AddSphere( btVector3(0,10,0.9) );
-   physicsWorld.AddSphere( btVector3(0,10,0.9) );
-   physicsWorld.AddSphere( btVector3(0,10,0.9) );
-   physicsWorld.AddSphere( btVector3(0,10,0.9) );
-  // physicsWorld.AddSphere( btVector3(5.9,20,3.9) );
-  // physicsWorld.AddSphere( btVector3(2.7,80,-3.9f) );
-  // physicsWorld.AddSphere( btVector3(1.7,60,0.5f) );
-  // physicsWorld.AddSphere( btVector3(2.7,180,3.9f) );
-  // physicsWorld.AddSphere( btVector3(1,59,1) );
+
+    /* position, half-size vectors, weight, modelPath, texturePath */
+   physicsWorld.AddSphere( btVector3(0,10,0.9), btScalar(1.0f), btScalar(8000.0f),
+                           "models/sphere.obj", "textures/Neptune.jpg" );
+   physicsWorld.AddSphere( btVector3(0,10,0.9), btScalar(1.0f), btScalar(8000.0f),
+                           "models/sphere.obj", "textures/Neptune.jpg" );
+   physicsWorld.AddSphere( btVector3(0,10,0.9), btScalar(1.0f), btScalar(8000.0f),
+                           "models/sphere.obj", "textures/Neptune.jpg" );
+   physicsWorld.AddSphere( btVector3(0,10,0.9), btScalar(1.0f), btScalar(8000.0f),
+                           "models/sphere.obj", "textures/Neptune.jpg" );
+
+
 
   return true;
 }
