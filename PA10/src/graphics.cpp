@@ -182,7 +182,7 @@ void Graphics::LaunchBall()
 {
   if( gameState == GAME_STATE_READY)
   {
-    physicsWorld.setPinballVelocity(btVector3(-15.0f, 0.0f, 0.0f) );
+    physicsWorld.setPinballVelocity(btVector3(-50.0f, 0.0f, 0.0f) );
 
     gameState = GAME_STATE_PLAYING;
   }
@@ -211,20 +211,20 @@ bool Graphics::InitializeObjects()
   /// Pinball Board
   /* position, weight, modelPath, texturePath */
   physicsWorld.AddTriMeshShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f),
-                                "models/Board_Base.obj", "textures/Mars.jpg");
+                                "models/Board_Base.obj", "textures/orange.jpg");
 
   /// Paddles
   /* position, paddleIdentifier, mass, modelPath, texturePath */
-  physicsWorld.AddPaddle( btVector3(0.0f, 3.0f, 0.0f), "paddle_left", btScalar(1.0f),
+  physicsWorld.AddPaddle( btVector3(0.0f, 0.0f, 0.0f), "paddle_left", btScalar(1.0f),
                           "models/Paddle_Left.obj", "textures/granite.jpg" );
 
-  physicsWorld.AddPaddle( btVector3(0.0f, 3.0f, 0.0f), "paddle_right", btScalar(1.0f),
+  physicsWorld.AddPaddle( btVector3(0.0f, 0.0f, 0.0f), "paddle_right", btScalar(1.0f),
                           "models/Paddle_Right.obj", "textures/granite.jpg" );
 
   /// Pinball ball
   /* position, half-size vectors, weight, modelPath, texturePath */
-  physicsWorld.AddPinball( btVector3(8.0f, 1.0f, -4.0f), btScalar(0.125f), btScalar(1.0f),
-                           "models/pinball_ball.obj", "textures/granite.jpg" );
+  physicsWorld.AddPinball( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.7f), btScalar(1.0f),
+                           "models/pinball.obj", "textures/Neptune.jpg" );
 
   return true;
 }
