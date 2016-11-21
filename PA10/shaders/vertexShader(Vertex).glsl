@@ -5,9 +5,7 @@ layout (location = 1) in vec2 vTexture;
 layout (location = 2) in vec3 vNormal;
 in vec3 vColor;
 
-
-
-out vec4 color;
+smooth out vec4 color;
 smooth out vec2 texture;
 
 uniform mat4 Projection, Model, View;
