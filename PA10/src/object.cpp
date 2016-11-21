@@ -113,6 +113,7 @@ bool Object::InitializeModel()
   aiMesh* meshOne;
   aiVector3D aiUV;
   aiVector3D aiVector;
+  //aiVector3D aiNormal;
   Assimp::Importer importer;
 
   // attempt to read the model from file

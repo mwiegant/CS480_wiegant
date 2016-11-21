@@ -97,7 +97,7 @@ bool Graphics::Initialize(int width, int height)
   }
 
   // Locate the projection matrix in the shader
-  m_projectionMatrix = m_shader->GetUniformLocation("projectionMatrix");
+  m_projectionMatrix = m_shader->GetUniformLocation("Projection");
   if (m_projectionMatrix == INVALID_UNIFORM_LOCATION) 
   {
     printf("m_projectionMatrix not found\n");
@@ -105,7 +105,7 @@ bool Graphics::Initialize(int width, int height)
   }
 
   // Locate the view matrix in the shader
-  m_viewMatrix = m_shader->GetUniformLocation("viewMatrix");
+  m_viewMatrix = m_shader->GetUniformLocation("View");
   if (m_viewMatrix == INVALID_UNIFORM_LOCATION) 
   {
     printf("m_viewMatrix not found\n");
@@ -113,7 +113,7 @@ bool Graphics::Initialize(int width, int height)
   }
 
   // Locate the model matrix in the shader
-  m_modelMatrix = m_shader->GetUniformLocation("modelMatrix");
+  m_modelMatrix = m_shader->GetUniformLocation("Model");
   if (m_modelMatrix == INVALID_UNIFORM_LOCATION) 
   {
     printf("m_modelMatrix not found\n");
