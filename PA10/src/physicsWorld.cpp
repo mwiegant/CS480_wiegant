@@ -28,7 +28,7 @@ bool PhysicsWorld::Initialize() {
   rightPaddle = NULL;
 
   // set gravity in the environment
-  dynamicsWorld->setGravity(btVector3(3.0f, 0.0f, 0.0f));
+  dynamicsWorld->setGravity(btVector3(5.0f, -5.0f, 0.0f));
 
   return true;
 }
