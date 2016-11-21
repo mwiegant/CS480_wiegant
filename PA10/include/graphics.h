@@ -40,6 +40,8 @@ class Graphics
     GLint m_viewMatrix;
     GLint m_modelMatrix;
 
+    glm::vec4 lightPos;
+
     bool moveObjects;
 
     vector<Object *> masterList;

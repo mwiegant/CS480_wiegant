@@ -120,6 +120,9 @@ bool Graphics::Initialize(int width, int height)
     return false;
   }
 
+  // Locate the light position in the shader
+  lightPos = glm::vec4( 1.0f, 1.0f, 1.0f, 1.0f );
+
   //enable depth testing
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS);

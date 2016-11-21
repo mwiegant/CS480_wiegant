@@ -256,8 +256,7 @@ void Object::Render()
 
 
 
-
-
+//texture2D( gSampler, texture.xy ) + 
 
 
 

@@ -10,7 +10,7 @@ smooth out vec3 fL;
 smooth out vec2 texture;
 
 uniform mat4 Model, View, Projection;
-uniform vec4 LightPosition;
+uniform vec4 LightPosition = vec4( 0.0, 3.0, 3.0, 3.0 );
 
 void main()
 {

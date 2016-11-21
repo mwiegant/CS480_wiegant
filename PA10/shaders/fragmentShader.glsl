@@ -7,9 +7,11 @@ smooth in vec2 texture;
 
 out vec4 frag_color;
 
-uniform vec4 AmbientProduct, DiffuseProduct, SpecularProduct;
+uniform vec4 AmbientProduct = vec4(0.1, 0.1, 0.1, 2.0);
+uniform vec4 DiffuseProduct = vec4(0.5, 0.5, 0.5, 0.5);
+uniform vec4 SpecularProduct = vec4(0.1, 0.1, 0.1, 0.1);
 uniform vec4 LightPosition;
-uniform float Shininess;
+uniform float Shininess = .1;
 uniform sampler2D gSampler;
 
 void main() 
@@ -30,6 +32,6 @@ void main()
   if( dot(L, N) < 0.0 ) 
   specular = vec4(0.0, 0.0, 0.0, 1.0);
   
-  frag_color = texture2D( gSampler, texture.xy ) + ambient + diffuse;
+  frag_color = texture2D( gSampler, texture.xy ) + ambient + diffuse + specular;
   frag_color.a = 1.0;
 } 
