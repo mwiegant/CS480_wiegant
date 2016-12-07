@@ -50,13 +50,13 @@ class Graphics
     int gameState;
     int ballsLeft;
 
-    //GL locations for lighting variables
+    // GL locations for lighting variables
     GLint lightPos;
     GLint ambientProd;
     GLint diffuseProd;
     GLint specularProd;
 
-    //values to be used for lighting variables
+    // values to be used for lighting variables
     float ambientVal;
     float diffuseVal;
     float specularVal;

@@ -45,7 +45,7 @@ bool PhysicsWorld::Initialize() {
  * @param modelPath = the path to the model for this object
  * @param texturePath = the path to the texture for this object
  */
-bool PhysicsWorld::AddPinball(btVector3 position, btScalar radius, btScalar mass,
+bool PhysicsWorld::AddBall(btVector3 position, btScalar radius, btScalar mass,
                              const char* modelPath, const char* texturePath)
 {
   /// 0. Do not add pinball if there is already one on this world
@@ -92,88 +92,6 @@ bool PhysicsWorld::AddPinball(btVector3 position, btScalar radius, btScalar mass
 
   /// 3. Keep track of this Object
   pinballBody = body;
-
-  return true;
-}
-
-
-/* A function that is for specific use in adding paddles to the physics world.
- *
- * The paddleIdentifier param accepts any one of these options: { "paddle_left", "paddle_right" }
- *
- * @param position = the (x,y,z) position of this object in the world
- * @param paddleIdentifier = which paddle this will be
- * @param mass = how heavy the object is (i.e. how far it flies when hit)
- * @param modelPath = the path to the model for this object
- * @param texturePath = the path to the texture for this object
- */
-bool PhysicsWorld::AddPaddle(btVector3 position, const char* paddleIdentifier, btScalar mass,
-               const char* modelPath, const char* texturePath)
-{
-  /// 0. Check if the paddle should be added to the world, before we ever think about adding it
-  if( strncmp(paddleIdentifier, "paddle_left", 10) != 0 && strncmp(paddleIdentifier, "paddle_right", 10) != 0 )
-  {
-    printf("Error - wrong paddleIdentifier, failed to add paddle to the world. \n");
-    return false;
-  }
-
-  /// 1. Creating an Object and adding it to the objectList
-
-  btTriangleMesh* triMesh = new btTriangleMesh();
-
-  Object* meshObj = new Object();
-
-  meshObj->Initialize(modelPath, texturePath, triMesh);
-
-  objectList.push_back(meshObj);
-
-  /// 2. Creating a btRigidBody and adding it to the dynamicsWorld
-
-  //create a dynamic rigidbody
-  btCollisionShape* shape = new btConvexTriangleMeshShape(triMesh, true);
-  collisionShapes.push_back(shape);
-
-  // Create Dynamic Objects
-  btTransform shapeTransform;
-  shapeTransform.setIdentity();
-  shapeTransform.setOrigin(position);
-
-  // the rigidbody is dynamic if and only if mass is non zero, otherwise static
-  bool isDynamic = (mass != 0.f);
-
-  btVector3 localInertia(0.0f,0.0f,0.0f);
-  if (isDynamic)
-  {
-    shape->calculateLocalInertia(mass,localInertia);
-  }
-
-  // using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
-  btDefaultMotionState* myMotionState = new btDefaultMotionState( shapeTransform );
-  btRigidBody::btRigidBodyConstructionInfo rbInfo( mass, myMotionState, shape, localInertia );
-  btRigidBody* body = new btRigidBody( rbInfo );
-
-  dynamicsWorld->addRigidBody(body);
-
-  /// 3. Keep track of this paddle, after doing some additional error checking
-
-  /* Left Paddle */
-  if( strncmp(paddleIdentifier, "paddle_left", 10) == 0 && leftPaddle != NULL )
-  {
-    printf("Error - there is already a left paddle, cannot add another\n");
-  } else
-  {
-    leftPaddle = body;
-  }
-
-  /* Right Paddle */
-  if( strncmp(paddleIdentifier, "paddle_right", 10) != 0 && rightPaddle != NULL )
-  {
-    printf("Error - there is already a right paddle, cannot add another\n");
-  } else
-  {
-    rightPaddle = body;
-  }
-
 
   return true;
 }
@@ -239,7 +157,11 @@ bool PhysicsWorld::AddTriMeshShape(btVector3 position, btScalar mass, const char
 
   Object* meshObj = new Object();
 
+
+
   meshObj->Initialize(modelPath, texturePath, triMesh);
+
+  printf("finished initializing object");
 
   objectList.push_back(meshObj);
 

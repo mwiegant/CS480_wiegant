@@ -231,45 +231,32 @@ void Graphics::ToggleLookUp(bool lookUp)
 
 bool Graphics::InitializeObjects()
 {
-  /*
-   * Objects we need:
-   *  - pinball board
-   *  - pinball ball
-   *  - flippers (2)
-   *
-   *
-   *  Objects we may need:
-   *  - cylindrical bumpers (2?)
-   *  - plunger (we can probably do without this)
-   */
+  // Pinball Board
+  /* position, weight, modelPath, texturePath */
+//  physicsWorld.AddTriMeshShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f),
+//                                "models/Board_Base.obj", "textures/Base_Tex.jpg");
 
 
-  /// Pinball Board
+  // Ball
+  /* position, half-size vectors, weight, modelPath, texturePath */
+//  physicsWorld.AddBall( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f), btScalar(1.0f),
+//                           "models/sphere.obj", "textures/Neptune.jpg" );
+
+  printf("about to add objects to the world.\n");
+
+  /// Base
   /* position, weight, modelPath, texturePath */
   physicsWorld.AddTriMeshShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f),
-                                "models/Board_Base.obj", "textures/Base_Tex.jpg");
+                                "models/Base.obj", "textures/granite.jpg");
 
-  /// Plunger
-//  physicsWorld.AddTriMeshShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f),
-//                                "models/Plunger.obj", "textures/granite.jpg");
+  printf("added the base to the world.\n");
 
-  /// Backboard
+  /// Arm
+  /* position, weight, modelPath, texturePath */
   physicsWorld.AddTriMeshShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f),
-                                "models/Board_Back.obj", "textures/Cactus_Coolers.jpg");
+                                "models/Arm.obj", "textures/Mars.jpg");
 
-  /// Paddles
-  /* position, paddleIdentifier, mass, modelPath, texturePath */
-  physicsWorld.AddPaddle( btVector3(0.0f, 0.0f, -2.0f), "paddle_left", btScalar(1.0f),
-                          "models/Paddle_Left.obj", "textures/granite.jpg" );
-
-  physicsWorld.AddPaddle( btVector3(0.0f, 0.0f, 2.0f), "paddle_right", btScalar(1.0f),
-                          "models/Paddle_Right.obj", "textures/granite.jpg" );
-
-  /// Pinball ball
-  /* position, half-size vectors, weight, modelPath, texturePath */
-  physicsWorld.AddPinball( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f), btScalar(1.0f),
-                           "models/sphere.obj", "textures/Neptune.jpg" );
-
+  printf("done adding objects to the world.\n");
 
   return true;
 }

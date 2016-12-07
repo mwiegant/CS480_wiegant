@@ -22,8 +22,7 @@ class PhysicsWorld
     bool Initialize();
 
     // for adding specific shapes
-    bool AddPinball(btVector3 position, btScalar radius, btScalar mass, const char* modelPath, const char* texturePath);
-    bool AddPaddle(btVector3 position, const char* paddleIdentifier, btScalar mass, const char* modelPath, const char* texturePath);
+    bool AddBall(btVector3 position, btScalar radius, btScalar mass, const char* modelPath, const char* texturePath);
 
     // for adding generic shapes
     bool AddTriMeshShape(btVector3 position, btScalar mass, const char* modelPath, const char* texturePath);
@@ -35,7 +34,6 @@ class PhysicsWorld
     void Update(unsigned int dt);
     vector<Object*> objectList;
 
-    // todo - build functionality to move the paddles
 
   private:
 

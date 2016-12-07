@@ -184,6 +184,8 @@ bool Object::InitializeModel(btTriangleMesh* triMesh)
   Assimp::Importer importer;
   btVector3 triArray[3];
 
+  printf("reading in model from filepath: %s\n", modelFilePath.c_str());
+
   // attempt to read the model from file
   try
   {
@@ -194,6 +196,8 @@ bool Object::InitializeModel(btTriangleMesh* triMesh)
   {
     return false;
   }
+
+  printf("read in the file successfully\n");
 
   //get the normals
   aiNormal = meshOne -> mNormals;
