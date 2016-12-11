@@ -14,26 +14,10 @@ Object::~Object()
   Indices.clear();
 }
 
-bool Object::Initialize()
-{
-  modelFilePath = "models/sphere.obj";
-  textureFilePath = "textures/Neptune.jpg";
 
-  if(!InitializeModel())
-  {
-    std::printf("failed to load model from path: %s\n", modelFilePath.c_str());
-    return false;
-  }
-
-  if(!InitializeTexture())
-  {
-    std::printf("failed to load texture from path: %s\n", textureFilePath.c_str());
-    return false;
-  }
-
-  return true;
-}
-
+/*
+ * For use with objects that have simple models (spheres, rectangles, etc)
+ */
 bool Object::Initialize(const char* modelPath, const char* texturePath)
 {
   modelFilePath = modelPath;
@@ -54,6 +38,9 @@ bool Object::Initialize(const char* modelPath, const char* texturePath)
   return true;
 }
 
+/*
+ * For use with objects that have complex models
+ */
 bool Object::Initialize(const char* fileName, const char* texturePath, btTriangleMesh* triMesh)
 {
   modelFilePath = fileName;
@@ -107,7 +94,7 @@ bool Object::InitializeTexture()
 }
 
 /*
- * Does all the model loading, including loading vertices and indices.
+ * For use with loading simple models (spheres, rectangles, etc)
  */
 bool Object::InitializeModel()
 {
@@ -174,6 +161,9 @@ bool Object::InitializeModel()
   return true;
 }
 
+/*
+ * For use with loading complex models
+ */
 bool Object::InitializeModel(btTriangleMesh* triMesh)
 {
   unsigned int index;
@@ -184,7 +174,7 @@ bool Object::InitializeModel(btTriangleMesh* triMesh)
   Assimp::Importer importer;
   btVector3 triArray[3];
 
-  printf("reading in model from filepath: %s\n", modelFilePath.c_str());
+//  printf("reading in model from filepath: %s\n", modelFilePath.c_str());
 
   // attempt to read the model from file
   try
@@ -197,7 +187,7 @@ bool Object::InitializeModel(btTriangleMesh* triMesh)
     return false;
   }
 
-  printf("read in the file successfully\n");
+//  printf("read in the file successfully\n");
 
   //get the normals
   aiNormal = meshOne -> mNormals;
@@ -264,10 +254,6 @@ void Object::Render()
   glDisableVertexAttribArray(2);
 }
 
-
-
-
-//texture2D( gSampler, texture.xy ) + 
 
 
 
