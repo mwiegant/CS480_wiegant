@@ -95,13 +95,13 @@ void Engine::Keyboard()
 
 
     // -----------------------------------------------
-    // look up at the scoreboard
+    // Adjust the catapult arm
     // -----------------------------------------------
+
+    /* move the arm back */
     else if( m_event.key.keysym.sym == SDLK_UP )
     {
-      lookUp = true;
 
-      m_graphics->ToggleLookUp(lookUp);
     }
 
     // -----------------------------------------------
@@ -162,15 +162,7 @@ void Engine::Keyboard()
 
   else if (m_event.type == SDL_KEYUP)
   {
-    // -----------------------------------------------
-    // look back down at the board
-    // -----------------------------------------------
-    if( m_event.key.keysym.sym == SDLK_UP )
-    {
-      lookUp = false;
-
-      m_graphics->ToggleLookUp(lookUp);
-    }
+    /* key release events */
   }
 
 }

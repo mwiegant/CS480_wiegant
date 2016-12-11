@@ -1,15 +1,14 @@
 #ifndef PHYSICSWORLD_H
 #define PHYSICSWORLD_H
 
+#include <cstdio>
 #include <vector>
 #include <string>
 
-#include <cstdio>
-
 #include <btBulletDynamicsCommon.h>
 
-#include "object.h"
 #include "graphics_headers.h"
+#include "object.h"
 
 using namespace std;
 
@@ -21,21 +20,20 @@ class PhysicsWorld
 
     bool Initialize();
 
-    // for adding specific shapes
-    bool AddPinball(btVector3 position, btScalar radius, btScalar mass, const char* modelPath, const char* texturePath);
-    bool AddPaddle(btVector3 position, const char* paddleIdentifier, btScalar mass, const char* modelPath, const char* texturePath);
-
-    // for adding generic shapes
-    bool AddTriMeshShape(btVector3 position, btScalar mass, const char* modelPath, const char* texturePath);
-    bool AddCylinder(btVector3 position, btVector3 halfwayVectors, btScalar mass, const char* modelPath, const char* texturePath);
-
-    bool MovePinball(btVector3 position);
-    bool setPinballVelocity(btVector3 velocity);
-
     void Update(unsigned int dt);
+
+    // for adding specific shapes
+    btRigidBody* AddSimpleSphere(btVector3 position, btScalar radius, btScalar mass, Object* object);
+    btRigidBody* AddSimpleCylinder(btVector3 position, btVector3 halfwayVectors, btScalar mass, Object* object);
+    // AddSimpleRectangle()
+
+    // for adding complex shapes
+    btRigidBody* AddComplexShape(btVector3 position, btScalar mass, Object* object);
+
+
+
     vector<Object*> objectList;
 
-    // todo - build functionality to move the paddles
 
   private:
 
@@ -49,12 +47,6 @@ class PhysicsWorld
     // I think this is supposed to hold one copy of each unique type of object (a sphere, cube, plane, etc)
     btAlignedObjectArray<btCollisionShape*> collisionShapes;
 
-
-    // rigid bodies
-    btRigidBody* pinballBody;
-
-    btRigidBody* leftPaddle;
-    btRigidBody* rightPaddle;
 
 };
 

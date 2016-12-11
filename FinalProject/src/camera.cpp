@@ -13,7 +13,7 @@ Camera::~Camera()
 bool Camera::Initialize(int w, int h)
 {
   // Initialize vectors that will be changed during runtime
-  eyePosition = glm::vec3(5.0f, 75.0f, 0.0f);
+  eyePosition = glm::vec3(20.0f, 25.0f, -15.0f);
   focusPoint = glm::vec3(-13.0f, 0.0f, 0.0f);
   yAxis = glm::vec3(0.0f, 1.0f, 0.0f); // we do not change this vector
 

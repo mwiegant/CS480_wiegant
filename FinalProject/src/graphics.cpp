@@ -46,12 +46,6 @@ bool Graphics::Initialize(int width, int height)
     return false;
   }
 
-  // Set up the objects
-  //if(!InitializeObjects())
-  //{
-   // printf("Failed to Initialize objects\n");
-  //}
-
   // Set up the physics world
   physicsWorld.Initialize();
   InitializeObjects();
@@ -166,15 +160,8 @@ bool Graphics::Initialize(int width, int height)
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS);
 
-  // pinball variable initialization
-  gameState = GAME_STATE_READY;
-  ballsLeft = 3;
-
   //enable lighting??
   glEnable(GL_LIGHTING);
-
-  // enable object movement
-  moveObjects = true;
 
   return true;
 }
@@ -223,64 +210,30 @@ void Graphics::Render()
 }
 
 /*
- * Launches the pinball ball if the game is in the correct state to launch the ball.
+ * TODO - this function will be repurposed to launch the catapult
  */
 void Graphics::LaunchBall()
 {
-  if( gameState == GAME_STATE_READY)
-  {
-    physicsWorld.setPinballVelocity(btVector3(-50.0f, 0.0f, 0.0f) );
 
-    gameState = GAME_STATE_PLAYING;
-  }
 }
 
-void Graphics::ToggleLookUp(bool lookUp)
+
+/*
+ * Adjusts the angle of the catapult arm
+ */
+void Graphics::AdjustCatapultArm(int totalAdjustment, int adjustmentSpeed)
 {
-  m_camera->ToggleLookUp(lookUp);
+
 }
+
+
 
 bool Graphics::InitializeObjects()
 {
-  /*
-   * Objects we need:
-   *  - pinball board
-   *  - pinball ball
-   *  - flippers (2)
-   *
-   *
-   *  Objects we may need:
-   *  - cylindrical bumpers (2?)
-   *  - plunger (we can probably do without this)
-   */
 
+  Catapult catapult;
 
-  /// Pinball Board
-  /* position, weight, modelPath, texturePath */
-  physicsWorld.AddTriMeshShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f),
-                                "models/Board_Base.obj", "textures/Base_Tex.jpg");
-
-  /// Plunger
-//  physicsWorld.AddTriMeshShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f),
-//                                "models/Plunger.obj", "textures/granite.jpg");
-
-  /// Backboard
-  physicsWorld.AddTriMeshShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f),
-                                "models/Board_Back.obj", "textures/Cactus_Coolers.jpg");
-
-  /// Paddles
-  /* position, paddleIdentifier, mass, modelPath, texturePath */
-  physicsWorld.AddPaddle( btVector3(0.0f, 0.0f, -2.0f), "paddle_left", btScalar(1.0f),
-                          "models/Paddle_Left.obj", "textures/granite.jpg" );
-
-  physicsWorld.AddPaddle( btVector3(0.0f, 0.0f, 2.0f), "paddle_right", btScalar(1.0f),
-                          "models/Paddle_Right.obj", "textures/granite.jpg" );
-
-  /// Pinball ball
-  /* position, half-size vectors, weight, modelPath, texturePath */
-  physicsWorld.AddPinball( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f), btScalar(1.0f),
-                           "models/sphere.obj", "textures/Neptune.jpg" );
-
+  catapult.Initialize(physicsWorld);
 
   return true;
 }

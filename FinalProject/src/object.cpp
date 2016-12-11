@@ -5,7 +5,7 @@
 
 Object::Object()
 {
-
+  triangleMesh = NULL;
 }
 
 Object::~Object()
@@ -14,52 +14,20 @@ Object::~Object()
   Indices.clear();
 }
 
-bool Object::Initialize()
-{
-  modelFilePath = "models/sphere.obj";
-  textureFilePath = "textures/Neptune.jpg";
 
-  if(!InitializeModel())
-  {
-    std::printf("failed to load model from path: %s\n", modelFilePath.c_str());
-    return false;
-  }
-
-  if(!InitializeTexture())
-  {
-    std::printf("failed to load texture from path: %s\n", textureFilePath.c_str());
-    return false;
-  }
-
-  return true;
-}
-
+/*
+ * Loads the models and textures that are used by an object.
+ *
+ * The model loading also sets up a triangleMesh that can be used by Bullet.
+ */
 bool Object::Initialize(const char* modelPath, const char* texturePath)
 {
   modelFilePath = modelPath;
   textureFilePath = texturePath;
 
+  triangleMesh = new btTriangleMesh();
+
   if(!InitializeModel())
-  {
-    std::printf("failed to load model from path: %s\n", modelFilePath.c_str());
-    return false;
-  }
-
-  if(!InitializeTexture())
-  {
-    std::printf("failed to load texture from path: %s\n", textureFilePath.c_str());
-    return false;
-  }
-
-  return true;
-}
-
-bool Object::Initialize(const char* fileName, const char* texturePath, btTriangleMesh* triMesh)
-{
-  modelFilePath = fileName;
-  textureFilePath = texturePath;
-
-  if(!InitializeModel(triMesh))
   {
     std::printf("failed to load model from path: %s\n", modelFilePath.c_str());
     return false;
@@ -86,6 +54,16 @@ glm::mat4 Object::GetModel()
   return model;
 }
 
+btTriangleMesh* Object::GetTriangleMesh()
+{
+  if(triangleMesh == NULL)
+  {
+    printf("Error - whoa! Something is wrong, the triangle mesh is NULL for some reason....\n");
+  }
+
+  return triangleMesh;
+}
+
 bool Object::InitializeTexture()
 {
   //initalize image loading with magick++
@@ -106,8 +84,9 @@ bool Object::InitializeTexture()
   return true;
 }
 
+
 /*
- * Does all the model loading, including loading vertices and indices.
+ * For use with loading complex models
  */
 bool Object::InitializeModel()
 {
@@ -117,73 +96,10 @@ bool Object::InitializeModel()
   aiVector3D aiVector;
   aiVector3D* aiNormal;
   Assimp::Importer importer;
-
-  float test;
-
-  int count = 0;
-
-  // attempt to read the model from file
-  try
-  {
-    const aiScene *myScene = importer.ReadFile( modelFilePath.c_str(), aiProcess_Triangulate);
-    meshOne = myScene->mMeshes[0];
-  }
-  catch (int Exception)
-  {
-    return false;
-  }
-
-  //get the normals
-  aiNormal = meshOne -> mNormals;
-
-  // load the models and the vertices
-  for( int i = 0; i < meshOne->mNumFaces; i++ )
-  {
-    const aiFace& thisFace = meshOne->mFaces[i];
-
-    for( int j = 0; j < 3; j++ )
-    {
-
-      //get the indices
-      index = thisFace.mIndices[j];
-      Indices.push_back( index );
-
-      //get the vertices
-      aiVector = meshOne->mVertices[thisFace.mIndices[j]];
-      aiUV = meshOne->mTextureCoords[0][thisFace.mIndices[j]];
-
-      test = aiNormal[thisFace.mIndices[j]].x;
-/*
-      std::cout << "WORKING INDEX: " << thisFace.mIndices[j] << " I: " << i << " aiNormal.x: " << test << std::endl << std::endl << std::endl << std::endl;
-*/
-
-      Vertex *temp = new Vertex(glm::vec3(aiVector.x, aiVector.y, aiVector.z), glm::vec2(aiUV.x, aiUV.y), glm::vec3(aiNormal[thisFace.mIndices[j]].x, aiNormal[thisFace.mIndices[j]].y, aiNormal[thisFace.mIndices[j]].z));
-
-      Vertices.push_back( *temp );
-    }
-  }
-
-  glGenBuffers(1, &VB);
-  glBindBuffer(GL_ARRAY_BUFFER, VB);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * Vertices.size(), &Vertices[0], GL_STATIC_DRAW);
-
-  glGenBuffers(1, &IB);
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IB);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * Indices.size(), &Indices[0], GL_STATIC_DRAW);
-
-  return true;
-}
-
-bool Object::InitializeModel(btTriangleMesh* triMesh)
-{
-  unsigned int index;
-  aiMesh* meshOne;
-  aiVector3D aiUV;
-  aiVector3D aiVector;
-  aiVector3D* aiNormal;
-  Assimp::Importer importer;
   btVector3 triArray[3];
 
+//  printf("reading in model from filepath: %s\n", modelFilePath.c_str());
+
   // attempt to read the model from file
   try
   {
@@ -194,6 +110,8 @@ bool Object::InitializeModel(btTriangleMesh* triMesh)
   {
     return false;
   }
+
+//  printf("read in the file successfully\n");
 
   //get the normals
   aiNormal = meshOne -> mNormals;
@@ -223,7 +141,7 @@ bool Object::InitializeModel(btTriangleMesh* triMesh)
     }
 
     // add face to triMesh
-    triMesh->addTriangle(triArray[0], triArray[1], triArray[2]);
+    triangleMesh->addTriangle(triArray[0], triArray[1], triArray[2]);
   }
 
   glGenBuffers(1, &VB);
@@ -260,10 +178,6 @@ void Object::Render()
   glDisableVertexAttribArray(2);
 }
 
-
-
-
-//texture2D( gSampler, texture.xy ) + 
 
 
 
