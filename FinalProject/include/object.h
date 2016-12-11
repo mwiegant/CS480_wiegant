@@ -29,8 +29,8 @@ class Object
     glm::mat4 GetModel();
 
   private:
-
     bool InitializeTexture();
+
     bool InitializeModel();
     bool InitializeModel(btTriangleMesh*);
 
