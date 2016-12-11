@@ -12,6 +12,8 @@ class Camera
     glm::mat4 GetProjection();
     glm::mat4 GetView();
 
+    glm::vec3 getEyePos();
+
     void ToggleLookUp(bool lookUp);
   
   private:

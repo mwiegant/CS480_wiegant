@@ -52,6 +52,7 @@ class Graphics
 
     //GL locations for lighting variables
     GLint lightPos;
+    GLint eyePos;
     GLint ambientProd;
     GLint diffuseProd;
     GLint specularProd;

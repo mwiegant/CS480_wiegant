@@ -58,6 +58,11 @@ glm::mat4 Camera::GetView()
   return view;
 }
 
+glm::vec3 Camera::getEyePos()
+{
+  return eyePosition;
+}
+
 void Camera::ToggleLookUp(bool lookUp)
 {
   this->lookUp = lookUp;

@@ -123,10 +123,18 @@ bool Graphics::Initialize(int width, int height)
   }
 
   // Locate the light position in the shader
-  lightPos = m_shader -> GetUniformLocation("LightPosition");
-  if (ambientProd == INVALID_UNIFORM_LOCATION) 
+  lightPos = m_shader -> GetUniformLocation("lightPosition");
+  if (lightPos == INVALID_UNIFORM_LOCATION) 
   {
-    printf("LightPosition not found\n");
+    printf("lightPosition not found\n");
+    return false;
+  }
+
+  // Locate the light position in the shader
+  eyePos = m_shader -> GetUniformLocation("eyePosition");
+  if (eyePos == INVALID_UNIFORM_LOCATION) 
+  {
+    printf("eyePosition not found\n");
     return false;
   }
 
@@ -194,6 +202,9 @@ void Graphics::Render()
   glUniform4f(ambientProd, ambientVal, ambientVal, ambientVal, 2.0f);
   glUniform4f(diffuseProd, diffuseVal, diffuseVal, diffuseVal, diffuseVal);
   glUniform4f(specularProd, specularVal, specularVal, specularVal, 0.1f);
+
+  // Send in the eyeposition to the shader
+  glUniform3f( eyePos, (m_camera -> getEyePos()).x, (m_camera -> getEyePos()).y, (m_camera -> getEyePos()).z );
 
   // Render all objects in the master list
   for(int i = 0; i < physicsWorld.objectList.size(); i++)
