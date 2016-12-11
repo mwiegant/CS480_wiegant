@@ -32,7 +32,7 @@ bool PhysicsWorld::Initialize() {
 /*
  * Adds a spherical object to the bullet world, and adds a regular object to
  * the drawing world that is tied to that object.
- *4r dc
+ *
  * @param position = the (x,y,z) position of this object in the world
  * @param radius = the radius of the object
  * @param mass = how heavy the object is (i.e. how far it flies when hit)

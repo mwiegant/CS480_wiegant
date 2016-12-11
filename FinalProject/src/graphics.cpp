@@ -207,6 +207,15 @@ void Graphics::LaunchBall()
 }
 
 
+/*
+ * Adjusts the angle of the catapult arm
+ */
+void Graphics::AdjustCatapultArm(int totalAdjustment, int adjustmentSpeed)
+{
+
+}
+
+
 
 bool Graphics::InitializeObjects()
 {
