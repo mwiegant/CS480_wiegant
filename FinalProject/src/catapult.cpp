@@ -42,7 +42,7 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
   objectList.push_back(catapultBody);
   objectList.push_back(catapultArm);
   objectList.push_back(wheel_backLeft);
-  objectList.push_back(wheel_backLeft);
+  objectList.push_back(wheel_backRight);
   objectList.push_back(wheel_frontLeft);
   objectList.push_back(wheel_frontRight);
 
@@ -51,7 +51,7 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
   physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f), catapultArm );
 
   physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f), wheel_backLeft );
-  physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f), wheel_backLeft );
+  physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f), wheel_backRight );
   physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f), wheel_frontLeft );
   physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f), wheel_frontRight );
 
