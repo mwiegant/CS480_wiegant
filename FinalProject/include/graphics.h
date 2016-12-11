@@ -5,13 +5,14 @@
 #include <vector>
 #include <string>
 
-using namespace std;
-
 #include "graphics_headers.h"
 #include "camera.h"
 #include "shader.h"
 #include "object.h"
 #include "physicsWorld.h"
+#include "catapult.h"
+
+using namespace std;
 
 class Graphics
 {
@@ -22,14 +23,17 @@ class Graphics
     void Update(unsigned int dt);
     void Render();
 
+    // todo - repurpose this function
     void LaunchBall();
 
-    // todo - update or depricate some of these
+    // for updating the catapult arm
+    void AdjustCatapultArm(int totalAdjustment, int adjustmentSpeed);
+
     // for updating the view
-    void ToggleLookUp(bool lookUp);
     void LookLeft();
     void LookRight();
 
+    // For adjusting the lighting
     void ambientChange(int change);
     void diffuseChange(int change);
     void specularChange(int change);
@@ -46,10 +50,6 @@ class Graphics
     GLint m_viewMatrix;
     GLint m_modelMatrix;
 
-    // pinball specific variables
-    int gameState;
-    int ballsLeft;
-
     // GL locations for lighting variables
     GLint lightPos;
     GLint ambientProd;
@@ -60,10 +60,6 @@ class Graphics
     float ambientVal;
     float diffuseVal;
     float specularVal;
-
-    bool moveObjects;
-
-    vector<Object *> masterList;
 
     PhysicsWorld physicsWorld;
 };

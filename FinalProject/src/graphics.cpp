@@ -46,12 +46,6 @@ bool Graphics::Initialize(int width, int height)
     return false;
   }
 
-  // Set up the objects
-  //if(!InitializeObjects())
-  //{
-   // printf("Failed to Initialize objects\n");
-  //}
-
   // Set up the physics world
   physicsWorld.Initialize();
   InitializeObjects();
@@ -158,15 +152,8 @@ bool Graphics::Initialize(int width, int height)
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS);
 
-  // pinball variable initialization
-  gameState = GAME_STATE_READY;
-  ballsLeft = 3;
-
   //enable lighting??
   glEnable(GL_LIGHTING);
-
-  // enable object movement
-  moveObjects = true;
 
   return true;
 }
@@ -212,51 +199,21 @@ void Graphics::Render()
 }
 
 /*
- * Launches the pinball ball if the game is in the correct state to launch the ball.
+ * TODO - this function will be repurposed to launch the catapult
  */
 void Graphics::LaunchBall()
 {
-  if( gameState == GAME_STATE_READY)
-  {
-    physicsWorld.setPinballVelocity(btVector3(-50.0f, 0.0f, 0.0f) );
 
-    gameState = GAME_STATE_PLAYING;
-  }
 }
 
-void Graphics::ToggleLookUp(bool lookUp)
-{
-  m_camera->ToggleLookUp(lookUp);
-}
+
 
 bool Graphics::InitializeObjects()
 {
-  // Pinball Board
-  /* position, weight, modelPath, texturePath */
-//  physicsWorld.AddTriMeshShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f),
-//                                "models/Board_Base.obj", "textures/Base_Tex.jpg");
 
+  Catapult catapult;
 
-  // Ball
-  /* position, half-size vectors, weight, modelPath, texturePath */
-//  physicsWorld.AddBall( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f), btScalar(1.0f),
-//                           "models/sphere.obj", "textures/Neptune.jpg" );
-
-  printf("about to add objects to the world.\n");
-
-  /// Base
-  /* position, weight, modelPath, texturePath */
-  physicsWorld.AddTriMeshShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f),
-                                "models/Base.obj", "textures/granite.jpg");
-
-  printf("added the base to the world.\n");
-
-  /// Arm
-  /* position, weight, modelPath, texturePath */
-  physicsWorld.AddTriMeshShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f),
-                                "models/Arm.obj", "textures/Mars.jpg");
-
-  printf("done adding objects to the world.\n");
+  catapult.Initialize(physicsWorld);
 
   return true;
 }
