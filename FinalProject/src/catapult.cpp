@@ -38,13 +38,6 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
   obj_wheel_frontLeft->Initialize("models/Catapult_FrontLeft.obj", "textures/Mars.jpg");
   obj_wheel_frontRight->Initialize("models/Catapult_FrontRight.obj", "textures/Mars.jpg");
 
-  // add the objects to the internal objectList (so they don't get deleted)
-  objectList.push_back(obj_catapultBody);
-  objectList.push_back(obj_catapultArm);
-  objectList.push_back(obj_wheel_backLeft);
-  objectList.push_back(obj_wheel_backRight);
-  objectList.push_back(obj_wheel_frontLeft);
-  objectList.push_back(obj_wheel_frontRight);
 
   // use the objects I created to create objects in the physics world
   catapultBody = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f), obj_catapultBody );
@@ -73,20 +66,23 @@ void Catapult::AdjustCatapultArm(int totalAdjustment, int adjustmentSpeed)
 
   /// for now, just making a static adjustment to prove I can make this fucking shit work
 
-//  catapultArm->setLinearFactor( btVector3(0.0f, 0.0f, 0.0f) );
+  catapultArm->setLinearFactor( btVector3(1.0f, 1.0f, 1.0f) );
 
   // adjust the angle on the catapultArm
 
 //  catapultArm->setLinearFactor( btVector3(0.0f, 0.0f, 0.0f) );
 
 
-//  quat.setEuler( btScalar(3.0f), btScalar(0.0f), btScalar(0.0f) );
-//  transform.setRotation(quat);
-//
-//  catapultArm->setCenterOfMassTransform(transform);
+  quat.setEuler( btScalar(3.0f), btScalar(3.0f), btScalar(3.0f) );
+  transform.setRotation(quat);
 
+  catapultArm->setCenterOfMassTransform(transform);
 
-  catapultArm->setLinearVelocity(btVector3(300.0f, 0.0f, 0.0f));
+//    catapultArm->applyCentralImpulse(btVector3(3.0f, 0.0f, 0.0f));
+
+  catapultArm->setAngularVelocity(btVector3(0.2f, 0.5f, 0.2f));
+
+//  catapultArm->setLinearVelocity(btVector3(3.0f, 0.0f, 0.0f));
 }
 
 

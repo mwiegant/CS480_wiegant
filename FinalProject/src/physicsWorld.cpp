@@ -30,6 +30,48 @@ bool PhysicsWorld::Initialize() {
 
 
 /*
+ * Adds a floor to the world, so objects have a surface to rest on.
+ */
+btRigidBody* PhysicsWorld::AddFloor(Object* object)
+{
+  /// 1. Create a btRigidBody and add it to the dynamicsWorld
+
+  //create a dynamic rigidbody
+  btCollisionShape* floorShape = new btStaticPlaneShape(btVector3(0, 1, 0), 1);
+  collisionShapes.push_back(floorShape);
+
+  // Create Dynamic Objects
+  btTransform groundTransform;
+  groundTransform.setIdentity();
+  groundTransform.setOrigin(btVector3(0,0,0));
+
+  btScalar mass(0.f);
+
+  // the rigidbody is dynamic if and only if mass is non zero, otherwise static
+  bool isDynamic = (mass != 0.f);
+
+  btVector3 localInertia(0,0,0);
+  if (isDynamic)
+  {
+    floorShape->calculateLocalInertia(mass,localInertia);
+  }
+
+  // using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
+  btDefaultMotionState* myMotionState = new btDefaultMotionState( groundTransform );
+  btRigidBody::btRigidBodyConstructionInfo rbInfo( mass, myMotionState, floorShape, localInertia );
+  btRigidBody* body = new btRigidBody( rbInfo );
+
+  dynamicsWorld->addRigidBody(body);
+
+  /// 2. Add the Object to the objectList
+
+  objectList.push_back(object);
+
+  return body;
+}
+
+
+/*
  * Adds a spherical object to the bullet world, and adds a regular object to
  * the drawing world that is tied to that object.
  *
