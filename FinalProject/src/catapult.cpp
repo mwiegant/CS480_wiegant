@@ -1,5 +1,6 @@
 #include "catapult.h"
 
+
 Catapult::Catapult()
 {
 
@@ -28,6 +29,8 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
   Object* obj_wheel_frontLeft = new Object();
   Object* obj_wheel_frontRight = new Object();
 
+  fullCat = new btCompoundShape();
+
   // initialize the objects I created
   obj_catapultBody->Initialize("models/Catapult_Base.obj", "textures/granite.jpg");
   obj_catapultArm->Initialize("models/Catapult_Arm.obj", "textures/Mars.jpg");
@@ -55,8 +58,14 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
   allTransform.setIdentity();
 
   // add the individual objects to the compound shape to create the full catapult
-  fullCat -> addChildShape( &allTransform, *catapultBody );
-  
+
+  fullCat -> addChildShape( allTransform, catapultBody -> getCollisionShape() );
+  fullCat -> addChildShape( allTransform, catapultArm -> getCollisionShape() );
+  fullCat -> addChildShape( allTransform, wheelBackLeft -> getCollisionShape() );
+  fullCat -> addChildShape( allTransform, wheelBackRight -> getCollisionShape() );
+  fullCat -> addChildShape( allTransform, wheelFrontLeft -> getCollisionShape() );
+  fullCat -> addChildShape( allTransform, wheelFrontRight -> getCollisionShape() );
+
 
 
   return true;
