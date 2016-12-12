@@ -44,13 +44,7 @@ class Catapult {
     btRigidBody* wheelBackLeft;
     btRigidBody* wheelBackRight;
 
-    btRigidBody* rigidCat;
-
-    // the transform for the full catapult
-    btTransform allTransform;
-
-    // the compound shape that composes the entire catapult
-    btCompoundShape* fullCat;
+    btRigidBody* projectile;
 
     // variables for implementing wind up, release, and the rewind up after launching
     float maxWindUp;
