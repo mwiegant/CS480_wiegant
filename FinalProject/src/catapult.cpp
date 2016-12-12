@@ -80,6 +80,7 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
   // ensure the body does not go to sleep
   catapultArm->setActivationState(4);
 
+/*
   // disable gravity on the catapult
   catapultArm->setGravity( btVector3(0.0f,0.0f,0.0f) );
   catapultBody->setGravity( btVector3(0.0f,0.0f,0.0f) );
@@ -87,15 +88,17 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
   wheelBackRight->setGravity( btVector3(0.0f,0.0f,0.0f) );
   wheelFrontLeft->setGravity( btVector3(0.0f,0.0f,0.0f) );
   wheelFrontRight->setGravity( btVector3(0.0f,0.0f,0.0f) );
-
+*/
 
   // add the individual objects to the compound shape to create the full catapult
+/*
   fullCat -> addChildShape( allTransform, catapultBody -> getCollisionShape() );
   fullCat -> addChildShape( allTransform, catapultArm -> getCollisionShape() );
   fullCat -> addChildShape( allTransform, wheelBackLeft -> getCollisionShape() );
   fullCat -> addChildShape( allTransform, wheelBackRight -> getCollisionShape() );
   fullCat -> addChildShape( allTransform, wheelFrontLeft -> getCollisionShape() );
   fullCat -> addChildShape( allTransform, wheelFrontRight -> getCollisionShape() );
+*/
 
   //rigidCat = physicsWorld.addCompoundShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f),
                                            // COL_CATAPULT_BODY, catapultBodyCollidesWith, fullCat );

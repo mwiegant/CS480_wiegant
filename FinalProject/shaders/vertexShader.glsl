@@ -8,14 +8,12 @@ smooth out vec3 fragNormal;
 smooth out vec3 fragVert;
 smooth out vec2 fragTexture;
 
-uniform vec3 eyePosition;
+
 
 uniform mat4 Model, View, Projection;
 
 void main() 
 {
-  vec4 eyeDeal = vec4( eyePosition, 1 );
-
   fragTexture = vTexture;
   fragVert = vPosition;
   fragNormal = vNormal;
