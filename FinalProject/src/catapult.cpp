@@ -24,7 +24,6 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
   // create the collision groups
   int catapultArmCollidesWith = COL_NOTHING;
   int catapultBodyCollidesWith = COL_NON_CATAPULT | COL_FLOOR;
-//  int catapultWheelCollidesWith = COL_NOTHING | COL_FLOOR;
   int catapultWheelCollidesWith = COL_NOTHING;
 
   // create the objects I need here
@@ -71,6 +70,7 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
   // attempt to make the catapult arm stop moving, by default
 
   catapultArm->setGravity( btVector3(0.0f,0.0f,0.0f) );
+  catapultBody->setGravity( btVector3(0.0f,0.0f,0.0f) );
   wheelBackLeft->setGravity( btVector3(0.0f,0.0f,0.0f) );
   wheelBackRight->setGravity( btVector3(0.0f,0.0f,0.0f) );
   wheelFrontLeft->setGravity( btVector3(0.0f,0.0f,0.0f) );
@@ -95,30 +95,21 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
  */
 void Catapult::AdjustCatapultArm(int totalAdjustment, int adjustmentSpeed)
 {
-  btTransform transform;
-  btQuaternion quat;
 
   printf("called adjust cata in Catapult\n");
 
-  transform.setIdentity();
-
-  /// for now, just making a static adjustment to prove I can make this fucking shit work
-
-//  catapultArm->setLinearFactor( btVector3(0.0f, 0.0f, 1.0f) );
-
-  // adjust the angle on the catapultArm
-
-//  catapultArm->setLinearFactor( btVector3(0.0f, 0.0f, 0.0f) );
 
 
-  quat.setEuler( btScalar(3.0f), btScalar(0.0f), btScalar(0.0f) );
-  transform.setRotation(quat);
+  // this line of code works to move the catapult arm
+//  catapultArm->setAngularVelocity(btVector3(0.0f, 0.0f, 1.0f));
 
-//  catapultArm->setCenterOfMassTransform(transform);
 
-//    catapultArm->applyCentralImpulse(btVector3(3.0f, 0.0f, 0.0f));
-
-//  catapultArm->setAngularVelocity(btVector3(1.0f, 1.0f, 1.0f));
+  catapultArm->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
+  catapultBody->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
+  wheelBackLeft->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
+  wheelBackRight->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
+  wheelFrontLeft->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
+  wheelFrontRight->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
 
 
 }
