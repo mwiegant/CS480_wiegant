@@ -266,10 +266,16 @@ void Graphics::AdjustCatapultArm(int totalAdjustment, int adjustmentSpeed)
 
 bool Graphics::InitializeObjects()
 {
-
+  // Create Objects
   catapult = new Catapult();
+  Object* floor = new Object();
 
+  // Initialize Objects
   catapult->Initialize(physicsWorld);
+  floor->Initialize("models/plane.obj", "textures/Neptune.jpg");
+
+  // All Regular Objects must be added to the PhysicsWorld, here (excludes the catapult)
+  physicsWorld.AddFloor(floor);
 
   return true;
 }

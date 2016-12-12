@@ -30,10 +30,6 @@ class Catapult {
 
   private:
 
-    // Private object list, so objects created during initialization
-    // continue to exist while the program is running
-    vector<Object*> objectList;
-
     // the different bullet object bodies
     btRigidBody* catapultBody;
     btRigidBody* catapultArm;

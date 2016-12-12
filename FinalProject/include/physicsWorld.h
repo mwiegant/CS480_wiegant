@@ -23,6 +23,7 @@ class PhysicsWorld
     void Update(unsigned int dt);
 
     // for adding specific shapes
+    btRigidBody* AddFloor(Object* object);
     btRigidBody* AddSimpleSphere(btVector3 position, btScalar radius, btScalar mass, Object* object);
     btRigidBody* AddSimpleCylinder(btVector3 position, btVector3 halfwayVectors, btScalar mass, Object* object);
     // AddSimpleRectangle()
