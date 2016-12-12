@@ -42,7 +42,7 @@ enum collisiontypes {
     COL_CATAPULT_BODY = BIT(1),   // Collide with the catapult body
     COL_CATAPULT_WHEEL = BIT(2),  // Collide with the catapult wheels
     COL_NON_CATAPULT = BIT(3),    // Collide with non catapult objects
-    COL_FLOOR = BIT(4)            // Collider with the floor
+    COL_FLOOR = BIT(4)            // Collide with the floor
 };
 
 
