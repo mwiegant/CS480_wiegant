@@ -32,10 +32,10 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
   justLaunchedProjectile = false;
 
   // create the collision groups
-  int catapultArmCollidesWith = COL_NOTHING;
+  int catapultArmCollidesWith = COL_NON_CATAPULT;
   int catapultBodyCollidesWith = COL_NON_CATAPULT;
   int catapultWheelCollidesWith = COL_NOTHING;
-  int catapultProjectile = COL_CATAPULT_ARM | COL_NON_CATAPULT | COL_FLOOR;
+  int catapultProjectile = COL_CATAPULT_ARM | COL_CATAPULT_BODY | COL_NON_CATAPULT | COL_FLOOR;
 
   // create the objects I need here
   Object* obj_catapultBody = new Object();
@@ -62,7 +62,7 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
   catapultBody = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f),
                                                COL_CATAPULT_BODY, catapultBodyCollidesWith, obj_catapultBody );
 
-  catapultArm = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f),
+  catapultArm = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(100.0f),
                                               COL_CATAPULT_ARM, catapultArmCollidesWith, obj_catapultArm );
 
   wheelBackLeft = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f),
@@ -84,7 +84,6 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
   catapultArm->setActivationState(4);
   projectile->setActivationState(4);
 
-/*
   // disable gravity on the catapult
   catapultArm->setGravity( btVector3(0.0f,0.0f,0.0f) );
   catapultBody->setGravity( btVector3(0.0f,0.0f,0.0f) );
@@ -92,22 +91,7 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
   wheelBackRight->setGravity( btVector3(0.0f,0.0f,0.0f) );
   wheelFrontLeft->setGravity( btVector3(0.0f,0.0f,0.0f) );
   wheelFrontRight->setGravity( btVector3(0.0f,0.0f,0.0f) );
-*/
-
-  // add the individual objects to the compound shape to create the full catapult
-/*
-  fullCat -> addChildShape( allTransform, catapultBody -> getCollisionShape() );
-  fullCat -> addChildShape( allTransform, catapultArm -> getCollisionShape() );
-  fullCat -> addChildShape( allTransform, wheelBackLeft -> getCollisionShape() );
-  fullCat -> addChildShape( allTransform, wheelBackRight -> getCollisionShape() );
-  fullCat -> addChildShape( allTransform, wheelFrontLeft -> getCollisionShape() );
-  fullCat -> addChildShape( allTransform, wheelFrontRight -> getCollisionShape() );
-*/
-
-  //rigidCat = physicsWorld.addCompoundShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f),
-                                           // COL_CATAPULT_BODY, catapultBodyCollidesWith, fullCat );
-
-  projectile->setGravity( btVector3(0.0f,-9.81f,0.0f) );
+//  projectile->setGravity( btVector3(0.0f,-9.81f,0.0f) );
 
   return true;
 }
