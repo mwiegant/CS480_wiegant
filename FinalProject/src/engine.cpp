@@ -83,8 +83,11 @@ void Engine::Keyboard()
   {
     m_running = false;
   }
+
+  /* key press events */
   else if (m_event.type == SDL_KEYDOWN)
   {
+
     // -----------------------------------------------
     // handle escape - end program
     // -----------------------------------------------
@@ -93,19 +96,26 @@ void Engine::Keyboard()
       m_running = false;
     }
 
-
     // -----------------------------------------------
-    // Adjust the catapult arm
+    // Adjust the catapult arm to move
     // -----------------------------------------------
 
-    /* move the arm back */
+    /* move the arm forward */
     else if( m_event.key.keysym.sym == SDLK_UP )
     {
-      m_graphics->AdjustCatapultArm(0,0);
+      // bool moveForward, bool enableMovement
+      m_graphics->AdjustCatapultArm(true, true);
+    }
+
+    /* move the arm back */
+    else if( m_event.key.keysym.sym == SDLK_DOWN )
+    {
+      // bool moveForward, bool enableMovement
+      m_graphics->AdjustCatapultArm(false, true);
     }
 
     // -----------------------------------------------
-    // launch the ball from the plunger
+    // launch the ball from the catapult arm
     // -----------------------------------------------
     else if( m_event.key.keysym.sym == SDLK_SPACE )
     {
@@ -160,9 +170,27 @@ void Engine::Keyboard()
 
   }
 
+  /* key release events */
   else if (m_event.type == SDL_KEYUP)
   {
-    /* key release events */
+
+    // -----------------------------------------------
+    // Adjust the catapult arm to stop moving
+    // -----------------------------------------------
+
+    /* move the arm forward */
+    if( m_event.key.keysym.sym == SDLK_UP )
+    {
+      // bool moveForward, bool enableMovement
+      m_graphics->AdjustCatapultArm(true, false);
+    }
+
+      /* move the arm back */
+    else if( m_event.key.keysym.sym == SDLK_DOWN )
+    {
+      // bool moveForward, bool enableMovement
+      m_graphics->AdjustCatapultArm(false, false);
+    }
   }
 
 }

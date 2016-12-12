@@ -22,7 +22,7 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
 {
   // create the collision groups
   int catapultArmCollidesWith = COL_NOTHING;
-  int catapultBodyCollidesWith = COL_NON_CATAPULT | COL_FLOOR;
+  int catapultBodyCollidesWith = COL_NON_CATAPULT;
   int catapultWheelCollidesWith = COL_NOTHING;
 
   // create the objects I need here
@@ -77,26 +77,23 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
 
 
 /*
- *
+ * Adjusts the movement of the catapult arm
  */
-void Catapult::AdjustCatapultArm(int totalAdjustment, int adjustmentSpeed)
+void Catapult::AdjustCatapultArm(bool moveForward, bool enableMovement)
 {
 
-  printf("called adjust cata in Catapult\n");
-
-
-
-  // this line of code works to move the catapult arm
-//  catapultArm->setAngularVelocity(btVector3(0.0f, 0.0f, 1.0f));
-
-
-  catapultArm->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
-  catapultBody->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
-  wheelBackLeft->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
-  wheelBackRight->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
-  wheelFrontLeft->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
-  wheelFrontRight->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
-
+  if(!enableMovement)
+  {
+    catapultArm->setAngularVelocity(btVector3(0.0f, 0.0f, 0.0f));
+  }
+  else if(moveForward)
+  {
+    catapultArm->setAngularVelocity(btVector3(0.0f, 0.0f, -1.0f));
+  }
+  else if(!moveForward)
+  {
+    catapultArm->setAngularVelocity(btVector3(0.0f, 0.0f, 1.0f));
+  }
 
 }
 

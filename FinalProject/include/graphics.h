@@ -27,7 +27,7 @@ class Graphics
     void LaunchBall();
 
     // for updating the catapult arm
-    void AdjustCatapultArm(int totalAdjustment, int adjustmentSpeed);
+    void AdjustCatapultArm(bool moveForward, bool enableMovement);
 
     // for updating the view
     void LookLeft();
