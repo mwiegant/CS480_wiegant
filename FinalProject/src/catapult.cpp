@@ -34,7 +34,7 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
   Object* obj_wheel_frontLeft = new Object();
   Object* obj_wheel_frontRight = new Object();
 
-  fullCat = new btCompoundShape();
+  //fullCat = new btCompoundShape();
 
   // initialize the objects I created
   obj_catapultBody->Initialize("models/Catapult_Base.obj", "textures/granite.jpg");
@@ -77,7 +77,7 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
   wheelFrontLeft->setGravity( btVector3(0.0f,0.0f,0.0f) );
   wheelFrontRight->setGravity( btVector3(0.0f,0.0f,0.0f) );
 */
-
+/*
   // add the individual objects to the compound shape to create the full catapult
   fullCat -> addChildShape( allTransform, catapultBody -> getCollisionShape() );
   fullCat -> addChildShape( allTransform, catapultArm -> getCollisionShape() );
@@ -88,7 +88,7 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
 
   rigidCat = physicsWorld.addCompoundShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f),
                                             COL_CATAPULT_BODY, catapultBodyCollidesWith, fullCat );
-
+*/
 
 
   return true;
@@ -101,8 +101,6 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
 void Catapult::AdjustCatapultArm(bool moveForward, bool enableMovement)
 {
 
-  printf("called adjust cata in Catapult\n");
-
 /*
   catapultArm->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
   catapultBody->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
@@ -111,12 +109,6 @@ void Catapult::AdjustCatapultArm(bool moveForward, bool enableMovement)
   wheelFrontLeft->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
   wheelFrontRight->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
 */
-
-  // DEBUG
-  btVector3 velocity = catapultArm->getAngularVelocity();
-  printf("arm velocity: %f, %f, %f\n", (float) velocity.getX(), (float) velocity.getY(), (float) velocity.getZ());
-  printf("moveForward: %d, enableMovement: %d\n", (int) moveForward, (int) enableMovement);
-//  printf("address of catapultArm: %d\n", catapultArm);
 
   // disable movement
   if(!enableMovement)
