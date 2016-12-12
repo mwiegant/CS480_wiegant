@@ -217,6 +217,42 @@ void Graphics::LaunchBall()
 
 }
 
+// this function takes an input between one and four in order to move the catapult
+void Graphics::moveCatapult( int movement )
+{
+  switch ( movement )
+  {
+    case 1:
+    {
+      catapult -> moveFore();
+      break;
+    }
+
+    case 2:
+    {
+      catapult -> moveBack();
+      break;
+    }
+
+    case 3:
+    {
+      catapult -> rotLeft();
+      break;
+    }
+
+    case 4:
+    {
+      catapult -> rotRight();
+      break;
+    }
+
+    default:
+    {
+      break;
+    }
+  }
+}
+
 
 /*
  * Adjusts the angle of the catapult arm

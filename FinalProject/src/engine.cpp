@@ -113,16 +113,26 @@ void Engine::Keyboard()
     }
 
     // -----------------------------------------------
-    // move the paddles
+    // move the catapult
     // -----------------------------------------------
-    else if( m_event.key.keysym.sym == SDLK_LSHIFT )
+    else if( m_event.key.keysym.sym == SDLK_w )
     {
-      m_graphics->LaunchBall();
+      m_graphics->moveCatapult(1);
     }
 
-    else if( m_event.key.keysym.sym == SDLK_RSHIFT )
+    else if( m_event.key.keysym.sym == SDLK_s)
     {
-      m_graphics->LaunchBall();
+      m_graphics->moveCatapult(2);
+    }
+
+    else if( m_event.key.keysym.sym == SDLK_a )
+    {
+      m_graphics->moveCatapult(3);
+    }
+
+    else if( m_event.key.keysym.sym == SDLK_d)
+    {
+      m_graphics->moveCatapult(4);
     }
 
     // -----------------------------------------------

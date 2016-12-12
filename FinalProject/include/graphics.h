@@ -26,6 +26,9 @@ class Graphics
     // todo - repurpose this function
     void LaunchBall();
 
+    // for moving the catapult
+    void moveCatapult( int movement );
+
     // for updating the catapult arm
     void AdjustCatapultArm(int totalAdjustment, int adjustmentSpeed);
 

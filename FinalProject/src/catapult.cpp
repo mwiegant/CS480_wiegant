@@ -28,7 +28,6 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
   Object* obj_wheel_frontLeft = new Object();
   Object* obj_wheel_frontRight = new Object();
 
-
   // initialize the objects I created
   obj_catapultBody->Initialize("models/Catapult_Base.obj", "textures/granite.jpg");
   obj_catapultArm->Initialize("models/Catapult_Arm.obj", "textures/Mars.jpg");
@@ -47,13 +46,25 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
   objectList.push_back(obj_wheel_frontRight);
 
   // use the objects I created to create objects in the physics world
-  catapultBody = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f), obj_catapultBody );
-  catapultArm = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f), obj_catapultArm );
+  catapultBody = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f), obj_catapultBody );
 
-  wheelBackLeft = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f), obj_wheel_backLeft );
-  wheelBackRight = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f), obj_wheel_backRight );
-  wheelFrontLeft = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f), obj_wheel_frontLeft );
-  wheelFrontRight = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f), obj_wheel_frontRight );
+  catapultArm = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f), obj_catapultArm );
+
+  wheelBackLeft = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f), obj_wheel_backLeft );
+
+  wheelBackRight = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f), obj_wheel_backRight );
+
+  wheelFrontLeft = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f), obj_wheel_frontLeft );
+
+  wheelFrontRight = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f),     obj_wheel_frontRight );
+
+  // set the identity of allTransform
+  allTransform.setIdentity();
+
+  // add the individual objects to the compound shape to create the full catapult
+  fullCat -> addChildShape( &allTransform, *catapultBody );
+  
+
 
   return true;
 }
@@ -89,7 +100,25 @@ void Catapult::AdjustCatapultArm(int totalAdjustment, int adjustmentSpeed)
   catapultArm->setLinearVelocity(btVector3(300.0f, 0.0f, 0.0f));
 }
 
+void Catapult::moveFore()
+{
 
+}
+
+void Catapult::moveBack()
+{
+
+}
+
+void Catapult::rotLeft()
+{
+
+}
+
+void Catapult::rotRight()
+{
+
+}
 
 
 

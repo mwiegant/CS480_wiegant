@@ -23,6 +23,11 @@ class Catapult {
 
     void AdjustCatapultArm(int totalAdjustment, int adjustmentSpeed);
 
+    void moveFore();
+    void moveBack();
+    void rotLeft();
+    void rotRight();
+
   private:
 
     // Private object list, so objects created during initialization
@@ -37,6 +42,11 @@ class Catapult {
     btRigidBody* wheelBackLeft;
     btRigidBody* wheelBackRight;
 
+    // the transform for the full catapult
+    btTransform allTransform;
+
+    // the compound shape that composes the entire catapult
+    btCompoundShape* fullCat;
 
 
 };
