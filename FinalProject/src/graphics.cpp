@@ -278,7 +278,7 @@ bool Graphics::InitializeObjects()
 
   // Initialize Objects
   catapult->Initialize(physicsWorld);
-  floor->Initialize("models/plane.obj", "textures/Neptune.jpg");
+  floor->Initialize("models/plane.obj", "textures/Environment.png");
 
   // All Regular Objects must be added to the PhysicsWorld, here (excludes the catapult)
   physicsWorld.AddFloor(COL_FLOOR, floorCollidesWith, floor);

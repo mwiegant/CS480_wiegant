@@ -37,7 +37,7 @@ btRigidBody* PhysicsWorld::AddFloor(short colGroup, short colMask, Object* objec
   /// 1. Create a btRigidBody and add it to the dynamicsWorld
 
   //create a dynamic rigidbody
-  btCollisionShape* floorShape = new btStaticPlaneShape(btVector3(0, 1, 0), 1);
+  btCollisionShape* floorShape = new btStaticPlaneShape(btVector3(0, 1, 0), 5);
   collisionShapes.push_back(floorShape);
 
   // Create Dynamic Objects

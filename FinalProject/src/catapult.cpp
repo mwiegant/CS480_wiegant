@@ -35,7 +35,7 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
   int catapultArmCollidesWith = COL_NON_CATAPULT;
   int catapultBodyCollidesWith = COL_NON_CATAPULT;
   int catapultWheelCollidesWith = COL_NOTHING;
-  int catapultProjectile = COL_CATAPULT_ARM | COL_CATAPULT_BODY | COL_NON_CATAPULT | COL_FLOOR;
+  int catapultProjectile = COL_CATAPULT_ARM | COL_NON_CATAPULT | COL_FLOOR;
 
   // create the objects I need here
   Object* obj_catapultBody = new Object();
@@ -59,7 +59,7 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
   obj_projectile->Initialize("models/Projectile.obj", "textures/silver.png");
 
   // use the objects I created to create objects in the physics world
-  catapultBody = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f),
+  catapultBody = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(100.0f),
                                                COL_CATAPULT_BODY, catapultBodyCollidesWith, obj_catapultBody );
 
   catapultArm = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(100.0f),
@@ -77,7 +77,7 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
   wheelFrontRight = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f),
                                                   COL_CATAPULT_WHEEL, catapultWheelCollidesWith, obj_wheel_frontRight );
 
-  projectile = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(10.0f),
+  projectile = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(3.0f),
                                               COL_NON_CATAPULT, catapultProjectile, obj_projectile);
 
   // ensure the body does not go to sleep
@@ -91,7 +91,7 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
   wheelBackRight->setGravity( btVector3(0.0f,0.0f,0.0f) );
   wheelFrontLeft->setGravity( btVector3(0.0f,0.0f,0.0f) );
   wheelFrontRight->setGravity( btVector3(0.0f,0.0f,0.0f) );
-//  projectile->setGravity( btVector3(0.0f,-9.81f,0.0f) );
+  projectile->setGravity( btVector3(0.0f,-5.0f,0.0f) );
 
   return true;
 }
