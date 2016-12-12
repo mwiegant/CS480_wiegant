@@ -1,36 +1,28 @@
 #version 330
 
-smooth in vec3 fN;
-smooth in vec3 fL;
-smooth in vec3 fE;
-smooth in vec2 _texture;
+smooth in vec3 fragNormal;
+smooth in vec3 fragVert;
+smooth in vec2 fragTexture;
 
 out vec4 frag_color;
 
-uniform vec4 AmbientProduct = vec4(0.1, 0.1, 0.1, 2.0);
-uniform vec4 DiffuseProduct = vec4(0.5, 0.5, 0.5, 0.5);
-uniform vec4 SpecularProduct = vec4(0.1, 0.1, 0.1, 0.1);
-uniform float Shininess = .1;
+uniform vec3 lightPosition = vec3( -30.0, 20.0, 0.0 );
 uniform sampler2D gSampler;
+
+uniform mat4 Model;
 
 void main()
 {
-  vec3 N = normalize(fN);
-  vec3 E = normalize(fE);
-  vec3 L = normalize(fL);
+    mat3 normalMat = transpose( inverse ( mat3( Model ) ) );
+    vec3 normal = normalize( normalMat * fragNormal );
 
-  vec3 H = normalize( L + E );
-  vec4 ambient = AmbientProduct;
+    vec3 fragPos = vec3( Model * vec4( fragVert, 1 ) );
 
-  float Kd = max(dot(L, N), 0.0);
-  vec4 diffuse = Kd*DiffuseProduct;
+    vec3 surfaceToLight = lightPosition - fragPos;
 
-  float Ks = pow(max(dot(N, H), 0.0), Shininess);
-  vec4 specular = Ks*SpecularProduct;
+    float brightness = dot( normal, surfaceToLight ) / ( length( surfaceToLight ) * length( normal));
+    brightness = clamp( brightness, 0, 1 );
 
-  if( dot(L, N) < 0.0 )
-  specular = vec4(0.0, 0.0, 0.0, 1.0);
-
-  frag_color = texture( gSampler, _texture.xy ) + ambient + diffuse + specular;
-  frag_color.a = 1.0;
+    vec4 surfaceColor = texture( gSampler, fragTexture );
+    frag_color = vec4( brightness * vec3(1, 1, 1) * surfaceColor.rgb, surfaceColor.a );
 }
