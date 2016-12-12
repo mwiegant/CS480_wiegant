@@ -69,14 +69,14 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
 
 
   // attempt to make the catapult arm stop moving, by default
-
+/*
   catapultArm->setGravity( btVector3(0.0f,0.0f,0.0f) );
   catapultBody->setGravity( btVector3(0.0f,0.0f,0.0f) );
   wheelBackLeft->setGravity( btVector3(0.0f,0.0f,0.0f) );
   wheelBackRight->setGravity( btVector3(0.0f,0.0f,0.0f) );
   wheelFrontLeft->setGravity( btVector3(0.0f,0.0f,0.0f) );
   wheelFrontRight->setGravity( btVector3(0.0f,0.0f,0.0f) );
-
+*/
 
   // add the individual objects to the compound shape to create the full catapult
   fullCat -> addChildShape( allTransform, catapultBody -> getCollisionShape() );
@@ -86,8 +86,8 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
   fullCat -> addChildShape( allTransform, wheelFrontLeft -> getCollisionShape() );
   fullCat -> addChildShape( allTransform, wheelFrontRight -> getCollisionShape() );
 
-  //rigidCat = physicsWorld.addCompoundShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f),
-                                           // COL_CATAPULT_BODY, catapultBodyCollidesWith, fullCat );
+  rigidCat = physicsWorld.addCompoundShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f),
+                                            COL_CATAPULT_BODY, catapultBodyCollidesWith, fullCat );
 
 
 
