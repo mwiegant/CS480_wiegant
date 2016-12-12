@@ -230,6 +230,10 @@ void Graphics::AdjustCatapultArm(int totalAdjustment, int adjustmentSpeed)
 
 bool Graphics::InitializeObjects()
 {
+  // Create Collision Groups
+  int floorCollidesWith = COL_CATAPULT_ARM | COL_CATAPULT_BODY |
+                          COL_CATAPULT_WHEEL | COL_NON_CATAPULT;
+
   // Create Objects
   catapult = new Catapult();
   Object* floor = new Object();
@@ -239,7 +243,7 @@ bool Graphics::InitializeObjects()
   floor->Initialize("models/plane.obj", "textures/Neptune.jpg");
 
   // All Regular Objects must be added to the PhysicsWorld, here (excludes the catapult)
-  physicsWorld.AddFloor(floor);
+  physicsWorld.AddFloor(COL_FLOOR, floorCollidesWith, floor);
 
   return true;
 }

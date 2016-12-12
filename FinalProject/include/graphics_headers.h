@@ -35,12 +35,26 @@ struct Vertex
     //Vertex(glm::vec3 v, glm::vec2 c): vertex(v), uv(c) {}
 };
 
-enum game_state
-{
-  GAME_STATE_READY,
-  GAME_STATE_PLAYING,
-  GAME_STATE_GAME_OVER
+#define BIT(x) (1<<(x))
+enum collisiontypes {
+    COL_NOTHING = 0,              // Collide with no other objects
+    COL_CATAPULT_ARM = BIT(0),    // Collide with the catapult arm
+    COL_CATAPULT_BODY = BIT(1),   // Collide with the catapult body
+    COL_CATAPULT_WHEEL = BIT(2),  // Collide with the catapult wheels
+    COL_NON_CATAPULT = BIT(3),    // Collide with non catapult objects
+    COL_FLOOR = BIT(4)            // Collider with the floor
 };
+
+
+/*
+int floorCollidesWith = COL_CATAPULT_ARM | COL_CATAPULT_BODY |
+                        COL_CATAPULT_WHEEL | COL_NON_CATAPULT;
+int catapultArmCollidesWith = COL_NOTHING;
+int catapultBodyCollidesWith = COL_NON_CATAPULT | COL_FLOOR;
+int catapultWheelCollidesWith = COL_FLOOR;
+int catapultProjectile = COL_CATAPULT_ARM | COL_NON_CATAPULT | COL_FLOOR;
+int nonCatapultObject = COL_CATAPULT_BODY | COL_NON_CATAPULT | COL_FLOOR;
+*/
 
 
 #endif /* GRAPHICS_HEADERS_H */

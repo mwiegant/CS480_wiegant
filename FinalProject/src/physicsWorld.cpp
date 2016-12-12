@@ -32,7 +32,7 @@ bool PhysicsWorld::Initialize() {
 /*
  * Adds a floor to the world, so objects have a surface to rest on.
  */
-btRigidBody* PhysicsWorld::AddFloor(Object* object)
+btRigidBody* PhysicsWorld::AddFloor(short colGroup, short colMask, Object* object)
 {
   /// 1. Create a btRigidBody and add it to the dynamicsWorld
 
@@ -61,7 +61,7 @@ btRigidBody* PhysicsWorld::AddFloor(Object* object)
   btRigidBody::btRigidBodyConstructionInfo rbInfo( mass, myMotionState, floorShape, localInertia );
   btRigidBody* body = new btRigidBody( rbInfo );
 
-  dynamicsWorld->addRigidBody(body);
+  dynamicsWorld->addRigidBody(body, colGroup, colMask);
 
   /// 2. Add the Object to the objectList
 
@@ -78,9 +78,12 @@ btRigidBody* PhysicsWorld::AddFloor(Object* object)
  * @param position = the (x,y,z) position of this object in the world
  * @param radius = the radius of the object
  * @param mass = how heavy the object is (i.e. how far it flies when hit)
+ * @param colGroup = the collision group this object will belong to
+ * @param colMask = the set of things this object will do collision detection on
  * @param object = the object that will correspond to the shape being created in this function
  */
-btRigidBody* PhysicsWorld::AddSimpleSphere(btVector3 position, btScalar radius, btScalar mass, Object* object)
+btRigidBody* PhysicsWorld::AddSimpleSphere(btVector3 position, btScalar radius, btScalar mass,
+                                           short colGroup, short colMask, Object* object)
 {
   /// 1. Create a btRigidBody and add it to the dynamicsWorld
 
@@ -107,7 +110,7 @@ btRigidBody* PhysicsWorld::AddSimpleSphere(btVector3 position, btScalar radius, 
   btRigidBody::btRigidBodyConstructionInfo rbInfo( mass, myMotionState, sphereShape, localInertia );
   btRigidBody* body = new btRigidBody( rbInfo );
 
-  dynamicsWorld->addRigidBody(body);
+  dynamicsWorld->addRigidBody(body, colGroup, colMask);
 
   /// 2. Add the Object to the objectList
 
@@ -125,9 +128,12 @@ btRigidBody* PhysicsWorld::AddSimpleSphere(btVector3 position, btScalar radius, 
  * @param position = the (x,y,z) position of this object in the world
  * @param halfwayVectors = half the dimensions of the cylinder (x,y,z dimensions)
  * @param mass = how heavy the object is (i.e. how far it flies when hit)
+ * @param colGroup = the collision group this object will belong to
+ * @param colMask = the set of things this object will do collision detection on
  * @param object = the object that will correspond to the shape being created in this function
  */
-btRigidBody* PhysicsWorld::AddSimpleCylinder(btVector3 position, btVector3 halfwayVectors, btScalar mass, Object* object)
+btRigidBody* PhysicsWorld::AddSimpleCylinder(btVector3 position, btVector3 halfwayVectors, btScalar mass,
+                                             short colGroup, short colMask, Object* object)
 {
   /// 1. Create a btRigidBody and add it to the dynamicsWorld
 
@@ -154,7 +160,7 @@ btRigidBody* PhysicsWorld::AddSimpleCylinder(btVector3 position, btVector3 halfw
   btRigidBody::btRigidBodyConstructionInfo rbInfo( mass, myMotionState, cylinderShape, localInertia );
   btRigidBody* body = new btRigidBody( rbInfo );
 
-  dynamicsWorld->addRigidBody(body);
+  dynamicsWorld->addRigidBody(body, colGroup, colMask);
 
   /// 2. Add the Object to the objectList
 
@@ -170,9 +176,12 @@ btRigidBody* PhysicsWorld::AddSimpleCylinder(btVector3 position, btVector3 halfw
  *
  * @param position = the (x,y,z) position of this object in the world
  * @param mass = how heavy the object is (i.e. how far it flies when hit)
+ * @param colGroup = the collision group this object will belong to
+ * @param colMask = the set of things this object will do collision detection on
  * @param object = the object that will correspond to the shape being created in this function
  */
-btRigidBody* PhysicsWorld::AddComplexShape(btVector3 position, btScalar mass, Object* object)
+btRigidBody* PhysicsWorld::AddComplexShape(btVector3 position, btScalar mass,
+                                           short colGroup, short colMask, Object* object)
 {
 
   /// 1. Get the Triangle Mesh from the Object
@@ -204,7 +213,7 @@ btRigidBody* PhysicsWorld::AddComplexShape(btVector3 position, btScalar mass, Ob
   btRigidBody::btRigidBodyConstructionInfo rbInfo( mass, myMotionState, shape, localInertia );
   btRigidBody* body = new btRigidBody( rbInfo );
 
-  dynamicsWorld->addRigidBody(body);
+  dynamicsWorld->addRigidBody(body, colGroup, colMask);
 
   /// 3. Add the Object to the objectList
 
