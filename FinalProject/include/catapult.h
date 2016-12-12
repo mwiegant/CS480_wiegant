@@ -32,6 +32,11 @@ class Catapult {
     // the different bullet object bodies
     btRigidBody* catapultBody;
     btRigidBody* catapultArm;
+    btRigidBody* wheelFrontLeft;
+    btRigidBody* wheelFrontRight;
+    btRigidBody* wheelBackLeft;
+    btRigidBody* wheelBackRight;
+
 
 
 };

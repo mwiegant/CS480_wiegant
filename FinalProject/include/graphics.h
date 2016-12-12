@@ -62,6 +62,7 @@ class Graphics
     float diffuseVal;
     float specularVal;
 
+    Catapult* catapult;
     PhysicsWorld physicsWorld;
 };
 

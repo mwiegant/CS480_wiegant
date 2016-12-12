@@ -101,7 +101,7 @@ void Engine::Keyboard()
     /* move the arm back */
     else if( m_event.key.keysym.sym == SDLK_UP )
     {
-
+      m_graphics->AdjustCatapultArm(0,0);
     }
 
     // -----------------------------------------------

@@ -140,7 +140,7 @@ btRigidBody* PhysicsWorld::AddComplexShape(btVector3 position, btScalar mass, Ob
   /// 2. Create a btRigidBody and add it to the dynamicsWorld
 
   //create a dynamic rigidbody
-  btCollisionShape* shape = new btBvhTriangleMeshShape(triMesh, true);
+  btCollisionShape* shape = new btConvexTriangleMeshShape(triMesh, true);
   collisionShapes.push_back(shape);
 
   // Create Dynamic Objects

@@ -36,7 +36,7 @@ bool Camera::Initialize(int w, int h)
   // the hard-coded position of the scoreboard
   scoreboardPosition = glm::vec3(-20.0f, 20.0f, 0.0f);
 
-  // the modifier that will be used to get back-and-forth from the scoreboardPositin
+  // the modifier that will be used to get back-and-forth from the scoreboardPosition
   // (dividing by -30 is intentional)
   focusPointModifier = scoreboardPosition / (float) maxMoves;
 

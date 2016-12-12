@@ -223,7 +223,7 @@ void Graphics::LaunchBall()
  */
 void Graphics::AdjustCatapultArm(int totalAdjustment, int adjustmentSpeed)
 {
-
+  catapult->AdjustCatapultArm(0,0);
 }
 
 
@@ -231,9 +231,9 @@ void Graphics::AdjustCatapultArm(int totalAdjustment, int adjustmentSpeed)
 bool Graphics::InitializeObjects()
 {
 
-  Catapult catapult;
+  catapult = new Catapult();
 
-  catapult.Initialize(physicsWorld);
+  catapult->Initialize(physicsWorld);
 
   return true;
 }

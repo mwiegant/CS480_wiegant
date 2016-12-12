@@ -21,39 +21,39 @@ Catapult::~Catapult()
 bool Catapult::Initialize(PhysicsWorld &physicsWorld)
 {
   // create the objects I need here
-  Object* catapultBody = new Object();
-  Object* catapultArm = new Object();
-  Object* wheel_backLeft = new Object();
-  Object* wheel_backRight = new Object();
-  Object* wheel_frontLeft = new Object();
-  Object* wheel_frontRight = new Object();
+  Object* obj_catapultBody = new Object();
+  Object* obj_catapultArm = new Object();
+  Object* obj_wheel_backLeft = new Object();
+  Object* obj_wheel_backRight = new Object();
+  Object* obj_wheel_frontLeft = new Object();
+  Object* obj_wheel_frontRight = new Object();
 
 
   // initialize the objects I created
-  catapultBody->Initialize("models/Catapult_Base.obj", "textures/granite.jpg");
-  catapultArm->Initialize("models/Catapult_Arm.obj", "textures/Mars.jpg");
+  obj_catapultBody->Initialize("models/Catapult_Base.obj", "textures/granite.jpg");
+  obj_catapultArm->Initialize("models/Catapult_Arm.obj", "textures/Mars.jpg");
 
-  wheel_backLeft->Initialize("models/Catapult_BackLeft.obj", "textures/Mars.jpg");
-  wheel_backRight->Initialize("models/Catapult_BackRight.obj", "textures/Mars.jpg");
-  wheel_frontLeft->Initialize("models/Catapult_FrontLeft.obj", "textures/Mars.jpg");
-  wheel_frontRight->Initialize("models/Catapult_FrontRight.obj", "textures/Mars.jpg");
+  obj_wheel_backLeft->Initialize("models/Catapult_BackLeft.obj", "textures/Mars.jpg");
+  obj_wheel_backRight->Initialize("models/Catapult_BackRight.obj", "textures/Mars.jpg");
+  obj_wheel_frontLeft->Initialize("models/Catapult_FrontLeft.obj", "textures/Mars.jpg");
+  obj_wheel_frontRight->Initialize("models/Catapult_FrontRight.obj", "textures/Mars.jpg");
 
   // add the objects to the internal objectList (so they don't get deleted)
-  objectList.push_back(catapultBody);
-  objectList.push_back(catapultArm);
-  objectList.push_back(wheel_backLeft);
-  objectList.push_back(wheel_backRight);
-  objectList.push_back(wheel_frontLeft);
-  objectList.push_back(wheel_frontRight);
+  objectList.push_back(obj_catapultBody);
+  objectList.push_back(obj_catapultArm);
+  objectList.push_back(obj_wheel_backLeft);
+  objectList.push_back(obj_wheel_backRight);
+  objectList.push_back(obj_wheel_frontLeft);
+  objectList.push_back(obj_wheel_frontRight);
 
   // use the objects I created to create objects in the physics world
-  physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f), catapultBody );
-  physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f), catapultArm );
+  catapultBody = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f), obj_catapultBody );
+  catapultArm = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f), obj_catapultArm );
 
-  physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f), wheel_backLeft );
-  physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f), wheel_backRight );
-  physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f), wheel_frontLeft );
-  physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f), wheel_frontRight );
+  wheelBackLeft = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f), obj_wheel_backLeft );
+  wheelBackRight = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f), obj_wheel_backRight );
+  wheelFrontLeft = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f), obj_wheel_frontLeft );
+  wheelFrontRight = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(0.0f), obj_wheel_frontRight );
 
   return true;
 }
@@ -64,16 +64,31 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
  */
 void Catapult::AdjustCatapultArm(int totalAdjustment, int adjustmentSpeed)
 {
-  // for now, just making a static adjustment to prove I can make this fucking shit work
+  btTransform transform;
+  btQuaternion quat;
 
-  catapultArm->setLinearFactor( btVector3(0.0f, 0.0f, 0.0f) );
+  printf("called adjust cata in Catapult\n");
+
+  transform.setIdentity();
+
+  /// for now, just making a static adjustment to prove I can make this fucking shit work
+
+//  catapultArm->setLinearFactor( btVector3(0.0f, 0.0f, 0.0f) );
 
   // adjust the angle on the catapultArm
 
-  catapultArm->setLinearFactor( btVector3(0.0f, 0.0f, 0.0f) );
+//  catapultArm->setLinearFactor( btVector3(0.0f, 0.0f, 0.0f) );
 
 
+//  quat.setEuler( btScalar(3.0f), btScalar(0.0f), btScalar(0.0f) );
+//  transform.setRotation(quat);
+//
+//  catapultArm->setCenterOfMassTransform(transform);
+
+
+  catapultArm->setLinearVelocity(btVector3(300.0f, 0.0f, 0.0f));
 }
+
 
 
 
