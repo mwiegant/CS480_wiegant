@@ -21,6 +21,16 @@ Catapult::~Catapult()
  */
 bool Catapult::Initialize(PhysicsWorld &physicsWorld)
 {
+  // set up launch variables
+  maxWindUp = 25.0f;
+  minWindUp = 15.0f;
+  defaultWindUp = 20.0f;
+  windUpAmount = defaultWindUp;
+  windUpSpeed = 0.50f;
+  launchSpeed = -3.0f;
+  launchingTheProjectile = false;
+  justLaunchedProjectile = false;
+
   // create the collision groups
   int catapultArmCollidesWith = COL_NOTHING;
   int catapultBodyCollidesWith = COL_NON_CATAPULT;
@@ -67,17 +77,18 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
   wheelFrontRight = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f),
                                                   COL_CATAPULT_WHEEL, catapultWheelCollidesWith, obj_wheel_frontRight );
 
+  // ensure the body does not go to sleep
+  catapultArm->setActivationState(4);
 
-  // attempt to make the catapult arm stop moving, by default
-/*
+  // disable gravity on the catapult
   catapultArm->setGravity( btVector3(0.0f,0.0f,0.0f) );
   catapultBody->setGravity( btVector3(0.0f,0.0f,0.0f) );
   wheelBackLeft->setGravity( btVector3(0.0f,0.0f,0.0f) );
   wheelBackRight->setGravity( btVector3(0.0f,0.0f,0.0f) );
   wheelFrontLeft->setGravity( btVector3(0.0f,0.0f,0.0f) );
   wheelFrontRight->setGravity( btVector3(0.0f,0.0f,0.0f) );
-*/
-/*
+
+
   // add the individual objects to the compound shape to create the full catapult
   fullCat -> addChildShape( allTransform, catapultBody -> getCollisionShape() );
   fullCat -> addChildShape( allTransform, catapultArm -> getCollisionShape() );
@@ -86,12 +97,57 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
   fullCat -> addChildShape( allTransform, wheelFrontLeft -> getCollisionShape() );
   fullCat -> addChildShape( allTransform, wheelFrontRight -> getCollisionShape() );
 
-  rigidCat = physicsWorld.addCompoundShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f),
-                                            COL_CATAPULT_BODY, catapultBodyCollidesWith, fullCat );
-*/
+  //rigidCat = physicsWorld.addCompoundShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f),
+                                           // COL_CATAPULT_BODY, catapultBodyCollidesWith, fullCat );
 
 
   return true;
+}
+
+
+/*
+ * If the catapult is currently launching, disable its movement once it
+ * reaches a certain point in it's rotation.
+ *
+ * If the catapult has just launched, wind the arm back up again.
+ *
+ */
+void Catapult::Update()
+{
+
+  if(launchingTheProjectile)
+  {
+//    printf("launching the projectile....\n");
+    printf("windUpAmount: %f\n", windUpAmount);
+
+    windUpAmount += 0.25f * launchSpeed;
+
+    // disable the launch once the arm has rotated as far as it should go
+    if(windUpAmount < minWindUp)
+    {
+      catapultArm->setAngularVelocity(btVector3(0.0f, 0.0f, 0.0f));
+      launchingTheProjectile = false;
+      justLaunchedProjectile = true;
+    }
+  }
+
+  if(justLaunchedProjectile)
+  {
+    printf("windUpAmount: %f\n", windUpAmount);
+
+    // wind up the arm again
+    windUpAmount += windUpSpeed;
+
+    catapultArm->setAngularVelocity(btVector3(0.0f, 0.0f, windUpSpeed));
+
+    // disable rewind of arm once it has wound up to its default position
+    if(windUpAmount >= defaultWindUp)
+    {
+      catapultArm->setAngularVelocity(btVector3(0.0f, 0.0f, 0.0f));
+      justLaunchedProjectile = false;
+    }
+  }
+
 }
 
 
@@ -101,32 +157,83 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
 void Catapult::AdjustCatapultArm(bool moveForward, bool enableMovement)
 {
 
+  printf("windUpAmount: %f\n", windUpAmount);
+  printf("maxWindUp: %f\n", maxWindUp);
+  printf("minWindUp: %f\n", minWindUp);
+
+  // disable arm adjustments while rewinding the arm to its default position
+  if(!justLaunchedProjectile && !launchingTheProjectile)
+  {
+
+    // disable movement
+    if(!enableMovement)
+    {
+      catapultArm->setAngularVelocity(btVector3(0.0f, 0.0f, 0.0f));
+    }
+    // move the arm forward
+    else if(moveForward && windUpAmount > minWindUp)
+    {
+      catapultArm->setAngularVelocity(btVector3(0.0f, 0.0f, -1.0f * windUpSpeed));
+      windUpAmount -= windUpSpeed;
+    }
+    // move the arm backward
+    else if(!moveForward && windUpAmount < maxWindUp)
+    {
+      catapultArm->setAngularVelocity(btVector3(0.0f, 0.0f, 1.0f * windUpSpeed));
+      windUpAmount += windUpSpeed;
+    }
+    // disable the catapult if it doesn't meet the conditions above to keep moving
+    else
+    {
+      catapultArm->setAngularVelocity(btVector3(0.0f, 0.0f, 0.0f));
+    }
+
+  }
+
+}
+
+
 /*
-  catapultArm->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
-  catapultBody->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
-  wheelBackLeft->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
-  wheelBackRight->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
-  wheelFrontLeft->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
-  wheelFrontRight->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
-*/
-
-  // disable movement
-  if(!enableMovement)
+ * Trigger the launch to begin if not currently launching or recovering from a launch,
+ * or abort the launch if it has already started.
+ */
+void Catapult::TriggerLaunchControls()
+{
+  if(!launchingTheProjectile && !justLaunchedProjectile)
   {
-    catapultArm->setAngularVelocity(btVector3(0.0f, 0.0f, 0.0f));
+    LaunchTheCatapult();
   }
-  // move the arm forward
-  else if(moveForward)
+  else if(launchingTheProjectile)
   {
-    catapultArm->setAngularVelocity(btVector3(0.0f, 0.0f, -1.0f));
+    AbortTheLaunch();
   }
-  // move the arm backward
-  else
-  {
-    catapultArm->setAngularVelocity(btVector3(0.0f, 0.0f, 1.0f));
-  }
+}
 
 
+
+/*
+ * Activates the flag which will cause the catapult arm to begin
+ * launching the projectile out of the basket.
+ */
+void Catapult::LaunchTheCatapult()
+{
+  launchingTheProjectile = true;
+
+  catapultArm->setAngularVelocity(btVector3(0.0f, 0.0f, launchSpeed));
+}
+
+/*
+ * If the catapult is currently launching the projectile, stops
+ * the catapult arm from moving any further which will allow the
+ * projectile to fly out of the basket.
+ */
+void Catapult::AbortTheLaunch()
+{
+  if(launchingTheProjectile)
+  {
+    launchingTheProjectile = false;
+    justLaunchedProjectile = true;
+  }
 }
 
 void Catapult::moveFore()

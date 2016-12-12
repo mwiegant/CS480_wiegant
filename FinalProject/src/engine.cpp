@@ -115,11 +115,11 @@ void Engine::Keyboard()
     }
 
     // -----------------------------------------------
-    // launch the ball from the catapult arm
+    // Activate or Disable the Launch
     // -----------------------------------------------
     else if( m_event.key.keysym.sym == SDLK_SPACE )
     {
-      m_graphics->LaunchBall();
+      m_graphics->TriggerLaunchControls();
     }
 
     // -----------------------------------------------

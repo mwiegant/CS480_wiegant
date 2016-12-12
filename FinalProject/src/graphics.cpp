@@ -168,6 +168,8 @@ bool Graphics::Initialize(int width, int height)
 
 void Graphics::Update(unsigned int dt)
 {
+  catapult->Update();
+
   physicsWorld.Update(dt);
 }
 
@@ -212,9 +214,9 @@ void Graphics::Render()
 /*
  * TODO - this function will be repurposed to launch the catapult
  */
-void Graphics::LaunchBall()
+void Graphics::TriggerLaunchControls()
 {
-
+  catapult->TriggerLaunchControls();
 }
 
 // this function takes an input between one and four in order to move the catapult

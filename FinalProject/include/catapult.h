@@ -21,7 +21,10 @@ class Catapult {
 
     bool Initialize(PhysicsWorld &physicsWorld);
 
+    void Update();
+
     void AdjustCatapultArm(bool moveForward, bool enableMovement);
+    void TriggerLaunchControls();
 
     void moveFore();
     void moveBack();
@@ -29,6 +32,9 @@ class Catapult {
     void rotRight();
 
   private:
+
+    void LaunchTheCatapult();
+    void AbortTheLaunch();
 
     // the different bullet object bodies
     btRigidBody* catapultBody;
@@ -46,7 +52,15 @@ class Catapult {
     // the compound shape that composes the entire catapult
     btCompoundShape* fullCat;
 
-
+    // variables for implementing wind up, release, and the rewind up after launching
+    float maxWindUp;
+    float minWindUp;
+    float defaultWindUp;
+    float windUpAmount;
+    float windUpSpeed;
+    float launchSpeed;
+    bool launchingTheProjectile;
+    bool justLaunchedProjectile;
 };
 
 

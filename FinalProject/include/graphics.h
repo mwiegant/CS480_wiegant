@@ -23,14 +23,15 @@ class Graphics
     void Update(unsigned int dt);
     void Render();
 
-    // todo - repurpose this function
-    void LaunchBall();
 
     // for moving the catapult
     void moveCatapult( int movement );
 
     // for updating the catapult arm
     void AdjustCatapultArm(bool moveForward, bool enableMovement);
+
+    // for activating or disabling the launch
+    void TriggerLaunchControls();
 
     // for updating the view
     void LookLeft();
