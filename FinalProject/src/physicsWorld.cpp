@@ -284,4 +284,6 @@ void PhysicsWorld::Update(unsigned int dt)
 
   }
 
+  printf("size of objectList: %lu\n", objectList.size());
+  printf("size of collisionObjectArray: %lu\n", dynamicsWorld->getCollisionObjectArray().size());
 }

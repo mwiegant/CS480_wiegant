@@ -48,7 +48,7 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
   // set the identity of allTransform
   allTransform.setIdentity();
 
-
+  // use the objects I created to create objects in the physics world
   catapultBody = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f),
                                                COL_CATAPULT_BODY, catapultBodyCollidesWith, obj_catapultBody );
 
@@ -62,11 +62,10 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
                                                  COL_CATAPULT_WHEEL, catapultWheelCollidesWith, obj_wheel_backRight );
 
   wheelFrontLeft = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f),
-                                                 COL_CATAPULT_WHEEL, catapultWheelCollidesWith,obj_wheel_frontLeft );
+                                                 COL_CATAPULT_WHEEL, catapultWheelCollidesWith, obj_wheel_frontLeft );
 
   wheelFrontRight = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f),
                                                   COL_CATAPULT_WHEEL, catapultWheelCollidesWith, obj_wheel_frontRight );
-
 
 
   // attempt to make the catapult arm stop moving, by default
@@ -90,7 +89,7 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
   //rigidCat = physicsWorld.addCompoundShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f),
                                            // COL_CATAPULT_BODY, catapultBodyCollidesWith, fullCat );
 
-  
+
 
   return true;
 }
@@ -113,14 +112,23 @@ void Catapult::AdjustCatapultArm(bool moveForward, bool enableMovement)
   wheelFrontRight->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
 */
 
+  // DEBUG
+  btVector3 velocity = catapultArm->getAngularVelocity();
+  printf("arm velocity: %f, %f, %f\n", (float) velocity.getX(), (float) velocity.getY(), (float) velocity.getZ());
+  printf("moveForward: %d, enableMovement: %d\n", (int) moveForward, (int) enableMovement);
+//  printf("address of catapultArm: %d\n", catapultArm);
+
+  // disable movement
   if(!enableMovement)
   {
     catapultArm->setAngularVelocity(btVector3(0.0f, 0.0f, 0.0f));
   }
+  // move the arm forward
   else if(moveForward)
   {
     catapultArm->setAngularVelocity(btVector3(0.0f, 0.0f, -1.0f));
   }
+  // move the arm backward
   else
   {
     catapultArm->setAngularVelocity(btVector3(0.0f, 0.0f, 1.0f));
