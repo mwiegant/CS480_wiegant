@@ -13,8 +13,8 @@ Camera::~Camera()
 bool Camera::Initialize(int w, int h)
 {
   // Initialize vectors that will be changed during runtime
-  eyePosition = glm::vec3(-15.0f, 25.0f, 18.0f);
-  focusPoint = glm::vec3(25.0f, 0.0f, 0.0f);
+  eyePosition = glm::vec3(-15.0f, 5.0f, 25.0f);
+  focusPoint = glm::vec3(25.0f, 15.0f, 0.0f);
   yAxis = glm::vec3(0.0f, 1.0f, 0.0f); // we do not change this vector
 
   //--Init the view and projection matrices
@@ -28,7 +28,7 @@ bool Camera::Initialize(int w, int h)
   projection = glm::perspective( 45.0f, //the FoV typically 90 degrees is good which is what this is set to
                                  float(w)/float(h), //Aspect Ratio, so Circles stay Circular
                                  0.01f, //Distance to the near plane, normally a small value like this
-                                 110.0f); //Distance to the far plane,
+                                 300.0f); //Distance to the far plane,
 
   // for looking up at the scoreboard
   lookUp = false;

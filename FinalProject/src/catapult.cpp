@@ -48,8 +48,8 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
 
 
   // initialize the objects I created
-  obj_catapultBody->Initialize("models/Catapult_Base.obj", "textures/brownTile.png");
-  obj_catapultArm->Initialize("models/Catapult_Arm.obj", "textures/brownTile.png");
+  obj_catapultBody->Initialize("models/Catapult_Base.obj", "textures/brown.png");
+  obj_catapultArm->Initialize("models/Catapult_Arm.obj", "textures/brown.png");
 
   obj_wheel_backLeft->Initialize("models/Catapult_BackLeft.obj", "textures/brownTile.png");
   obj_wheel_backRight->Initialize("models/Catapult_BackRight.obj", "textures/brownTile.png");
@@ -91,7 +91,7 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
   wheelBackRight->setGravity( btVector3(0.0f,0.0f,0.0f) );
   wheelFrontLeft->setGravity( btVector3(0.0f,0.0f,0.0f) );
   wheelFrontRight->setGravity( btVector3(0.0f,0.0f,0.0f) );
-  projectile->setGravity( btVector3(0.0f,-5.0f,0.0f) );
+  projectile->setGravity( btVector3(0.0f,-1.0f,0.0f) );
 
   return true;
 }

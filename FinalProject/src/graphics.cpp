@@ -274,14 +274,21 @@ bool Graphics::InitializeObjects()
 
   // Create Objects
   catapult = new Catapult();
-  Object* floor = new Object();
+  Object* obj_floor = new Object();
+  btRigidBody* floor;
+  Object* obj_skybox = new Object();
+  btRigidBody* skybox;
 
   // Initialize Objects
   catapult->Initialize(physicsWorld);
-  floor->Initialize("models/plane.obj", "textures/Environment.png");
+  obj_floor->Initialize("models/Floor.obj", "textures/Environment.png");
+  obj_skybox->Initialize("models/skybox.obj", "textures/skybox.png");
 
   // All Regular Objects must be added to the PhysicsWorld, here (excludes the catapult)
-  physicsWorld.AddFloor(COL_FLOOR, floorCollidesWith, floor);
+  floor = physicsWorld.AddComplexShape( btVector3(0.0f,0.0f,0.0f), btScalar(0.0f), COL_FLOOR, floorCollidesWith, obj_floor);
+  skybox = physicsWorld.AddComplexShape(btVector3(0.0f,0.0f,0.0f), btScalar(0.0f), COL_NOTHING, floorCollidesWith, obj_skybox);
+  floor->setGravity(btVector3(0.0f,0.0f,0.0f));
+  skybox->setGravity(btVector3(0.0f,0.0f,0.0f));
 
   return true;
 }
