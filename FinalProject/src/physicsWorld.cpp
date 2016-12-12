@@ -232,8 +232,11 @@ btRigidBody* PhysicsWorld::addCompoundShape(btVector3 position, btScalar mass, s
   shapeTransform.setOrigin(position);
 
   bool isDynamic = (mass != 0.f);
-
   btVector3 localInertia(0.0f,0.0f,0.0f);
+  if (isDynamic)
+  {
+    object->calculateLocalInertia(mass,localInertia);
+  }
 
   btDefaultMotionState* myMotionState = new btDefaultMotionState( shapeTransform );
   btRigidBody::btRigidBodyConstructionInfo rbInfo( mass, myMotionState, object, localInertia );
