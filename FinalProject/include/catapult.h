@@ -21,7 +21,7 @@ class Catapult {
 
     bool Initialize(PhysicsWorld &physicsWorld);
 
-    void AdjustCatapultArm(int totalAdjustment, int adjustmentSpeed);
+    void AdjustCatapultArm(bool moveForward, bool enableMovement);
 
     void moveFore();
     void moveBack();

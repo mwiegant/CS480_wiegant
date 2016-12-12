@@ -23,7 +23,7 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
 {
   // create the collision groups
   int catapultArmCollidesWith = COL_NOTHING;
-  int catapultBodyCollidesWith = COL_NON_CATAPULT | COL_FLOOR;
+  int catapultBodyCollidesWith = COL_NON_CATAPULT;
   int catapultWheelCollidesWith = COL_NOTHING;
 
   // create the objects I need here
@@ -87,8 +87,8 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
   fullCat -> addChildShape( allTransform, wheelFrontLeft -> getCollisionShape() );
   fullCat -> addChildShape( allTransform, wheelFrontRight -> getCollisionShape() );
 
-  rigidCat = physicsWorld.addCompoundShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f),
-                                            COL_CATAPULT_BODY, catapultBodyCollidesWith, fullCat );
+  //rigidCat = physicsWorld.addCompoundShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f),
+                                           // COL_CATAPULT_BODY, catapultBodyCollidesWith, fullCat );
 
   
 
@@ -97,17 +97,12 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
 
 
 /*
- *
+ * Adjusts the movement of the catapult arm
  */
-void Catapult::AdjustCatapultArm(int totalAdjustment, int adjustmentSpeed)
+void Catapult::AdjustCatapultArm(bool moveForward, bool enableMovement)
 {
 
   printf("called adjust cata in Catapult\n");
-
-
-
-  // this line of code works to move the catapult arm
-  catapultArm->setAngularVelocity(btVector3(0.0f, 0.0f, 1.0f));
 
 /*
   catapultArm->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
@@ -117,6 +112,19 @@ void Catapult::AdjustCatapultArm(int totalAdjustment, int adjustmentSpeed)
   wheelFrontLeft->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
   wheelFrontRight->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
 */
+
+  if(!enableMovement)
+  {
+    catapultArm->setAngularVelocity(btVector3(0.0f, 0.0f, 0.0f));
+  }
+  else if(moveForward)
+  {
+    catapultArm->setAngularVelocity(btVector3(0.0f, 0.0f, -1.0f));
+  }
+  else
+  {
+    catapultArm->setAngularVelocity(btVector3(0.0f, 0.0f, 1.0f));
+  }
 
 
 }
@@ -133,6 +141,7 @@ void Catapult::moveBack()
 
 void Catapult::rotLeft()
 {
+
 
 }
 
