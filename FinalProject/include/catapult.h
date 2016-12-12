@@ -38,6 +38,8 @@ class Catapult {
     btRigidBody* wheelBackLeft;
     btRigidBody* wheelBackRight;
 
+    btRigidBody* rigidCat;
+
     // the transform for the full catapult
     btTransform allTransform;
 

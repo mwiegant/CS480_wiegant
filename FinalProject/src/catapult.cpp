@@ -48,6 +48,7 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
   // set the identity of allTransform
   allTransform.setIdentity();
 
+
   catapultBody = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f),
                                                COL_CATAPULT_BODY, catapultBodyCollidesWith, obj_catapultBody );
 
@@ -61,10 +62,11 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
                                                  COL_CATAPULT_WHEEL, catapultWheelCollidesWith, obj_wheel_backRight );
 
   wheelFrontLeft = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f),
-                                                 COL_CATAPULT_WHEEL, catapultWheelCollidesWith, obj_wheel_frontLeft );
+                                                 COL_CATAPULT_WHEEL, catapultWheelCollidesWith,obj_wheel_frontLeft );
 
   wheelFrontRight = physicsWorld.AddComplexShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f),
                                                   COL_CATAPULT_WHEEL, catapultWheelCollidesWith, obj_wheel_frontRight );
+
 
 
   // attempt to make the catapult arm stop moving, by default
@@ -85,6 +87,10 @@ bool Catapult::Initialize(PhysicsWorld &physicsWorld)
   fullCat -> addChildShape( allTransform, wheelFrontLeft -> getCollisionShape() );
   fullCat -> addChildShape( allTransform, wheelFrontRight -> getCollisionShape() );
 
+  rigidCat = physicsWorld.addCompoundShape( btVector3(0.0f, 0.0f, 0.0f), btScalar(1.0f),
+                                            COL_CATAPULT_BODY, catapultBodyCollidesWith, fullCat );
+
+  
 
   return true;
 }
@@ -101,15 +107,16 @@ void Catapult::AdjustCatapultArm(int totalAdjustment, int adjustmentSpeed)
 
 
   // this line of code works to move the catapult arm
-//  catapultArm->setAngularVelocity(btVector3(0.0f, 0.0f, 1.0f));
+  catapultArm->setAngularVelocity(btVector3(0.0f, 0.0f, 1.0f));
 
-
+/*
   catapultArm->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
   catapultBody->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
   wheelBackLeft->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
   wheelBackRight->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
   wheelFrontLeft->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
   wheelFrontRight->setLinearVelocity( btVector3(1.0f, 0.0f, 0.0f) );
+*/
 
 
 }

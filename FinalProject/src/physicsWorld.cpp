@@ -222,6 +222,30 @@ btRigidBody* PhysicsWorld::AddComplexShape(btVector3 position, btScalar mass,
   return body;
 }
 
+btRigidBody* PhysicsWorld::addCompoundShape(btVector3 position, btScalar mass, short colGroup, short colMask, btCompoundShape* object)
+{
+  collisionShapes.push_back( object ); 
+  
+  // Create Dynamic Objects
+  btTransform shapeTransform;
+  shapeTransform.setIdentity();
+  shapeTransform.setOrigin(position);
+
+  bool isDynamic = (mass != 0.f);
+
+  btVector3 localInertia(0.0f,0.0f,0.0f);
+
+  btDefaultMotionState* myMotionState = new btDefaultMotionState( shapeTransform );
+  btRigidBody::btRigidBodyConstructionInfo rbInfo( mass, myMotionState, object, localInertia );
+  btRigidBody* body = new btRigidBody( rbInfo );
+
+  dynamicsWorld->addRigidBody(body);
+
+  return body;
+
+
+}
+
 
 /*
  * For updating the position of objects in the world.

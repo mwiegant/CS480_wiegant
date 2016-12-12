@@ -31,6 +31,9 @@ class PhysicsWorld
     // for adding complex shapes
     btRigidBody* AddComplexShape(btVector3 position, btScalar mass, short colGroup, short colMask, Object* object);
 
+    // for adding compound shapes
+    btRigidBody* addCompoundShape(btVector3 position, btScalar mass, short colGroup, short colMask, btCompoundShape* object);
+
 
 
     vector<Object*> objectList;
